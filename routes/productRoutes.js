@@ -7,3 +7,5 @@ router.get("/", productsController.getAllProducts);
 
 //Get single product
 router.get("/:id", productsController.getSingleMeetup);
+
+module.exports = router;
