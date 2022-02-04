@@ -13,15 +13,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "../client/build")));
+// app.use(express.static(path.join(__dirname, "../client/build")));
 
-app.get("/", (req, res) => {
-    res.send("Houston, we have succeeded")
-})
+// app.get("/", (req, res) => {
+//     res.send("Houston, we have succeeded")
+// })
 
-app.get("/*", function (req, res) {
-	res.sendFile(path.join(__dirname + "../client/build/index.html"));
-});
+// app.get("/*", function (req, res) {
+// 	res.sendFile(path.join(__dirname + "../client/build/index.html"));
+// });
 
 //Routes
 
@@ -35,10 +35,9 @@ app.listen(PORT, () => {
     console.log(`Server up and running on port ${PORT}... 💻`);
 });
 
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect(
+    "mongodb+srv://test:test1234@spa-shop.qdnjm.mongodb.net/spa-shop"
+    )
 .then(() => {
     console.log("Conntected to database");
 })

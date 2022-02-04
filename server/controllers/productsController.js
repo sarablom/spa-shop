@@ -5,6 +5,7 @@ const Product = require("../models/ProductModel")
 async function getAllProducts(req, res, next) {
     try {
         const products = await Product.find({});
+        console.log(products)
 
         res.status(200).json({
             success: true,
@@ -16,7 +17,7 @@ async function getAllProducts(req, res, next) {
     }
 }
 
-async function getSingleMeetup (req, res, next) {
+async function getSingleProduct (req, res, next) {
     try {
         const productId = req.params.id;
         const product = await Product.findById(productId);
@@ -37,5 +38,5 @@ async function getSingleMeetup (req, res, next) {
 
 module.exports = {
     getAllProducts,
-    getSingleMeetup
+    getSingleProduct
 }
