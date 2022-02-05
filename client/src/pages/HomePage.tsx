@@ -1,6 +1,7 @@
 import React from 'react';
 import AllProducts from '../components/products/AllProducts';
 import styled from "styled-components";
+import { COLORS } from "../styles/constants"
 
 function HomePage() {
   return <MainWrapper>
@@ -14,6 +15,7 @@ const MainWrapper = styled.main `
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: ${COLORS.lightGreen};
 `
 
 export default HomePage;

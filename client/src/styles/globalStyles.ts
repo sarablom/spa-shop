@@ -35,13 +35,15 @@ p, h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 body {
-  font-family: "Raleway", sans-serif;
+    font-family: 'Bitter', serif;
 }
-h1, h2, h3, h4, h5 {
-  font-weight: 800;
+h1 {
+    font-family: 'Raleway', sans-serif;
+  font-weight: 700;
 }
-h2 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+
+h2, h3, h4, h5 {
+    font-family: 'Raleway', sans-serif;
+  font-weight: 600;
 }
 `;
