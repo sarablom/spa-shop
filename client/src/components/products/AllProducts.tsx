@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getAllProducts } from "../../services/productsServices";
 import { Product } from "../../models/Product";
 import styled from "styled-components";
+import ProductCard from './ProductCard';
 
 
 function AllProducts() {
@@ -13,12 +14,11 @@ function AllProducts() {
 
     async function getProducts() {
         const data = await getAllProducts();        
-        setProducts(data.products);
-        console.log(products);      
+        setProducts(data.products);  
     }
 
   return <div>
-      
+      <ProductCard products={products} />
   </div>;
 }
 
