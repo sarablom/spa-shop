@@ -1,3 +1,5 @@
+// import { User } from "../models/User";
+
 export async function fetchDataByUrl(url: string) {
   try {
     const response = await fetch(url);
@@ -21,3 +23,13 @@ export async function getUserById (id: string) {
         console.log(err)
       }
 }
+
+// export async function saveProductToUserCart(
+// 	productId: string,
+// 	token: string,
+// 	user: User
+// ) {
+
+// 	const res = await fetch(`/api/users/${user.id}`)
+
+// }

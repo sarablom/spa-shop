@@ -11,3 +11,8 @@ export async function getAllProducts() {
   const fetchUrl = "/api/products";
   return fetchDataByUrl(fetchUrl);
 }
+
+export async function getSingleProduct(id: string) {
+	const fetchUrl = `/api/products/${id}`;
+	return fetchDataByUrl(fetchUrl);
+}

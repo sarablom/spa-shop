@@ -55,4 +55,36 @@ async function getUserById(req, res, next) {
 	}
 }
 
-module.exports = { createUser, getAllUsers, getUserById };
+async function updateUser (req, res, next) {
+	try {
+		const userIdFromParams = req.params.id;
+		const userIdFromToken = req.userId;
+	
+		const user = await User.findById(userIdFromParams);
+	
+		if (!user) {
+			return next(new ErrorResponse("Användare hittades inte", 404))
+		}
+	
+		if (userIdFromParams !== userIdFromToken) {
+			return next(new ErrorResponse("Du har inte behörighet", 401));
+		}
+	
+		const updates = req.body;
+	
+		const updatedUser = await User.findByIdAndUpdate(userIdFromToken, updates, {
+			new: true,
+			runValidators: true,
+		});
+
+		res.status(200).json({
+			success: true,
+			user: updatedUser,
+		})
+	} catch (err) {
+		next(err);
+	}
+
+}
+
+module.exports = { createUser, getAllUsers, getUserById, updateUser };

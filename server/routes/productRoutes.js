@@ -8,4 +8,8 @@ router.get("/", productsController.getAllProducts);
 //Get single product
 router.get("/:id", productsController.getSingleProduct);
 
+router.get("/:id", productsController.getSingleCart);
+
+router.post("/cart/:id", productsController.createNewCart);
+
 module.exports = router;
