@@ -45,7 +45,7 @@ userSchema.methods.checkPassword = function (enteredPassword, userPassword) {
 };
 
 userSchema.methods.getToken = function () {
-	return jwt.sign({ id: this._id }, process.env.JWT_SECRET);
+	return jwt.sign({ id: this._id }, process.env.REACT_APP_JWT_SECRET);
 };
 
 userSchema.set("toJSON", {

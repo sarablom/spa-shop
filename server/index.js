@@ -16,11 +16,7 @@ app.use(express.json());
 
 console.log('port', DATABASE_USER);
 
-// app.use(express.static(path.join(__dirname, "../client/build")));
-
-// app.get("/", (req, res) => {
-//     res.send("Houston, we have succeeded")
-// })
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 // app.get("/*", function (req, res) {
 // 	res.sendFile(path.join(__dirname + "../client/build/index.html"));
@@ -29,6 +25,7 @@ console.log('port', DATABASE_USER);
 //Routes
 
 app.use("/api/products", productRoutes);
+app.use("/api/user", userRoutes);
 
 //Error middleware
 
