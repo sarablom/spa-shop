@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { COLORS } from "./constants";
 
 export const GlobalStyle = createGlobalStyle`
 *, *::before, *::after {
@@ -36,10 +37,22 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 body {
     font-family: 'Bitter', serif;
+    background: ${COLORS.lightGreen};
+    display: flex;
+    flex-direction: column;
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 0 auto;
+}
+
 h1 {
-    font-family: 'Raleway', sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-weight: 700;
+  padding: 1rem;
 }
 
 h2, h3, h4, h5 {

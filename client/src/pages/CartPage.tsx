@@ -1,9 +1,9 @@
 import React from 'react';
 
 function CartPage() {
-  return <div>
+  return <main>
       <h1>Kundkorg</h1>
-  </div>;
+  </main>;
 }
 
 export default CartPage;

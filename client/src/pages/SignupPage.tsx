@@ -1,9 +1,9 @@
 import React from 'react';
 
 function SignupPage() {
-  return <div>
+  return <main>
       <h1>Registrera dig</h1>
-  </div>;
+  </main>;
 }
 
 export default SignupPage;

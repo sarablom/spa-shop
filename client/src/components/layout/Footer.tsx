@@ -12,6 +12,7 @@ const FooterWrapper = styled.footer `
   justify-content: center;
   background: ${COLORS.primary};
   color: ${COLORS.darkBrown};
+  flex-shrink: 0;
   
   p {
     padding: 1rem;
