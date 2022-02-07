@@ -4,6 +4,8 @@ const cors = require("cors");
 const path = require("path");
 const mongoose = require("mongoose");
 const productRoutes = require("./routes/productRoutes");
+const userRoutes = require("./routes/userRoutes");
+const authRoutes = require("./routes/authRoutes");
 const errorHandler = require("./middleware/errorHandler");
 const PORT = process.env.REACT_APP_PORT || 8000;
 const DATABASE_USER = process.env.REACT_APP_MONGOUSER;
@@ -25,7 +27,8 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 //Routes
 
 app.use("/api/products", productRoutes);
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/login", authRoutes);
 
 //Error middleware
 

@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const ErrorResponse = require("./../utilities/errorResponse");
+const ErrorResponse = require("../utils/errorRepsonse");
 
 async function tokenHandler(req, res, next) {
 	try {
