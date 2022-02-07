@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/authServices";
 import { saveUserToLocalStorage, saveTokenToLocalStorage } from "../../services/localStorageServices";
@@ -33,7 +33,8 @@ function SignupForm() {
     e.preventDefault();
     
     if(!userName || !password || !firstName || !lastName || !address) {
-        displayMessage("Du måste fylla i alla fält för att kunna registrera dig.")
+        displayMessage("Du måste fylla i alla fält för att kunna registrera dig.");
+        return;
     }
 
     const signupData = await signup(userName, password, firstName, lastName, address);
@@ -89,7 +90,7 @@ function SignupForm() {
         value={address}
         onChange={(e) => setAddress(e.target.value)}
       />
-       <input type="submit" value="Sign up" />
+       <input type="submit" value="Registrera dig" />
         {errorMessage && <p>{errorMessage}</p>}
     </FormElement>
   );

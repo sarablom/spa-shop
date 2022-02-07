@@ -12,8 +12,10 @@ function Navbar() {
   function logoutHandler () {
     if (location.pathname === "/") {
       window.location.reload();
+      localStorage.clear();
     } else {
-      navigate("/")
+      navigate("/");
+      localStorage.clear();
     }
   }
 
