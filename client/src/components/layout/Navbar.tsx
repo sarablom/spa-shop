@@ -1,17 +1,20 @@
-import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
 import logo from "../../assets/logo.svg";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <NavbarWrapper>
             <img src={logo} alt="Lotus flower" />
       <ListWrapper>
-        <ListItem>Hem</ListItem>
-        <ListItem>Kundkorg</ListItem>
-        <ListItem>Logga in</ListItem>
-        <ListItem>Registrera dig</ListItem>
+        <ListItem onClick={() => navigate("/")}>Hem</ListItem>
+        <ListItem onClick={() => navigate("/cart")}>Kundkorg</ListItem>
+        <ListItem onClick={() => navigate("/login")}>Logga in</ListItem>
+        <ListItem onClick={() => navigate("/signup")}>Registrera dig</ListItem>
       </ListWrapper>
     </NavbarWrapper>
   );

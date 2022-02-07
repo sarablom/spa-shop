@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { COLORS } from "../../styles/constants"
 
 function Footer() {
-  return <FooterWrapper><p>&#169; Stillsamhetens SPA</p></FooterWrapper>;
+  return <FooterWrapper><p>Stillsamhetens SPA</p></FooterWrapper>;
 }
 
 const FooterWrapper = styled.footer `
