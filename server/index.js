@@ -5,13 +5,16 @@ const path = require("path");
 const mongoose = require("mongoose");
 const productRoutes = require("./routes/productRoutes");
 const errorHandler = require("./middleware/errorHandler");
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.REACT_APP_PORT || 8000;
+const DATABASE_USER = process.env.REACT_APP_MONGOUSER;
 
 const app = express();
 
 //Middlewares
 app.use(cors());
 app.use(express.json());
+
+console.log('port', DATABASE_USER);
 
 // app.use(express.static(path.join(__dirname, "../client/build")));
 
@@ -35,9 +38,7 @@ app.listen(PORT, () => {
     console.log(`Server up and running on port ${PORT}... 💻`);
 });
 
-mongoose.connect(
-    "mongodb+srv://test:test1234@spa-shop.qdnjm.mongodb.net/spa-shop"
-    )
+mongoose.connect(`mongodb+srv://${DATABASE_USER}@spa-shop.qdnjm.mongodb.net/spa-shop`)
 .then(() => {
     console.log("Conntected to database");
 })
