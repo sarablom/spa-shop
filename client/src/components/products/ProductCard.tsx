@@ -24,6 +24,7 @@ function ProductCard(props: Props) {
 }
 
 const ListWrapper = styled.ul `
+  width: 90vw;
   list-style-type: none;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
@@ -37,6 +38,7 @@ const ListItem = styled.li `
   border: 1px solid ${COLORS.darkBrown};
   border-radius: 8px;
   padding: 1.5rem;
+  margin: 0 auto;
   background: ${COLORS.lightBrown};
 
   img {
