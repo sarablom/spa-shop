@@ -1,15 +1,10 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/authServices";
+import { saveUserToLocalStorage, saveTokenToLocalStorage } from "../../services/localStorageServices";
 import styled from "styled-components";
 
 function SignupForm() {
-  const userNameInput = useRef<HTMLInputElement>(null);
-  const passwordInput = useRef<HTMLInputElement>(null);
-  const firstNameInput = useRef<HTMLInputElement>(null);
-  const lastNameInput = useRef<HTMLInputElement>(null);
-  const addressInput = useRef<HTMLInputElement>(null);
-  const buttonElement = useRef<HTMLInputElement>(null);
-
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
@@ -17,21 +12,44 @@ function SignupForm() {
   const [address, setAddress] = useState<string>("");
 
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const navigate = useNavigate();
 
-  function displayErrorMessage(error: string) {
-    setErrorMessage(error)
+  function displayMessage(error: string) {
+    setErrorMessage(error);
+    setTimeout(() => {
+        setErrorMessage("")
+    }, 5000);
+  }
+
+  function clearAllInputfields () {
+      setUserName("");
+      setPassword("");
+      setFirstName("");
+      setLastName("");
+      setAddress("");
   }
 
   async function submitHandler (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     
     if(!userName || !password || !firstName || !lastName || !address) {
-        displayErrorMessage("Du måste fylla i alla fält för att kunna registrera dig.")
+        displayMessage("Du måste fylla i alla fält för att kunna registrera dig.")
     }
 
     const signupData = await signup(userName, password, firstName, lastName, address);
     console.log(signupData);
-    
+
+    if (signupData.error) {
+        displayMessage(signupData.error)
+    } else if (signupData.success) {
+        saveUserToLocalStorage(signupData.user);
+        saveTokenToLocalStorage(signupData.token);
+        clearAllInputfields();
+        displayMessage("Du har skapat en användare, vi dirigerar dig till startsidan.");
+        setTimeout(() => {
+           navigate("/");
+        }, 2000);
+    }
   }
 
   return (
@@ -40,7 +58,6 @@ function SignupForm() {
       <input
         type="text"
         id="userName"
-        ref={userNameInput}
         value={userName}
         onChange={(e) => setUserName(e.target.value)}
       />
@@ -48,7 +65,6 @@ function SignupForm() {
       <input
         type="password"
         id="password"
-        ref={passwordInput}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
@@ -56,7 +72,6 @@ function SignupForm() {
       <input
         type="text"
         id="firstName"
-        ref={firstNameInput}
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
       />
@@ -64,7 +79,6 @@ function SignupForm() {
       <input
         type="text"
         id="lastName"
-        ref={lastNameInput}
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
       />
@@ -72,11 +86,10 @@ function SignupForm() {
       <input
         type="text"
         id="address"
-        ref={addressInput}
         value={address}
         onChange={(e) => setAddress(e.target.value)}
       />
-       <input type="submit" value="Sign up" ref={buttonElement} />
+       <input type="submit" value="Sign up" />
         {errorMessage && <p>{errorMessage}</p>}
     </FormElement>
   );

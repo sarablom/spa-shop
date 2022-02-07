@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { getTokenFromLocalStorage } from "../../services/localStorageServices";
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
 import logo from "../../assets/logo.svg";
@@ -6,6 +7,15 @@ import logo from "../../assets/logo.svg";
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const token = getTokenFromLocalStorage();
+
+  function logoutHandler () {
+    if (location.pathname === "/") {
+      window.location.reload();
+    } else {
+      navigate("/")
+    }
+  }
 
   return (
     <NavbarWrapper>
@@ -13,8 +23,9 @@ function Navbar() {
       <ListWrapper>
         <ListItem onClick={() => navigate("/")}>Hem</ListItem>
         <ListItem onClick={() => navigate("/cart")}>Kundkorg</ListItem>
-        <ListItem onClick={() => navigate("/login")}>Logga in</ListItem>
-        <ListItem onClick={() => navigate("/signup")}>Registrera dig</ListItem>
+        {!token && <ListItem onClick={() => navigate("/login")}>Logga in</ListItem>}
+        {!token && <ListItem onClick={() => navigate("/signup")}>Registrera dig</ListItem>}
+        {token && <ListItem onClick={() => logoutHandler()}>Logga ut</ListItem>}
       </ListWrapper>
     </NavbarWrapper>
   );
