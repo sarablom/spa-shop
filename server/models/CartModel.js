@@ -1,14 +1,8 @@
 const mongoose = require("mongoose");
 
 const cartSchema = new mongoose.Schema({
-    ownerId: {
-        type: String,
-        required: [true, "Ägar-id är obligatoriskt"]
-    },
-    token: {
-        type: String,
-        required: [true, "Token krävs för behörighet"]
-    },
+    ownerId: String,
+    token: String,
     cart: [{
         title: {
             type: String,
@@ -24,8 +18,7 @@ const cartSchema = new mongoose.Schema({
         },
         imgUrl: String,
         price: String,
-    }]
-    
+    }]    
 })
 
 cartSchema.set("toJSON", {

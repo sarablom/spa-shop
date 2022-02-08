@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 function HomePage() {
   return <MainWrapper>
-      <h1>Products</h1>
+      <h1>Produkter</h1>
       <AllProducts />
   </MainWrapper>;
 }

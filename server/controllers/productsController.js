@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const ErrorResponse = require("../utils/errorRepsonse");
 const Product = require("../models/ProductModel");
+const User = require("../models/UserModel");
 const Cart = require("../models/CartModel");
 
 async function getAllProducts(req, res, next) {
@@ -57,19 +58,44 @@ async function getSingleCart (req, res, next) {
 
 async function createNewCart (req, res, next) {
     try {
-        const { title, category, description, imgUrl, price } = req.body;
+        const cart = req.body;
+        console.log(cart);
 
-        const cart = await Cart.create([{
-            title,
-            category,
-            description,
-            imgUrl,
-            price
-        }]);
+        const user = await User.findById(req.userId);
+        console.log(user)
+
+        cart.ownerId = req.userId;
+        cart.token = req.token;
+
+        const newCart = await Cart.create(cart);
 
         res.status(201).json({
             success: true,
-            cart: cart,
+            cart: newCart,
+            user: user,
+        })
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function updateCart (req, res, next) {
+    try {
+        const cartId = req.params.id;
+        const cart = await Cart.findById(cartId);
+
+        if (!cart) {
+            return next(new ErrorResponse("Kundkorg hittades inte", 401));
+        }
+
+        const updateCart = await Cart.findByIdAndUpdate(cartId, req.body, {
+            new: true,
+			runValidators: true,
+        });
+
+        res.status(200).json({
+            success: true,
+            cart: updateCart,
         })
     } catch (err) {
         next(err);
@@ -80,5 +106,6 @@ module.exports = {
     getAllProducts,
     getSingleProduct,
     getSingleCart,
-    createNewCart
+    createNewCart,
+    updateCart
 }
