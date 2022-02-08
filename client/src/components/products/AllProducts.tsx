@@ -61,13 +61,14 @@ function AllProducts() {
     } else if (!isLoggedIn) {
       const newCart = [productObj, ...updatedCart];
       setUpdatedCart(newCart as Product[]);
+      localStorage.setItem('cart', JSON.stringify(newCart));
     }
   }
 
   return (
     <>
       <ShoppingCart size={36} onClick={() => setShowCart(!showCart)} />
-      {showCart && <Cart updatedCart={updatedCart} />}
+      {showCart && <Cart />}
       <ProductCard products={products} addToCartHandler={addToCartHandler} />
     </>
   );

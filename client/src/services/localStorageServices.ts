@@ -17,3 +17,8 @@ export function getTokenFromLocalStorage (): string | null {
     const token = localStorage.getItem("spaShopToken");
     return token ? token : null;
 }
+
+export function getCartFromLocalStorage () {
+    const cart = localStorage.getItem("cart");
+    return cart ? JSON.parse(cart) : null;
+}

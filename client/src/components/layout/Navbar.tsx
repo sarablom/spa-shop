@@ -24,7 +24,6 @@ function Navbar() {
             <img src={logo} alt="Lotus flower" />
       <ListWrapper>
         <ListItem onClick={() => navigate("/")}>Hem</ListItem>
-        <ListItem onClick={() => navigate("/cart")}>Kundkorg</ListItem>
         {!token && <ListItem onClick={() => navigate("/login")}>Logga in</ListItem>}
         {!token && <ListItem onClick={() => navigate("/signup")}>Registrera dig</ListItem>}
         {token && <ListItem onClick={() => logoutHandler()}>Logga ut</ListItem>}

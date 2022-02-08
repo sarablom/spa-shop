@@ -1,18 +1,15 @@
 import React from 'react';
 import { Product } from "../../models/Product";
+import { getCartFromLocalStorage } from "../../services/localStorageServices";
 
-interface Props {
-    updatedCart: Product[];
-  }
-
-function Cart(props: Props) {
-   
+function Cart() {
+   const cart = getCartFromLocalStorage();
     
   return <div>
       <h2>Kundkorg</h2>
-      {props.updatedCart &&
-      props.updatedCart.map((product: Product, index) => (
-          <li key={product.id + index}>
+      {cart &&
+      cart.map((product: Product) => (
+          <li key={product.id}>
               <p>{product.title}, {product.price}</p>
           </li>
       ))}
