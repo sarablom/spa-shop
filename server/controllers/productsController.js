@@ -59,13 +59,15 @@ async function getSingleCart (req, res, next) {
 async function createNewCart (req, res, next) {
     try {
         const cart = req.body;
-        console.log(cart);
 
         const user = await User.findById(req.userId);
-        console.log(user)
+
+        if(!user) {
+            return next(new ErrorResponse("Användare hittades inte", 404));
+        }
 
         cart.ownerId = req.userId;
-        cart.token = req.token;
+        cart.cart = [{ title: req.title, imgUrl: req.imgUrl, price: req.price }]
 
         const newCart = await Cart.create(cart);
 

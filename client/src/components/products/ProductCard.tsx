@@ -15,8 +15,8 @@ function ProductCard(props: Props) {
     <>
     <ListWrapper>
       {props.products &&
-        props.products.map((product: Product) => (
-          <ListItem key={product.id}>
+        props.products.map((product: Product, index) => (
+          <ListItem key={product.id + index}>
             <img src={product.imgUrl} alt={product.title} />
             <h3>{product.title}</h3>
             <hr />

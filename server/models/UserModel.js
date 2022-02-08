@@ -5,7 +5,8 @@ const jwt = require("jsonwebtoken");
 const userSchema = new mongoose.Schema({
     userName: {
         type: String,
-        required: [true, "Du glömde ange ett användarnamn"]
+        required: [true, "Du glömde ange ett användarnamn"],
+        unique: true,
     },
     password: {
         type: String,
@@ -23,8 +24,7 @@ const userSchema = new mongoose.Schema({
     address: {
         type: String,
         required: [true, "Du glömde ange din adress"]
-    },
-    carts: []
+    }
 });
 
 // Run this function before user is saved/re-saved
