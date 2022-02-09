@@ -5,26 +5,38 @@ import {
   getTokenFromLocalStorage,
   getCartFromLocalStorage,
 } from "../../services/localStorageServices";
+import { getAllProducts} from "../../services/productsServices";
 import {
   createCart,
   getAllCarts,
   updateCart,
-  getAllProducts,
-} from "../../services/productsServices";
+} from "../../services/cartServices";
 import { getUserById } from "../../services/userServices";
 import { Product } from "../../models/Product";
+import { CartModel, CartObject } from "../../models/Cart";
 import ProductCard from "./ProductCard";
 import Cart from "./Cart";
 import { ShoppingCart } from "react-feather";
 
 function AllProducts() {
+  //All products in database loads on start
   const [products, setProducts] = useState<[] | [Product]>([]);
+  //All carts in database loads on start
+  const [carts, setCarts] = useState<[]>([]);
+  //Saves cart which ownerid is matching user id
+  const [matchingCart, setMatchingCart] = useState<[] | CartModel[]>([]);
+  //Saves upated Cart in a state that can be sent as props
   const [updatedCart, setUpdatedCart] = useState<Product[] | []>([]);
+  //Checks LS for token to see if user is logged in
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  //Shows or hides cart when user clicks cart symbol
   const [showCart, setShowCart] = useState<boolean>(false);
+  //Saves cartId
   const [cartId, setCartId] = useState<string>("");
-  const [cartOwner, setCartOwner] = useState<string>("");
+ 
+  //Get user object based on LS userid
   const [user, setUser] = useState<User | null>(null);
+  //Get cart that is saved in LS if user is not logged in
   const cart = getCartFromLocalStorage();
 
   const token = getTokenFromLocalStorage();
@@ -32,14 +44,37 @@ function AllProducts() {
 
   useEffect(() => {
     getProducts();
+    getCarts();
   }, []);
+
 
   async function getProducts() {
     const data = await getAllProducts();
     setProducts(data.products);
-    const carts = await getAllCarts();
-    console.log(carts);
   }
+
+  async function getCarts() {
+    const data = await getAllCarts();
+    setCarts(data.carts);
+    findUserCart(data.carts);
+  }
+
+  function findUserCart(carts: CartObject[]) {
+    console.log(carts);
+    
+    //Array mehod to find a match
+    function findMatchingCart(cart: any) {
+      return cart.ownerId === user?.id
+    }
+    const foundMatch = carts.find(findMatchingCart);
+    console.log(foundMatch);
+    
+    if (foundMatch) {
+        setMatchingCart(foundMatch?.cart)
+    }
+  }
+
+  
 
   useEffect(() => {
     if (token) {
@@ -68,16 +103,12 @@ function AllProducts() {
       setUpdatedCart(productObj as Product[]);
       const data = await createCart(updatedCart, user as User);
       setCartId(data?.cart?.id);
-      setCartOwner(data?.cart?.ownerId);
+      //setCartOwner(data?.cart?.ownerId);
     } else if (isLoggedIn && user?.carts.length === 0) {
-        console.log("tredje");
-        
       const newCart = [productObj];
       setUpdatedCart(newCart as Product[]);
       localStorage.setItem("cart", JSON.stringify(newCart));
     } else if (!isLoggedIn && cart) {
-        console.log("fjärde");
-        
       const newCart = [productObj, ...cart];
       setUpdatedCart(newCart as Product[]);
       localStorage.setItem("cart", JSON.stringify(newCart));

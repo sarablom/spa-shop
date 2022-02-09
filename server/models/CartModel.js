@@ -12,13 +12,13 @@ const cartSchema = new mongoose.Schema({
     }]    
 })
 
-cartSchema.set("toJSON", {
-    transform: (document, returnedObject) => {
-		returnedObject.id = returnedObject._id.toString();
-		delete returnedObject._id;
-		delete returnedObject.__v;
-	},
-});
+// cartSchema.set("toJSON", {
+// 	transform: (document, returnedObject) => {
+// 		returnedObject.id = returnedObject._id.toString();
+// 		delete returnedObject._id;
+// 		delete returnedObject.__v;
+// 	},
+// });
 
 const Cart = mongoose.model("Cart", cartSchema);
 
