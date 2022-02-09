@@ -16,8 +16,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-console.log('port', DATABASE_USER);
-
 app.use(express.static(path.join(__dirname, "../client/build")));
 
 // app.get("/*", function (req, res) {

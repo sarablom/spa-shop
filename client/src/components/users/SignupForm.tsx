@@ -38,7 +38,6 @@ function SignupForm() {
     }
 
     const signupData = await signup(userName, password, firstName, lastName, address);
-    console.log(signupData);
 
     if (signupData.error) {
         displayMessage(signupData.error)

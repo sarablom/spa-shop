@@ -7,14 +7,6 @@ const cartSchema = new mongoose.Schema({
             type: String,
             required: [true, "Fyll i en titel"]
         },
-        // category: {
-        //     type: String,
-        //     required: [true, "Fyll i en kategori"]
-        // },
-        // description: {
-        //     type: String,
-        //     required: [true, "Fyll i en kort produktbeskrivning"]
-        // },
         imgUrl: String,
         price: String,
     }]    

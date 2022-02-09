@@ -33,8 +33,8 @@ export async function createCart(cartArray: Product[], userObject: User) {
     },
     body: JSON.stringify({ cartArray, userObject }),
   });
-
   const cartData = await cart.json();
+
   return cartData;
 }
 

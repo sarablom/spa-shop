@@ -52,21 +52,21 @@ function AllProducts() {
   }
 
   async function addToCartHandler(productObj: object) {
-    // if (isLoggedIn && user?.carts.length === 0) {
-    //   setUpdatedCart(productObj as Product[]);
-    //   const data = await createCart(updatedCart, user as User);
-    //   setCartId(data.cart.id);
-    // } else if (isLoggedIn) {
-    //   const newCart = [productObj, ...updatedCart];
-    //   setUpdatedCart(newCart as Product[]);
-    //   await updateCart(updatedCart, cartId);
-    // } else 
+    if (isLoggedIn && user?.carts.length === 0) {
+      setUpdatedCart(productObj as Product[]);
+      const data = await createCart(updatedCart, user as User);
+      //setCartId(data?.cart?.id);
+      console.log(data);
+      
+    } else if (isLoggedIn) {
+      const newCart = [productObj, ...updatedCart];
+      setUpdatedCart(newCart as Product[]);
+      await updateCart(updatedCart, cartId);
+    } else 
     if (!isLoggedIn && !cart) {
       const newCart = [productObj];
       setUpdatedCart(newCart as Product[]);
-      localStorage.setItem('cart', JSON.stringify(newCart));
-      console.log("i fel block");
-      
+      localStorage.setItem('cart', JSON.stringify(newCart));    
     } else if (!isLoggedIn && cart) {
         const newCart = [productObj, ...cart];
         setUpdatedCart(newCart as Product[]);
