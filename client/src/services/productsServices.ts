@@ -20,6 +20,11 @@ export async function getSingleProduct(id: string) {
   return fetchDataByUrl(fetchUrl);
 }
 
+export async function getAllCarts() {
+  const fetchUrl = "/api/products/carts";
+  return fetchDataByUrl(fetchUrl);
+}
+
 export async function getSingleCart(id: string) {
   const fetchUrl = `/api/products/cart/${id}`;
   return fetchDataByUrl(fetchUrl);
@@ -44,7 +49,7 @@ export async function updateCart(cartArray: Product[], cartId: string) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(cartArray)
+    body: JSON.stringify(cartArray),
   });
 
   const cartData = await cart.json();

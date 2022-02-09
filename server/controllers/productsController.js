@@ -37,6 +37,20 @@ async function getSingleProduct (req, res, next) {
     }
 }
 
+async function getAllCarts(req, res, next) {
+    try {
+        const carts = await Cart.find({});
+
+        res.status(200).json({
+            success: true,
+            carts: carts
+        });
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 async function getSingleCart (req, res, next) {
     try {
         const cartId = req.params.id;
@@ -58,10 +72,8 @@ async function getSingleCart (req, res, next) {
 
 async function createNewCart (req, res, next) {
     try {
-        const response = req.body;
-
-        const cart = response.cartArray;
-        const user = response.userObject;
+        const cart = req.body.cartArray;
+        const user = req.body.userObject;
         console.log("createNewCart", "cart", cart);
 
         if(!user) {
@@ -87,6 +99,7 @@ async function updateCart (req, res, next) {
     try {
         const cartId = req.params.id;
         const cart = await Cart.findById(cartId);
+        console.log("updated cart")
 
         if (!cart) {
             return next(new ErrorResponse("Kundkorg hittades inte", 401));
@@ -109,6 +122,7 @@ async function updateCart (req, res, next) {
 module.exports = {
     getAllProducts,
     getSingleProduct,
+    getAllCarts,
     getSingleCart,
     createNewCart,
     updateCart

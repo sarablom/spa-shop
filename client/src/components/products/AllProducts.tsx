@@ -3,10 +3,11 @@ import { User } from "../../models/User";
 import {
   getUserFromLocalStorage,
   getTokenFromLocalStorage,
-  getCartFromLocalStorage 
+  getCartFromLocalStorage,
 } from "../../services/localStorageServices";
 import {
   createCart,
+  getAllCarts,
   updateCart,
   getAllProducts,
 } from "../../services/productsServices";
@@ -22,6 +23,7 @@ function AllProducts() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [showCart, setShowCart] = useState<boolean>(false);
   const [cartId, setCartId] = useState<string>("");
+  const [cartOwner, setCartOwner] = useState<string>("");
   const [user, setUser] = useState<User | null>(null);
   const cart = getCartFromLocalStorage();
 
@@ -35,6 +37,8 @@ function AllProducts() {
   async function getProducts() {
     const data = await getAllProducts();
     setProducts(data.products);
+    const carts = await getAllCarts();
+    console.log(carts);
   }
 
   useEffect(() => {
@@ -52,26 +56,32 @@ function AllProducts() {
   }
 
   async function addToCartHandler(productObj: object) {
-    if (isLoggedIn && user?.carts.length === 0) {
+    // if (cartOwner === user?.id) {
+    //   const newCart = [productObj, ...updatedCart];
+    //   console.log("första", newCart);
+      
+    //   setUpdatedCart(newCart as Product[]);
+    //   const data = await updateCart(updatedCart, cartId);
+    //   console.log(data);
+    // } else
+     if (isLoggedIn) {
       setUpdatedCart(productObj as Product[]);
       const data = await createCart(updatedCart, user as User);
-      //setCartId(data?.cart?.id);
-      console.log(data);
-      
-    } else if (isLoggedIn) {
-      const newCart = [productObj, ...updatedCart];
-      setUpdatedCart(newCart as Product[]);
-      await updateCart(updatedCart, cartId);
-    } else 
-    if (!isLoggedIn && !cart) {
+      setCartId(data?.cart?.id);
+      setCartOwner(data?.cart?.ownerId);
+    } else if (isLoggedIn && user?.carts.length === 0) {
+        console.log("tredje");
+        
       const newCart = [productObj];
       setUpdatedCart(newCart as Product[]);
-      localStorage.setItem('cart', JSON.stringify(newCart));    
+      localStorage.setItem("cart", JSON.stringify(newCart));
     } else if (!isLoggedIn && cart) {
-        const newCart = [productObj, ...cart];
-        setUpdatedCart(newCart as Product[]);
-        localStorage.setItem('cart', JSON.stringify(newCart));
-      }
+        console.log("fjärde");
+        
+      const newCart = [productObj, ...cart];
+      setUpdatedCart(newCart as Product[]);
+      localStorage.setItem("cart", JSON.stringify(newCart));
+    }
   }
 
   return (
