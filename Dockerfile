@@ -10,7 +10,7 @@ WORKDIR /app/client
 
 # RUN cd ..
 
-# COPY ./client/build ./build
+COPY ./client/build ./build
 
 WORKDIR /app/server
 
