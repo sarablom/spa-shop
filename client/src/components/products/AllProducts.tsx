@@ -5,7 +5,7 @@ import {
   getTokenFromLocalStorage,
   getCartFromLocalStorage,
 } from "../../services/localStorageServices";
-import { getAllProducts} from "../../services/productsServices";
+
 import {
   createCart,
   getAllCarts,
@@ -19,9 +19,13 @@ import ProductCard from "./ProductCard";
 import Cart from "../cart/Cart";
 import { ShoppingCart } from "react-feather";
 
-function AllProducts() {
-  //All products in database loads on start
-  const [products, setProducts] = useState<[] | [Product]>([]);
+interface Props {
+  products: Product[] | [];
+  filteredProducts: Product[] | [];
+}
+
+function AllProducts({products, filteredProducts}: Props) {
+
   //All carts in database loads on start
   const [carts, setCarts] = useState<[]>([]);
   //Saves cart which ownerid is matching user id
@@ -43,9 +47,7 @@ function AllProducts() {
   const token = getTokenFromLocalStorage();
   const userFromLocalStorage = getUserFromLocalStorage();
 
-  useEffect(() => {
-    getProducts(); 
-  }, []);
+
 
   useEffect(() => {
     if (token) {
@@ -59,10 +61,7 @@ function AllProducts() {
     }
   }, [token, userFromLocalStorage?.id]);
 
-  async function getProducts() {
-    const data = await getAllProducts();
-    setProducts(data.products);
-  }
+
 
   async function getCarts() {
     const data = await getAllCarts();
@@ -119,10 +118,9 @@ function AllProducts() {
 
   return (
     <>
-      
       <ShoppingCart size={36} onClick={() => setShowCart(!showCart)} />
       {showCart && <Cart cart={updatedCart} />}
-      <ProductCard products={products} addToCartHandler={addToCartHandler} />
+      <ProductCard products={filteredProducts} addToCartHandler={addToCartHandler} />
     </>
   );
 }
