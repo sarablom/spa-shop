@@ -4,13 +4,13 @@ FROM node:latest
 
 WORKDIR /app/client
 
-RUN cd client
+# RUN cd client
 
-RUN npm run build
+# RUN npm run build
 
-RUN cd ..
+# RUN cd ..
 
-COPY ./client/build ./build
+# COPY ./client/build ./build
 
 WORKDIR /app/server
 
