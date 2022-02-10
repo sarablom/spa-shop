@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Product } from "../../models/Product";
 import styled from "styled-components";
 
@@ -33,7 +32,6 @@ function FilterSearch({products, setFilteredProducts}: Props) {
         placeholder="Sök bland produkter..."
         onChange={(e) => filterProducts(e.target.value)}
       />
-      <button type="submit">Sök</button>
     </form>
   );
 }

@@ -38,7 +38,6 @@ function AllProducts({products, filteredProducts}: Props) {
   const [showCart, setShowCart] = useState<boolean>(false);
   //Saves cartId when there is a match between userId and ownerId
   const [cartId, setCartId] = useState<string>("");
- 
   //Get user object based on LS userid
   const [user, setUser] = useState<User | null>(null);
   //Get cart that is saved in LS if user is not logged in

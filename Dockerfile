@@ -4,6 +4,12 @@ FROM node:latest
 
 WORKDIR /app/client
 
+RUN cd client
+
+RUN npm run build
+
+RUN cd ..
+
 COPY ./client/build ./build
 
 WORKDIR /app/server

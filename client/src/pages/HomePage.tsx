@@ -4,7 +4,6 @@ import styled from "styled-components";
 import FilterSearch from '../components/search/FilterSearch';
 import { Product } from "../models/Product"
 import { getAllProducts} from "../services/productsServices";
-import Cart from '../components/cart/Cart';
 
 function HomePage() {
     //All products in database loads on start
@@ -24,7 +23,6 @@ function HomePage() {
   return <main>
     <ProductHeaderWrapper>
     <FilterSearch products={products}  setFilteredProducts={setFilteredProducts} />
-    {/* <Cart cart={updatedCart} /> */}
     </ProductHeaderWrapper>
           
       <AllProducts products={products} filteredProducts={filteredProducts} />
