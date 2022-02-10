@@ -1,5 +1,6 @@
 import { User } from "../models/User";
 import { Product } from "../models/Product";
+//import { CartModel } from "../models/Cart";
 
 export async function fetchDataByUrl(url: string) {
     try {
@@ -21,6 +22,8 @@ export async function getAllCarts() {
   }
   
   export async function createCart(cartArray: Product[], userObject: User) {
+    console.log(cartArray);
+    
     const cart = await fetch(`/api/carts`, {
       method: "POST",
       headers: {

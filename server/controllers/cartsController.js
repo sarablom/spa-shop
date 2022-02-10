@@ -1,18 +1,16 @@
 const ErrorResponse = require("../utils/errorRepsonse");
 const Cart = require("../models/CartModel");
 
-
 async function getAllCarts(req, res, next) {
   try {
     const carts = await Cart.find({});
     res.status(200).json({
       success: true,
       carts: carts,
-    }) 
-  
-  }catch (err) {
-      next(err)
-    }
+    });
+  } catch (err) {
+    next(err);
+  }
 }
 
 async function getSingleCart(req, res, next) {
@@ -38,15 +36,26 @@ async function createNewCart(req, res, next) {
     const cart = req.body.cartArray;
     const user = req.body.userObject;
     console.log("createNewCart", "cart", cart);
+    console.log("createNewCart", "user", user);
 
     if (!user) {
       return next(new ErrorResponse("Användare hittades inte", 404));
     }
 
     cart.ownerId = user.id;
-    cart.cart = [{ title: cart.title, imgUrl: cart.imgUrl, price: cart.price }];
+    cart.cart = [
+      {
+        title: cart.title,
+        category: cart.category,
+        description: cart.description,
+        imgUrl: cart.imgUrl,
+        price: cart.price,
+        id: cart.id
+      },
+    ];
 
     const newCart = await Cart.create(cart);
+    console.log(newCart)
 
     res.status(201).json({
       success: true,
