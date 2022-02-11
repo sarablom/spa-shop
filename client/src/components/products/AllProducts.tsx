@@ -13,7 +13,6 @@ import ProductCard from "./ProductCard";
 import Cart from "../cart/Cart";
 
 interface Props {
-  products: Product[] | [];
   filteredProducts: Product[] | [];
   showCart: Boolean;
   setUpdatedCart: Function;
@@ -25,11 +24,20 @@ interface Props {
   user: User | null;
 }
 
-function AllProducts({products, filteredProducts, showCart, setUpdatedCart, getCarts, setUser, matchingCart, updatedCart, cartId, user}: Props) {
-
+function AllProducts({
+  filteredProducts,
+  showCart,
+  setUpdatedCart,
+  getCarts,
+  setUser,
+  matchingCart,
+  updatedCart,
+  cartId,
+  user,
+}: Props) {
   //Checks LS for token to see if user is logged in
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
- //Get cart that is saved in LS if user is not logged in
+  //Get cart that is saved in LS if user is not logged in
   const cart = getCartFromLocalStorage();
   const token = getTokenFromLocalStorage();
   const userFromLocalStorage = getUserFromLocalStorage();
@@ -52,12 +60,12 @@ function AllProducts({products, filteredProducts, showCart, setUpdatedCart, getC
 
   async function addToCartHandler(productObj: object) {
     if (isLoggedIn && matchingCart) {
-      const cartData = [productObj, ...updatedCart]
+      const cartData = [productObj, ...updatedCart];
       const data = await updateCart(cartData as Product[], cartId);
       setUpdatedCart(data.cart.cart);
     } else if (isLoggedIn && !matchingCart) {
       setUpdatedCart([productObj] as Product[]);
-      await createCart(productObj as Product[], user as User);  
+      await createCart(productObj as Product[], user as User);
     } else if (!isLoggedIn && !cart) {
       const newCart = [productObj];
       setUpdatedCart(newCart as Product[]);
@@ -71,9 +79,11 @@ function AllProducts({products, filteredProducts, showCart, setUpdatedCart, getC
 
   return (
     <>
- 
       {showCart && <Cart cart={updatedCart} />}
-      <ProductCard products={filteredProducts} addToCartHandler={addToCartHandler} />
+      <ProductCard
+        products={filteredProducts}
+        addToCartHandler={addToCartHandler}
+      />
     </>
   );
 }

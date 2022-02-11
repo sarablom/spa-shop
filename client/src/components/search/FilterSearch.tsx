@@ -1,5 +1,6 @@
 import { Product } from "../../models/Product";
 import styled from "styled-components";
+import { COLORS } from "../../styles/constants";
 
 interface Props {
     products: Product[] | [];
@@ -38,7 +39,12 @@ function FilterSearch({products, setFilteredProducts}: Props) {
 
 const InputField = styled.input`
   height: 40px;
+  width: 32rem;
+  max-width: 80%;
   margin: 1rem;
+  border: 2px solid ${COLORS.darkBrown};
+  box-shadow: 0px 0.25rem 0.25rem ${COLORS.mediumBrown};
+  border-radius: 8px;
 `;
 
 const VisuallyHidden = styled.span `

@@ -42,6 +42,8 @@ const NavbarWrapper = styled.nav`
   img {
     width: 150px;
     padding: .5rem 2rem;
+    //filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+    filter: drop-shadow(0px 0.25rem 0.25rem ${COLORS.mediumBrown});
   }
 `;
 

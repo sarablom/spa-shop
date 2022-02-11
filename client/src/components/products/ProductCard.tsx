@@ -47,11 +47,12 @@ const ListItem = styled.li`
   flex-direction: column;
   max-width: 300px;
   min-height: 100%;
-  border: 1px solid ${COLORS.darkBrown};
+  border: 2px solid ${COLORS.darkBrown};
+  box-shadow: 0px 0.25rem 0.25rem ${COLORS.mediumBrown};
   border-radius: 8px;
   padding: 1.5rem;
   margin: 0 auto;
-  background: ${COLORS.lightBrown};
+  background: ${COLORS.extraLightGreen};
   div {
     flex: 1;
 
