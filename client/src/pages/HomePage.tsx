@@ -4,11 +4,13 @@ import styled from "styled-components";
 import FilterSearch from '../components/search/FilterSearch';
 import { Product } from "../models/Product"
 import { getAllProducts} from "../services/productsServices";
+import { ShoppingCart } from "react-feather";
 
 function HomePage() {
     //All products in database loads on start
     const [products, setProducts] = useState<[] | [Product]>([]);
     const [filteredProducts, setFilteredProducts] = useState<Product[] | []>([]); 
+  const [showCart, setShowCart] = useState<boolean>(false);
 
   useEffect(() => {
     getProducts(); 
@@ -23,15 +25,17 @@ function HomePage() {
   return <main>
     <ProductHeaderWrapper>
     <FilterSearch products={products}  setFilteredProducts={setFilteredProducts} />
+    <ShoppingCart size={36} onClick={() => setShowCart(!showCart)} />
     </ProductHeaderWrapper>
           
-      <AllProducts products={products} filteredProducts={filteredProducts} />
+      <AllProducts products={products} filteredProducts={filteredProducts} showCart={showCart} />
   </main>;
 }
 
 const ProductHeaderWrapper = styled.div `
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-end;
 `
 
 export default HomePage;

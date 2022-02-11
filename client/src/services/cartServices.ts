@@ -22,9 +22,7 @@ export async function getAllCarts() {
   }
   
   export async function createCart(cartArray: Product[], userObject: User) {
-    console.log(cartArray);
-    
-    const cart = await fetch(`/api/carts`, {
+      const cart = await fetch(`/api/carts`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

@@ -35,8 +35,6 @@ async function createNewCart(req, res, next) {
   try {
     const cart = req.body.cartArray;
     const user = req.body.userObject;
-    console.log("createNewCart", "cart", cart);
-    console.log("createNewCart", "user", user);
 
     if (!user) {
       return next(new ErrorResponse("Användare hittades inte", 404));
@@ -70,14 +68,16 @@ async function createNewCart(req, res, next) {
 async function updateCart(req, res, next) {
   try {
     const cartId = req.params.id;
+    //Visar innehållet i den tidigare kundkorgen
     const cart = await Cart.findById(cartId);
-    console.log("updated cart");
+    //req.body är det jag vill uppdatera cart.cart med
+    console.log("updated cart", req.body);
 
     if (!cart) {
-      return next(new ErrorResponse("Kundkorg hittades inte", 401));
+      return next(new ErrorResponse("Kundkorg hittades inte", 401)); 
     }
 
-    const updateCart = await Cart.findByIdAndUpdate(cartId, req.body, {
+    const updateCart = await Cart.findByIdAndUpdate(cartId, {cart: req.body}, {
       new: true,
       runValidators: true,
     });

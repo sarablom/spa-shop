@@ -17,15 +17,14 @@ import { Product } from "../../models/Product";
 import { CartObject } from "../../models/Cart";
 import ProductCard from "./ProductCard";
 import Cart from "../cart/Cart";
-import { ShoppingCart } from "react-feather";
 
 interface Props {
   products: Product[] | [];
   filteredProducts: Product[] | [];
+  showCart: Boolean;
 }
 
-function AllProducts({products, filteredProducts}: Props) {
-
+function AllProducts({products, filteredProducts, showCart}: Props) {
   //All carts in database loads on start
   const [carts, setCarts] = useState<[]>([]);
   //Saves cart which ownerid is matching user id
@@ -34,8 +33,6 @@ function AllProducts({products, filteredProducts}: Props) {
   const [updatedCart, setUpdatedCart] = useState<Product[] | []>([]);
   //Checks LS for token to see if user is logged in
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  //Shows or hides cart when user clicks cart symbol
-  const [showCart, setShowCart] = useState<boolean>(false);
   //Saves cartId when there is a match between userId and ownerId
   const [cartId, setCartId] = useState<string>("");
   //Get user object based on LS userid
@@ -46,26 +43,22 @@ function AllProducts({products, filteredProducts}: Props) {
   const token = getTokenFromLocalStorage();
   const userFromLocalStorage = getUserFromLocalStorage();
 
-
-
   useEffect(() => {
     if (token) {
       setIsLoggedIn(true);
       getUser(userFromLocalStorage.id);
       getCarts();
       setUpdatedCart(matchingCart);
+      findUserCart(carts);
     } else {
       setIsLoggedIn(false);
       setUpdatedCart(cart);
     }
-  }, [token, userFromLocalStorage?.id]);
-
-
+  }, [token]);
 
   async function getCarts() {
     const data = await getAllCarts();
     setCarts(data.carts);
-    findUserCart(data.carts);
   }
 
   function findUserCart(carts: CartObject[]) {
@@ -88,22 +81,20 @@ function AllProducts({products, filteredProducts}: Props) {
 
   async function addToCartHandler(productObj: object) {
     if (isLoggedIn && matchingCart.length > 0) {
-      console.log("block ett");
+      const cartData = [productObj, ...updatedCart]
+      const data = await updateCart(cartData as Product[], cartId);
+      setUpdatedCart(data.cart.cart);
       
-      const singleCartData = await getSingleCart(cartId);
-      const cartData = singleCartData.cart.cart;
-      const newCart = [productObj, ...cartData];
       
-      setUpdatedCart(newCart as Product[]);
-      console.log(updatedCart);
+      // const singleCartData = await getSingleCart(cartId);
+      // const cartData = singleCartData.cart.cart;
+      // const newCart = [productObj, ...cartData];
       
       // setUpdatedCart(newCart as Product[]);
-      // const data = await updateCart(updatedCart, cartId);
-      // console.log(data);
+      
     } else if (isLoggedIn && matchingCart.length === 0) {
       setUpdatedCart([productObj] as Product[]);
-      const data = await createCart(productObj as Product[], user as User);
-      console.log(data);   
+      await createCart(productObj as Product[], user as User);  
     } else if (!isLoggedIn && !cart) {
       const newCart = [productObj];
       setUpdatedCart(newCart as Product[]);
@@ -117,7 +108,7 @@ function AllProducts({products, filteredProducts}: Props) {
 
   return (
     <>
-      <ShoppingCart size={36} onClick={() => setShowCart(!showCart)} />
+ 
       {showCart && <Cart cart={updatedCart} />}
       <ProductCard products={filteredProducts} addToCartHandler={addToCartHandler} />
     </>

@@ -35,6 +35,8 @@ function Cart({ cart }: Props) {
           <li key={Math.floor(Math.random() * 100000)}>
             <p>
               {product.title}, {product.price}
+            
+            <button>Ta bort vara</button>
             </p>
           </li>
         ))}
