@@ -8,7 +8,7 @@ interface Props {
 }
 
 function Cart({ cart }: Props) {
-  const [totalPrice, setTotalPrice] = useState<Number>(0);
+  const [totalPrice, setTotalPrice] = useState<Number | null>(null);
   
   useEffect(() => {
     addTotalPrice();
@@ -26,6 +26,8 @@ function Cart({ cart }: Props) {
       }
 
       setTotalPrice(sum);
+    } else if (cart.length === 0) {
+      setTotalPrice(0);
     }
   }
 
@@ -48,7 +50,7 @@ function Cart({ cart }: Props) {
           </ListItem>
         ))}
 
-      <p>Totalt: {totalPrice}</p>
+      <p>Totalt: {totalPrice && totalPrice} SEK</p>
     </List>
   );
 }
