@@ -46,6 +46,7 @@ async function createNewCart(req, res, next) {
         title: cart.title,
         category: cart.category,
         description: cart.description,
+        inStock: cart.inStock,
         imgUrl: cart.imgUrl,
         price: cart.price,
         _id: cart._id

@@ -15,18 +15,14 @@ const cartSchema = new mongoose.Schema({
             type: String,
             required: [true, "Please enter a description"]
         },
+    inStock: {
+        type: String,
+        required: [true, "Please enter the number of products in stock"]
+    },
         imgUrl: String,
         price: String,
     }]    
 })
-
-// cartSchema.set("toJSON", {
-// 	transform: (document, returnedObject) => {
-// 		returnedObject.id = returnedObject._id.toString();
-// 		delete returnedObject._id;
-// 		delete returnedObject.__v;
-// 	},
-// });
 
 const Cart = mongoose.model("Cart", cartSchema);
 

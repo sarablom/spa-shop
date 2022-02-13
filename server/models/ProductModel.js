@@ -13,17 +13,13 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter a description"]
     },
+    inStock: {
+        type: String,
+        required: [true, "Please enter the number of products in stock"]
+    },
     imgUrl: String,
     price: String,
 });
-
-// productSchema.set("toJSON", {
-// 	transform: (document, returnedObject) => {
-// 		returnedObject.id = returnedObject._id.toString();
-// 		delete returnedObject._id;
-// 		delete returnedObject.__v;
-// 	},
-// });
 
 const Product = mongoose.model("Product", productSchema);
 
