@@ -21,12 +21,20 @@ function HomePage() {
   const [cartId, setCartId] = useState<string>("");
   const [user, setUser] = useState<User | null>(null);
   //Saves upated Cart in a state that can be sent as props
-  const [updatedCart, setUpdatedCart] = useState<Product[] | []>([]);
+  const [updatedCart, setUpdatedCart] = useState<Product[] | [] |  null>(null);
   const [carts, setCarts] = useState<[]>([]);
 
   useEffect(() => {
     getProducts();
   }, []);
+
+  useEffect(() => {
+    lookingForMatchingCart(carts);
+  }, [carts]);
+
+  useEffect(() => {
+    getCart();
+  }, [matchingCart, cartId]);
 
   async function getProducts() {
     const data = await getAllProducts();
@@ -34,18 +42,20 @@ function HomePage() {
     setFilteredProducts(data.products);
   }
 
-  function openCart(carts: CartObject[]) {
+  function lookingForMatchingCart(carts: CartObject[]) {
     function findMatchingCart(cart: any) {
-      return cart.ownerId === user?.id;
+      console.log(user?._id);
+      
+      return cart.ownerId === user?._id;
     }
     const foundMatch = carts.find(findMatchingCart);
 
     if (foundMatch) {
       setMatchingCart(true);
-      setCartId(foundMatch.id);
-      getCart();
-    }
-    setShowCart(!showCart);
+      console.log(foundMatch._id);
+      
+      setCartId(foundMatch._id);
+    }  
   }
 
   async function getCart() {
@@ -71,7 +81,7 @@ function HomePage() {
           size={34}
           color={COLORS.darkBrown}
           cursor="pointer"
-          onClick={() => openCart(carts)}
+          onClick={() => setShowCart(!showCart)}
         />
       </ProductHeaderWrapper>
       <AllProducts
@@ -81,7 +91,7 @@ function HomePage() {
         getCarts={getCarts}
         setUser={setUser}
         matchingCart={matchingCart}
-        updatedCart={updatedCart}
+        updatedCart={updatedCart as Product[]}
         cartId={cartId}
         user={user}
       />

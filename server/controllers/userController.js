@@ -57,7 +57,7 @@ async function getUserById(req, res, next) {
 
 async function updateUser (req, res, next) {
 	try {
-		const userIdFromParams = req.params.id;
+		const userIdFromParams = req.params._id;
 		const userIdFromToken = req.userId;
 	
 		const user = await User.findById(userIdFromParams);

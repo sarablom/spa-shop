@@ -14,7 +14,7 @@ export async function getAllUsers() {
   return fetchDataByUrl(fetchUrl);
 }
 
-export async function getUserById (id: string) {
+export async function getUserById (id: string) {  
     try {
         const response = await fetch(`/api/users/${id}`);
         const data = await response.json();
@@ -23,13 +23,3 @@ export async function getUserById (id: string) {
         console.log(err)
       }
 }
-
-// export async function saveProductToUserCart(
-// 	productId: string,
-// 	token: string,
-// 	user: User
-// ) {
-
-// 	const res = await fetch(`/api/users/${user.id}`)
-
-// }

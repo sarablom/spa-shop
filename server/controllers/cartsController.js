@@ -15,7 +15,7 @@ async function getAllCarts(req, res, next) {
 
 async function getSingleCart(req, res, next) {
   try {
-    const cartId = req.params.id;
+    const cartId = req.params._id;
     const cart = await Cart.findById(cartId);
 
     if (!cart) {
@@ -48,7 +48,7 @@ async function createNewCart(req, res, next) {
         description: cart.description,
         imgUrl: cart.imgUrl,
         price: cart.price,
-        id: cart.id
+        _id: cart._id
       },
     ];
 
@@ -67,7 +67,7 @@ async function createNewCart(req, res, next) {
 
 async function updateCart(req, res, next) {
   try {
-    const cartId = req.params.id;
+    const cartId = req.params._id;
     //Visar innehållet i den tidigare kundkorgen
     const cart = await Cart.findById(cartId);
     //req.body är det jag vill uppdatera cart.cart med

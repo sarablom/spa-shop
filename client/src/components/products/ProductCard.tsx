@@ -14,7 +14,7 @@ function ProductCard(props: Props) {
       <ListWrapper>
         {props.products &&
           props.products.map((product: Product, index) => (
-            <ListItem key={product.id + index}>
+            <ListItem key={Math.floor(Math.random() * 100000)}>
               <div>
                 <img src={product.imgUrl} alt={product.title} />
                 <h3>{product.title}</h3>

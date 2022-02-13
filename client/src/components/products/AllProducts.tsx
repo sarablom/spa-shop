@@ -19,7 +19,7 @@ interface Props {
   getCarts: Function;
   setUser: Function;
   matchingCart: Boolean;
-  updatedCart: Product[] | [];
+  updatedCart: Product[] | [] | null;
   cartId: string;
   user: User | null;
 }
@@ -54,23 +54,37 @@ function AllProducts({
   }, []);
 
   async function getUser(id: string) {
+    console.log(id, "id getuser");
+    
     const userInfo = await getUserById(id);
+    console.log(userInfo, "userinfo");
+    
     setUser(userInfo.user);
   }
+  console.log(isLoggedIn, matchingCart, updatedCart);
+  
 
   async function addToCartHandler(productObj: object) {
-    if (isLoggedIn && matchingCart) {
+    if (isLoggedIn && matchingCart && updatedCart) {
+      console.log("1");
+      
       const cartData = [productObj, ...updatedCart];
       const data = await updateCart(cartData as Product[], cartId);
       setUpdatedCart(data.cart.cart);
     } else if (isLoggedIn && !matchingCart) {
+      console.log("2");
+      
       setUpdatedCart([productObj] as Product[]);
       await createCart(productObj as Product[], user as User);
     } else if (!isLoggedIn && !cart) {
+      console.log("3");
+      
       const newCart = [productObj];
       setUpdatedCart(newCart as Product[]);
       localStorage.setItem("cart", JSON.stringify(newCart));
     } else if (!isLoggedIn && cart) {
+      console.log("4");
+      
       const newCart = [productObj, ...cart];
       setUpdatedCart(newCart as Product[]);
       localStorage.setItem("cart", JSON.stringify(newCart));

@@ -1,5 +1,5 @@
 export interface CartModel {
-  id: string;
+  _id: string;
   title: string;
   category: string;
   description: string;
@@ -8,11 +8,11 @@ export interface CartModel {
 }
 
 export interface CartObject {
-  id: string;
+  _id: string;
   ownerId: string;
   cart: [
     {
-      id: string;
+      _id: string;
       title: string;
       category: string;
       description: string;
