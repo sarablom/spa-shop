@@ -36,11 +36,13 @@ async function createNewCart(req, res, next) {
     const cart = req.body.cartArray;
     const user = req.body.userObject;
 
+    console.log(user, cart);
+
     if (!user) {
       return next(new ErrorResponse("Användare hittades inte", 404));
     }
 
-    cart.ownerId = user.id;
+    cart.ownerId = user._id;
     cart.cart = [
       {
         title: cart.title,
@@ -48,13 +50,11 @@ async function createNewCart(req, res, next) {
         description: cart.description,
         inStock: cart.inStock,
         imgUrl: cart.imgUrl,
-        price: cart.price,
-        _id: cart._id
+        price: cart.price
       },
     ];
 
     const newCart = await Cart.create(cart);
-    console.log(newCart)
 
     res.status(201).json({
       success: true,
@@ -68,11 +68,9 @@ async function createNewCart(req, res, next) {
 
 async function updateCart(req, res, next) {
   try {
-    const cartId = req.params._id;
+    const cartId = req.params.id;
     //Visar innehållet i den tidigare kundkorgen
     const cart = await Cart.findById(cartId);
-    //req.body är det jag vill uppdatera cart.cart med
-    console.log("updated cart", req.body);
 
     if (!cart) {
       return next(new ErrorResponse("Kundkorg hittades inte", 401)); 

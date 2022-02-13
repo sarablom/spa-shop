@@ -21,7 +21,7 @@ function HomePage() {
   const [cartId, setCartId] = useState<string>("");
   const [user, setUser] = useState<User | null>(null);
   //Saves upated Cart in a state that can be sent as props
-  const [updatedCart, setUpdatedCart] = useState<Product[] | [] |  null>(null);
+  const [updatedCart, setUpdatedCart] = useState<Product[] | [] | null>(null);
   const [carts, setCarts] = useState<[]>([]);
 
   useEffect(() => {
@@ -29,14 +29,14 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (carts.length > 0) {
-      lookingForMatchingCart(carts);
-    }
-  }, [carts]);
+    lookingForMatchingCart(carts);
+  }, [user]);
 
   useEffect(() => {
-    getCart();
-  }, [matchingCart, cartId]);
+    if (matchingCart) {
+      getCart();
+    }
+  }, [matchingCart]);
 
   async function getProducts() {
     const data = await getAllProducts();
@@ -45,7 +45,7 @@ function HomePage() {
   }
 
   function lookingForMatchingCart(carts: CartObject[]) {
-    function findMatchingCart(cart: any) {      
+    function findMatchingCart(cart: any) {
       return cart.ownerId === user?._id;
     }
     const foundMatch = carts.find(findMatchingCart);
@@ -53,9 +53,9 @@ function HomePage() {
     if (foundMatch) {
       setMatchingCart(true);
       console.log(foundMatch._id);
-      
+
       setCartId(foundMatch._id);
-    }  
+    }
   }
 
   async function getCart() {

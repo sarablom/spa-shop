@@ -32,15 +32,20 @@ function Cart({ cart }: Props) {
     }
   }
 
-  function deleteHandler(e: any) {
-    console.log(e.target.parentElement.parentElement.getAttribute("data-key"));
+  function deleteHandler(index: number) {
+    //console.log(e.target.parentElement.parentElement.getAttribute("data-key"));
+    // const newPlayQueue = [...musicQueue];
+
+    // newPlayQueue.splice(itemId, 1);
+    console.log(index);
+    
   }
 
   return (
     <List>
       <h2>Kundkorg</h2>
       {cart &&
-        cart.map((product: Product) => (
+        cart.map((product: Product, index) => (
           <ListItem
             data-key={product.title}
             key={Math.floor(Math.random() * 100000)}
@@ -48,8 +53,8 @@ function Cart({ cart }: Props) {
             <p>
               {product.title}, {product.price}
               <button
-                onClick={(e) => {
-                  deleteHandler(e);
+                onClick={() => {
+                  deleteHandler(index);
                 }}
               >
                 X
@@ -72,7 +77,7 @@ const ListItem = styled.li`
 
   button {
     margin-left: 1rem;
-    padding: .2rem .5rem;
+    padding: 0.2rem 0.5rem;
     cursor: pointer;
   }
 `;

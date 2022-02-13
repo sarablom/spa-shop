@@ -21,6 +21,7 @@ function ProductCard(props: Props) {
                 <hr />
                 <p>{product.description}</p>
                 <p>{product.price}</p>
+                <small>Lagerstatus: {product.inStock}</small>
               </div>
               <button onClick={() => props.addToCartHandler(product)}>
                 Lägg i kundkorg

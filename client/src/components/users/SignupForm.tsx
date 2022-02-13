@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/authServices";
 import { saveUserToLocalStorage, saveTokenToLocalStorage } from "../../services/localStorageServices";
 import styled from "styled-components";
+import { COLORS } from "../../styles/constants";
 
 function SignupForm() {
   const [userName, setUserName] = useState<string>("");
@@ -10,14 +11,16 @@ function SignupForm() {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [address, setAddress] = useState<string>("");
+  const [errorClassName, setErrorClassName] = useState<string>("hidden");
 
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("Errormeddelande");
   const navigate = useNavigate();
 
   function displayMessage(error: string) {
     setErrorMessage(error);
     setTimeout(() => {
-        setErrorMessage("")
+      setErrorClassName("hidden");
+        setErrorMessage("Errormeddelande")
     }, 5000);
   }
 
@@ -33,6 +36,7 @@ function SignupForm() {
     e.preventDefault();
     
     if(!userName || !password || !firstName || !lastName || !address) {
+        setErrorClassName("");
         displayMessage("Du måste fylla i alla fält för att kunna registrera dig.");
         return;
     }
@@ -90,7 +94,7 @@ function SignupForm() {
         onChange={(e) => setAddress(e.target.value)}
       />
        <input type="submit" value="Registrera dig" />
-        {errorMessage && <p>{errorMessage}</p>}
+        {errorMessage && <p className={errorClassName}>{errorMessage}</p>}
     </FormElement>
   );
 }
@@ -98,6 +102,33 @@ function SignupForm() {
 const FormElement = styled.form `
     display: flex;
     flex-direction: column;
+
+    input[type="text"],
+  input[type="password"] {
+    height: 40px;
+    width: 20rem;
+    max-width: 80%;
+    margin: .5rem;
+    border: 2px solid ${COLORS.darkBrown};
+    box-shadow: 0px 0.25rem 0.25rem ${COLORS.mediumBrown};
+    border-radius: 8px;
+  }
+
+  input[type="submit"] {
+    height: 40px;
+    width: 16rem;
+    margin: .5rem;
+    padding: .5rem 1rem;
+    cursor: pointer;
+  }
+
+  p {
+    height: 2rem;
+  }
+
+  p.hidden {
+    visibility: hidden;
+  }
 `
 
 export default SignupForm;

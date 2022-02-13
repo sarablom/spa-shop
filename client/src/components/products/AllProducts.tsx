@@ -45,7 +45,7 @@ function AllProducts({
   useEffect(() => {
     if (token) {
       setIsLoggedIn(true);
-      getUser(userFromLocalStorage.id);
+      getUser(userFromLocalStorage._id);
       getCarts();
     } else {
       setIsLoggedIn(false);

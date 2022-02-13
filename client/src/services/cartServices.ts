@@ -21,7 +21,7 @@ export async function getAllCarts() {
     return fetchDataByUrl(fetchUrl);
   }
   
-  export async function createCart(cartArray: Product[], userObject: User) {
+  export async function createCart(cartArray: Product[], userObject: User) {    
       const cart = await fetch(`/api/carts`, {
       method: "POST",
       headers: {
@@ -30,7 +30,6 @@ export async function getAllCarts() {
       body: JSON.stringify({ cartArray, userObject }),
     });
     const cartData = await cart.json();
-  
     return cartData;
   }
   
