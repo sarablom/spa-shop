@@ -29,7 +29,9 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    lookingForMatchingCart(carts);
+    if (carts.length > 0) {
+      lookingForMatchingCart(carts);
+    }
   }, [carts]);
 
   useEffect(() => {
@@ -43,9 +45,7 @@ function HomePage() {
   }
 
   function lookingForMatchingCart(carts: CartObject[]) {
-    function findMatchingCart(cart: any) {
-      console.log(user?._id);
-      
+    function findMatchingCart(cart: any) {      
       return cart.ownerId === user?._id;
     }
     const foundMatch = carts.find(findMatchingCart);
