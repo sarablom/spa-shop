@@ -3,7 +3,6 @@ import AllProducts from "../components/products/AllProducts";
 import styled from "styled-components";
 import FilterSearch from "../components/search/FilterSearch";
 import { Product } from "../models/Product";
-import { User } from "../models/User";
 import { getAllProducts } from "../services/productsServices";
 import { ShoppingCart } from "react-feather";
 import { COLORS } from "../styles/constants";
