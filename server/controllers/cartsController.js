@@ -15,7 +15,7 @@ async function getAllCarts(req, res, next) {
 
 async function getSingleCart(req, res, next) {
   try {
-    const cartId = req.params._id;
+    const cartId = req.params.id;
     const cart = await Cart.findById(cartId);
 
     if (!cart) {
@@ -35,8 +35,6 @@ async function createNewCart(req, res, next) {
   try {
     const cart = req.body.cartArray;
     const user = req.body.userObject;
-
-    console.log(user, cart);
 
     if (!user) {
       return next(new ErrorResponse("Användare hittades inte", 404));
@@ -75,6 +73,8 @@ async function updateCart(req, res, next) {
     if (!cart) {
       return next(new ErrorResponse("Kundkorg hittades inte", 401)); 
     }
+
+    console.log(req.body);
 
     const updateCart = await Cart.findByIdAndUpdate(cartId, {cart: req.body}, {
       new: true,

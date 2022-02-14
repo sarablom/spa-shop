@@ -17,6 +17,8 @@ export async function getAllCarts() {
   }
   
   export async function getSingleCart(id: string) {
+    console.log(id);
+    
     const fetchUrl = `/api/carts/${id}`;
     return fetchDataByUrl(fetchUrl);
   }
@@ -29,7 +31,9 @@ export async function getAllCarts() {
       },
       body: JSON.stringify({ cartArray, userObject }),
     });
-    const cartData = await cart.json();
+    const cartData = await cart.json(); 
+    console.log(cartData);
+       
     return cartData;
   }
   
@@ -43,6 +47,8 @@ export async function getAllCarts() {
     });
   
     const cartData = await cart.json();
+    console.log(cartData);
+    
     return cartData;
   }
   

@@ -30,7 +30,7 @@ function HomePage() {
 
   useEffect(() => {
     lookingForMatchingCart(carts);
-  }, [user]);
+  }, [updatedCart]);
 
   useEffect(() => {
     if (matchingCart) {
@@ -60,7 +60,11 @@ function HomePage() {
 
   async function getCart() {
     const data = await getSingleCart(cartId);
-    setUpdatedCart(data.carts[0].cart);
+    console.log(data);
+    
+    if (data.success) {
+      setUpdatedCart(data.carts[0].cart);
+    }
   }
 
   async function getCarts() {

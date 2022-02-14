@@ -6,6 +6,7 @@ export interface CartModel {
   inStock: string;
   imgUrl: string;
   price: string;
+  quantity: number;
 }
 
 export interface CartObject {
@@ -20,6 +21,7 @@ export interface CartObject {
       inStock: string;
       imgUrl: string;
       price: string;
+      quantity: number;
     }
   ];
 }
