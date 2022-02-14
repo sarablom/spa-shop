@@ -3,40 +3,24 @@ import AllProducts from "../components/products/AllProducts";
 import styled from "styled-components";
 import FilterSearch from "../components/search/FilterSearch";
 import { Product } from "../models/Product";
-import { CartObject } from "../models/Cart";
 import { User } from "../models/User";
 import { getAllProducts } from "../services/productsServices";
 import { ShoppingCart } from "react-feather";
-import { getSingleCart, getAllCarts } from "../services/cartServices";
 import { COLORS } from "../styles/constants";
+import Cart from "../components/cart/Cart";
 
 function HomePage() {
   //All products in database loads on start
   const [products, setProducts] = useState<[] | [Product]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[] | []>([]);
   const [showCart, setShowCart] = useState<boolean>(false);
-  //Returns true when ownerid is matching user id
-  const [matchingCart, setMatchingCart] = useState<boolean>(false);
-  //Saves cartId when there is a match between userId and ownerId
-  const [cartId, setCartId] = useState<string>("");
-  const [user, setUser] = useState<User | null>(null);
   //Saves upated Cart in a state that can be sent as props
   const [updatedCart, setUpdatedCart] = useState<Product[] | [] | null>(null);
-  const [carts, setCarts] = useState<[]>([]);
+  const [addClassCartElem, setAddClassCartElem] = useState<string>("hide");
 
   useEffect(() => {
     getProducts();
   }, []);
-
-  useEffect(() => {
-    lookingForMatchingCart(carts);
-  }, [updatedCart]);
-
-  useEffect(() => {
-    if (matchingCart) {
-      getCart();
-    }
-  }, [matchingCart]);
 
   async function getProducts() {
     const data = await getAllProducts();
@@ -44,34 +28,9 @@ function HomePage() {
     setFilteredProducts(data.products);
   }
 
-  function lookingForMatchingCart(carts: CartObject[]) {
-    function findMatchingCart(cart: any) {
-      return cart.ownerId === user?._id;
-    }
-    const foundMatch = carts.find(findMatchingCart);
-
-    if (foundMatch) {
-      setMatchingCart(true);
-      console.log(foundMatch._id);
-
-      setCartId(foundMatch._id);
-    }
-  }
-
-  async function getCart() {
-    const data = await getSingleCart(cartId);
-    console.log(data);
-    
-    if (data.success) {
-      setUpdatedCart(data.carts[0].cart);
-    }
-  }
-
-  async function getCarts() {
-    const data = await getAllCarts();
-    if (data.carts) {
-      setCarts(data.carts);
-    }
+  function openCart() {
+    setShowCart(!showCart);
+    setAddClassCartElem("show");
   }
 
   return (
@@ -85,19 +44,20 @@ function HomePage() {
           size={34}
           color={COLORS.darkBrown}
           cursor="pointer"
-          onClick={() => setShowCart(!showCart)}
+          onClick={() => openCart()}
         />
       </ProductHeaderWrapper>
+      {showCart && (
+        <Cart
+          updatedCart={updatedCart}
+          setUpdatedCart={setUpdatedCart}
+          setAddClassCartElem={setAddClassCartElem}
+          addClassCartElem={addClassCartElem}
+        />
+      )}
       <AllProducts
         filteredProducts={filteredProducts}
-        showCart={showCart}
         setUpdatedCart={setUpdatedCart}
-        getCarts={getCarts}
-        setUser={setUser}
-        matchingCart={matchingCart}
-        updatedCart={updatedCart as Product[]}
-        cartId={cartId}
-        user={user}
       />
     </main>
   );

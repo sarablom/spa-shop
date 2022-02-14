@@ -1,4 +1,5 @@
 import { User } from "../models/User";
+import { Product } from "../models/Product";
 
 export function saveUserToLocalStorage (user: User) {
     localStorage.setItem('spaShopUser', JSON.stringify(user));
@@ -21,4 +22,8 @@ export function getTokenFromLocalStorage (): string | null {
 export function getCartFromLocalStorage () {
     const cart = localStorage.getItem("cart");
     return cart ? JSON.parse(cart) : null;
+}
+
+export function saveCartToLocalStorage (products: Product[]) {
+    localStorage.setItem('cart', JSON.stringify(products));
 }
