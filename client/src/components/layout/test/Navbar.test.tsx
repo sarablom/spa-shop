@@ -11,7 +11,7 @@ jest.mock("react-router-dom", () => ({
     useLocation: () => mockedLocation,
   }));
 
-describe("Footer component", () => {
+describe("Navbar component", () => {
     it("renders without crashing", () => {
         render(<Navbar />);
     })
@@ -23,16 +23,6 @@ describe("Footer component", () => {
 
     await waitFor(() => {
       expect(mockedNavigator).toHaveBeenCalledWith("/");
-    });
-    })
-
-    it("user is redirected to CartPage when click Kundkorg", async () => {
-        render(<Navbar />);
-        const button = screen.getByText("Kundkorg");
-    userEvent.click(button);
-
-    await waitFor(() => {
-      expect(mockedNavigator).toHaveBeenCalledWith("/cart");
     });
     })
 

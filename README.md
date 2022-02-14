@@ -7,11 +7,11 @@
 ## Run app
 
 1. Get the correct information for the .env file (if you get permission from me)
-2. Type npm install in the root folder
-3. Type npm run dev in the root folder
-4. Type npm install in the client folder
-5. Type npm run start in the client folder
-6. For tests: npm run test in both root and client folder
+2. Type ´npm install´ in the root folder
+3. Type ´npm run dev´ in the root folder
+4. Type ´npm install´ in the client folder
+5. Type ´npm run start´ in the client folder
+6. For tests: ´npm run test´ in both root and client folder
 
 <hr>
 

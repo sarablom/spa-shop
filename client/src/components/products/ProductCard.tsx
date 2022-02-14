@@ -8,12 +8,12 @@ interface Props {
   addToCartHandler: Function;
 }
 
-function ProductCard(props: Props) {
+function ProductCard({products, addToCartHandler}: Props) {
   return (
     <>
       <ListWrapper>
-        {props.products &&
-          props.products.map((product: Product, index) => (
+        {products &&
+          products.map((product: Product, index) => (
             <ListItem key={Math.floor(Math.random() * 100000)}>
               <div>
                 <img src={product.imgUrl} alt={product.title} />
@@ -23,7 +23,7 @@ function ProductCard(props: Props) {
                 <p>{product.price}</p>
                 <small>Lagerstatus: {product.inStock}</small>
               </div>
-              <button onClick={() => props.addToCartHandler(product)}>
+              <button onClick={() => addToCartHandler(product)}>
                 Lägg i kundkorg
               </button>
             </ListItem>
