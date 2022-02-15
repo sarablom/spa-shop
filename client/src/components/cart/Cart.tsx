@@ -54,6 +54,39 @@ function Cart({
     setAddClassCartElem("hide");
   }
 
+  function decrementValue (product: CartModel) {
+        const productMatch = updatedCart?.find((item: CartModel) => item._id ===product._id);
+
+    const newCart = updatedCart?.map((item: CartModel) => {
+      const spreadItem = {...item}
+
+            if ((item._id === productMatch?._id) && product.quantity > 0) {
+              spreadItem.quantity--;
+              console.log(spreadItem.quantity);  
+            }
+            return spreadItem;
+          })
+          setUpdatedCart(newCart as CartModel[]);
+          localStorage.setItem("cart", JSON.stringify(newCart));
+    
+  }
+
+  function incrementValue (product: CartModel) {
+    const productMatch = updatedCart?.find((item: CartModel) => item._id ===product._id);
+
+    const newCart = updatedCart?.map((item: CartModel) => {
+      const spreadItem = {...item}
+
+            if (item._id === productMatch?._id) {
+              spreadItem.quantity++;
+              console.log(spreadItem.quantity);  
+            }
+            return spreadItem;
+          })
+          setUpdatedCart(newCart as CartModel[]);
+          localStorage.setItem("cart", JSON.stringify(newCart));
+  }
+
   return (
     <ListWrapper>
       <ul className={addClassCartElem}>
@@ -67,14 +100,14 @@ function Cart({
               data-key={product.title}
               key={Math.floor(Math.random() * 100000)}
             >
-              <p>
+              <ProductWrapper>
                 <span>
                   {product.title}, {product.price} 
                 </span>
                 <CountContainer>
-                  <input type="button" value="-" />
-                  <input type="text" value={product.quantity} />
-                  <input type="button" value="+" />
+                  <input type="button" value="-" onClick={() => decrementValue(product)} />
+                  <input type="text" readOnly value={product.quantity} />
+                  <input type="button" value="+" onClick={() => incrementValue(product)} />
                 </CountContainer>
                 <button
                   onClick={() => {
@@ -83,7 +116,7 @@ function Cart({
                 >
                   X
                 </button>
-              </p>
+              </ProductWrapper>
             </ListItem>
           ))}
         {updatedCart && updatedCart.length > 0 && <p>Totalt: {totalPrice && totalPrice} SEK</p>}
@@ -129,13 +162,13 @@ const ListWrapper = styled.div`
 
 const ListItem = styled.li`
   padding: 0.5rem 1rem;
+`;
 
-  p {
+const ProductWrapper = styled.div `
     display grid;
     grid-template-columns: 4fr 2fr 1fr;
     width: 80%;
     align-items: space between;
-  }
 
   input {
     width: 1.5rem;
@@ -146,8 +179,9 @@ const ListItem = styled.li`
     /* margin-left: 1rem; */
     width: 1.5rem;
     cursor: pointer;
-  }
+  } 
 `;
+
 
 const CountContainer = styled.div `
   display: flex;
