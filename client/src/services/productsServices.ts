@@ -1,3 +1,5 @@
+import { Product } from "../models/Product";
+
 export async function fetchDataByUrl(url: string) {
   try {
     const response = await fetch(url);
@@ -17,3 +19,27 @@ export async function getSingleProduct(id: string) {
   return fetchDataByUrl(fetchUrl);
 }
 
+export async function updateProduct(id: string, product: Product) {
+  const response =await fetch(`/api/products/${id}`,{
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(product),
+  });
+
+  const productData = await response.json();
+
+  return productData;
+}
+
+export async function deleteProduct(token: string, id: string) {
+  const response = await fetch(`/api/products/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
+  return data;
+}
