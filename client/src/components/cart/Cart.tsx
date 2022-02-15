@@ -1,8 +1,13 @@
 import { CartModel } from "../../models/Cart";
 import styled from "styled-components";
-import { saveCartToLocalStorage, getUserFromLocalStorage } from "../../services/localStorageServices";
+import {
+  saveCartToLocalStorage,
+  getUserFromLocalStorage,
+} from "../../services/localStorageServices";
 import { addTotalPrice } from "../../utils/helperFunctions";
+import { getSingleProduct, updateProduct } from "../../services/productsServices";
 import { COLORS } from "../../styles/constants";
+import { Trash2 } from "react-feather";
 
 interface Props {
   updatedCart: CartModel[] | [] | null;
@@ -13,17 +18,15 @@ interface Props {
   totalPrice: Number | null;
 }
 
-
 function Cart({
   updatedCart,
   setUpdatedCart,
   setAddClassCartElem,
   addClassCartElem,
   setTotalPrice,
-  totalPrice
+  totalPrice,
 }: Props) {
-  
-const user = getUserFromLocalStorage();
+  const user = getUserFromLocalStorage();
 
   function deleteHandler(index: number) {
     if (updatedCart) {
@@ -38,41 +41,52 @@ const user = getUserFromLocalStorage();
     setAddClassCartElem("hide");
   }
 
-  function decrementValue (product: CartModel, index: number) {
-        const productMatch = updatedCart?.find((item: CartModel) => item._id ===product._id);
+  function decrementValue(product: CartModel, index: number) {
+    const productMatch = updatedCart?.find(
+      (item: CartModel) => item._id === product._id
+    );
 
     const newCart = updatedCart?.map((item: CartModel) => {
-      const spreadItem = {...item}
+      const spreadItem = { ...item };
 
-            if ((item._id === productMatch?._id) && product.quantity > 0) {
-              spreadItem.quantity--; 
-            } else if (product.quantity === 0) {
-              deleteHandler(index);
-            }
-            return spreadItem;
-          })
-          setUpdatedCart(newCart as CartModel[]);
-          localStorage.setItem("cart", JSON.stringify(newCart));
-          const sum = addTotalPrice(newCart as CartModel[]);
-          setTotalPrice(sum as number);
+      if (item._id === productMatch?._id && product.quantity > 0) {
+        spreadItem.quantity--;
+      } else if (product.quantity === 0) {
+        deleteHandler(index);
+      }
+      return spreadItem;
+    });
+    setUpdatedCart(newCart as CartModel[]);
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    const sum = addTotalPrice(newCart as CartModel[]);
+    setTotalPrice(sum as number);
   }
 
-  function incrementValue (product: CartModel) {
-    const productMatch = updatedCart?.find((item: CartModel) => item._id ===product._id);
+  function incrementValue(product: CartModel) {
+    const productMatch = updatedCart?.find(
+      (item: CartModel) => item._id === product._id
+    );
 
     const newCart = updatedCart?.map((item: CartModel) => {
-      const spreadItem = {...item}
+      const spreadItem = { ...item };
 
-            if (item._id === productMatch?._id) {
-              spreadItem.quantity++;
-              console.log(spreadItem.quantity);  
-            }
-            return spreadItem;
-          })
-          setUpdatedCart(newCart as CartModel[]);
-          localStorage.setItem("cart", JSON.stringify(newCart));
-          const sum = addTotalPrice(newCart as CartModel[]);
-          setTotalPrice(sum as number);
+      if (item._id === productMatch?._id) {
+        spreadItem.quantity++;
+        console.log(spreadItem.quantity);
+      }
+      return spreadItem;
+    });
+    setUpdatedCart(newCart as CartModel[]);
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    const sum = addTotalPrice(newCart as CartModel[]);
+    setTotalPrice(sum as number);
+  }
+
+  async function onBuyHandler () {
+    //Mappa igenom kundkorgen efter id och quantity
+    //Ta hjälp av id för att hitta rätt produkt getSingleProduct()
+    //Uppdatera produkten med ny quantity
+    //Skicka in uppdaterad produkt till updateProduct()
   }
 
   return (
@@ -80,7 +94,7 @@ const user = getUserFromLocalStorage();
       <ul className={addClassCartElem}>
         <h2>Kundkorg</h2>
         <hr />
-        <h3>Hej {user.firstName}, välkommen till din kundkorg!</h3>
+        {user && <h3>Hej {user.firstName}, välkommen till din kundkorg!</h3>}
         <button className="close" onClick={() => closeNavHandler()}>
           {/* &times; */} Stäng
         </button>
@@ -92,25 +106,39 @@ const user = getUserFromLocalStorage();
             >
               <ProductWrapper>
                 <span>
-                  {product.title}, {(Number(product.price.split(" ")[0])) * product.quantity} SEK
+                  {product.title},{" "}
+                  {Number(product.price.split(" ")[0]) * product.quantity} SEK
                 </span>
                 <CountContainer>
-                  <input type="button" value="-" onClick={() => decrementValue(product, index)} />
+                  <input
+                    type="button"
+                    value="-"
+                    onClick={() => decrementValue(product, index)}
+                  />
                   <input type="text" readOnly value={product.quantity} />
-                  <input type="button" value="+" onClick={() => incrementValue(product)} />
+                  <input
+                    type="button"
+                    value="+"
+                    onClick={() => incrementValue(product)}
+                  />
                 </CountContainer>
                 <button
                   onClick={() => {
                     deleteHandler(index);
                   }}
                 >
-                  X
+                  <Trash2 />
                 </button>
               </ProductWrapper>
             </ListItem>
           ))}
-        {updatedCart && updatedCart.length > 0 && <p>Totalt: {totalPrice && totalPrice} SEK</p>}
-        {(!updatedCart || updatedCart.length === 0) && <p>Kundkorgen är tom! Varför inte shoppa lite?</p>}
+        {updatedCart && updatedCart.length > 0 && (
+          <p>Totalt: {totalPrice && totalPrice} SEK</p>
+        )}
+        {(!updatedCart || updatedCart.length === 0) && (
+          <p>Kundkorgen är tom! Varför inte shoppa lite?</p>
+        )}
+      <BuyButton onClick={() => onBuyHandler()}>Köp</BuyButton>
       </ul>
     </ListWrapper>
   );
@@ -128,10 +156,10 @@ const ListWrapper = styled.div`
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
-    color: ${COLORS.darkBrown};
   }
 
-  h2, h3 {
+  h2,
+  h3 {
     padding: 1rem 0;
   }
 
@@ -147,11 +175,11 @@ const ListWrapper = styled.div`
 
   button.close {
     position: absolute;
-    top: 0;
+    top: 25px;
     right: 25px;
     font-size: 18px;
     margin-left: 50px;
-    cursor: pointer;
+    border-radius: 4px;
   }
 `;
 
@@ -159,7 +187,7 @@ const ListItem = styled.li`
   padding: 0.5rem 1rem;
 `;
 
-const ProductWrapper = styled.div `
+const ProductWrapper = styled.div`
     display grid;
     grid-template-columns: 4fr 2fr 1fr;
     width: 80%;
@@ -168,18 +196,31 @@ const ProductWrapper = styled.div `
   input {
     width: 1.5rem;
     cursor: pointer;
+    margin: .2rem;
+    border: 2px solid ${COLORS.primary};
+    border-radius: 4px;
+  }
+
+  input[type="button"] {
+    color: ${COLORS.darkGreen};
+    background: ${COLORS.lightGreen};
+    border: 2px solid ${COLORS.primary};
   }
 
   button {
-    /* margin-left: 1rem; */
-    width: 1.5rem;
-    cursor: pointer;
+    padding: 0 .5rem;
+    border-radius: 4px;
   } 
 `;
 
-
-const CountContainer = styled.div `
+const CountContainer = styled.div`
   display: flex;
 `;
+
+const BuyButton = styled.button `
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+`
 
 export default Cart;

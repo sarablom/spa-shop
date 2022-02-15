@@ -20,7 +20,7 @@ function AllProducts({
   const cart = getCartFromLocalStorage();
 
   useEffect(() => {
-    if (cart.length > 0) {
+    if (cart?.length > 0) {
       setUpdatedCart(cart);
     }
   }, []);
@@ -35,6 +35,7 @@ function AllProducts({
         const productMatch = cart.find((item: CartModel) => item._id === productObj._id)
         
         if (productMatch) {
+          productObj.quantity = 1;
           const newCart = cart.map((item: any) => {
             const spreadItem = {...item}
 

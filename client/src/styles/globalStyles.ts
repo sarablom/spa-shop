@@ -17,6 +17,7 @@ html, body {
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  color: ${COLORS.darkBrown};
 }
 
 img, picture, video, canvas, svg {
@@ -26,6 +27,18 @@ img, picture, video, canvas, svg {
 
 input, button, textarea, select {
   font: inherit;
+}
+
+button {
+  color: ${COLORS.darkGreen};
+  background: ${COLORS.lightGreen};
+  border: 2px solid ${COLORS.primary};
+  cursor: pointer;
+}
+
+button:hover {
+  background: ${COLORS.primary};
+  color: ${COLORS.darkGreen};
 }
 
 p, h1, h2, h3, h4, h5, h6 {

@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/authServices";
-import { saveUserToLocalStorage, saveTokenToLocalStorage } from "../../services/localStorageServices";
+import {
+  saveUserToLocalStorage,
+  saveTokenToLocalStorage,
+} from "../../services/localStorageServices";
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
 
@@ -22,47 +25,67 @@ function SignupForm() {
     setErrorMessage(error);
     setTimeout(() => {
       setErrorClassName("hidden");
-        setErrorMessage("Errormeddelande")
+      setErrorMessage("Errormeddelande");
     }, 5000);
   }
 
-  function clearAllInputfields () {
-      setUserName("");
-      setPassword("");
-      setFirstName("");
-      setLastName("");
-      setAddress("");
-      setZipCode("");
-      setCity("");
+  function clearAllInputfields() {
+    setUserName("");
+    setPassword("");
+    setFirstName("");
+    setLastName("");
+    setAddress("");
+    setZipCode("");
+    setCity("");
   }
 
-  async function submitHandler (e: React.FormEvent<HTMLFormElement>) {
+  async function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    
-    if(!userName || !password || !firstName || !lastName || !address || !zipCode || !city) {
-        setErrorClassName("");
-        displayMessage("Du måste fylla i alla fält för att kunna registrera dig.");
-        return;
+
+    if (
+      !userName ||
+      !password ||
+      !firstName ||
+      !lastName ||
+      !address ||
+      !zipCode ||
+      !city
+    ) {
+      setErrorClassName("");
+      displayMessage(
+        "Du måste fylla i alla fält för att kunna registrera dig."
+      );
+      return;
     }
 
-    const signupData = await signup(userName, password, firstName, lastName, address, Number(zipCode), city);
+    const signupData = await signup(
+      userName,
+      password,
+      firstName,
+      lastName,
+      address,
+      Number(zipCode),
+      city
+    );
 
     if (signupData.error) {
-        displayMessage(signupData.error)
+      displayMessage(signupData.error);
     } else if (signupData.success) {
-        saveUserToLocalStorage(signupData.user);
-        saveTokenToLocalStorage(signupData.token);
-        clearAllInputfields();
-        displayMessage("Du har skapat en användare, vi dirigerar dig till startsidan.");
-        setTimeout(() => {
-           navigate("/");
-        }, 2000);
+      saveUserToLocalStorage(signupData.user);
+      saveTokenToLocalStorage(signupData.token);
+      clearAllInputfields();
+      displayMessage(
+        "Du har skapat en användare, vi dirigerar dig till startsidan."
+      );
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     }
   }
 
   return (
     <FormElement onSubmit={submitHandler}>
-    <label htmlFor="userName">Användarnamn: </label>
+      <label htmlFor="userName">Användarnamn: </label>
       <input
         type="text"
         id="userName"
@@ -83,14 +106,14 @@ function SignupForm() {
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
       />
-       <label htmlFor="lastName">Efternamn: </label>
+      <label htmlFor="lastName">Efternamn: </label>
       <input
         type="text"
         id="lastName"
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
       />
-       <label htmlFor="address">Adress: </label>
+      <label htmlFor="address">Adress: </label>
       <input
         type="text"
         id="address"
@@ -111,22 +134,22 @@ function SignupForm() {
         value={city}
         onChange={(e) => setCity(e.target.value)}
       />
-       <input type="submit" value="Registrera dig" />
-        {errorMessage && <p className={errorClassName}>{errorMessage}</p>}
+      <input type="submit" value="Registrera dig" />
+      {errorMessage && <p className={errorClassName}>{errorMessage}</p>}
     </FormElement>
   );
 }
 
-const FormElement = styled.form `
-    display: grid;
-    grid-template-columns: 10rem 20rem;
+const FormElement = styled.form`
+  display: grid;
+  grid-template-columns: 10rem 20rem;
 
-    input[type="text"],
+  input[type="text"],
   input[type="password"] {
     height: 40px;
     width: 20rem;
     max-width: 80%;
-    margin: .5rem;
+    margin: 0.5rem;
     border: 2px solid ${COLORS.darkBrown};
     box-shadow: 0px 0.25rem 0.25rem ${COLORS.mediumBrown};
     border-radius: 8px;
@@ -137,9 +160,19 @@ const FormElement = styled.form `
     justify-items: center;
     height: 40px;
     width: 16rem;
-    margin: .5rem;
-    padding: .5rem 1rem;
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
     cursor: pointer;
+    border-radius: 8px;
+    color: ${COLORS.darkBrown};
+    background: ${COLORS.extraLightBrown};
+    border: 2px solid ${COLORS.darkBrown};
+
+    &:hover {
+      color: ${COLORS.darkBrown};
+      background: ${COLORS.lightBrown};
+      border: 2px solid ${COLORS.darkBrown};
+    }
   }
 
   p {
@@ -149,6 +182,6 @@ const FormElement = styled.form `
   p.hidden {
     visibility: hidden;
   }
-`
+`;
 
 export default SignupForm;

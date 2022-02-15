@@ -91,6 +91,16 @@ const FormElement = styled.form`
     margin: .5rem;
     padding: .5rem 1rem;
     cursor: pointer;
+    border-radius: 8px;
+    color: ${COLORS.darkBrown};
+    background: ${COLORS.extraLightBrown};
+    border: 2px solid ${COLORS.darkBrown};
+
+    &:hover {
+      color: ${COLORS.darkBrown};
+      background: ${COLORS.lightBrown};
+      border: 2px solid ${COLORS.darkBrown};
+    }
   }
 `;
 
