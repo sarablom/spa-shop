@@ -1,6 +1,6 @@
 import {render, screen} from "@testing-library/react";
-import Cart from "./Cart";
-import { product } from "../../dummyData";
+import Cart from "../Cart";
+import { product } from "../../../dummyData";
 
 const setUpdatedCartMock = jest.fn();
 const setAddClassCartElemMock = jest.fn();
