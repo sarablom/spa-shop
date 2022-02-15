@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CartModel } from "../../models/Cart";
 import styled from "styled-components";
 import { saveCartToLocalStorage } from "../../services/localStorageServices";
+import { addTotalPrice } from "../../utils/helperFunctions";
 import { COLORS } from "../../styles/constants";
 
 interface Props {
@@ -9,37 +10,21 @@ interface Props {
   setUpdatedCart: Function;
   setAddClassCartElem: Function;
   addClassCartElem: string;
+  setTotalPrice: Function;
+  totalPrice: Number | null;
 }
+
 
 function Cart({
   updatedCart,
   setUpdatedCart,
   setAddClassCartElem,
   addClassCartElem,
+  setTotalPrice,
+  totalPrice
 }: Props) {
-  const [totalPrice, setTotalPrice] = useState<Number | null>(null);
+  
 
-  useEffect(() => {
-    addTotalPrice();
-  }, []);
-
-  function addTotalPrice() {
-    if (!updatedCart) {
-    } else if (updatedCart?.length > 0) {
-      const prices = updatedCart.map((product) => {
-        return Number(product.price.split(" ")[0]) * product.quantity;
-      });
-
-      let sum = 0;
-      for (let i = 0; i < prices.length; i++) {
-        sum += prices[i];
-      }
-
-      setTotalPrice(sum);
-    } else if (updatedCart.length === 0) {
-      setTotalPrice(0);
-    }
-  }
 
   function deleteHandler(index: number) {
     if (updatedCart) {
@@ -67,7 +52,8 @@ function Cart({
           })
           setUpdatedCart(newCart as CartModel[]);
           localStorage.setItem("cart", JSON.stringify(newCart));
-    
+          const sum = addTotalPrice(newCart as CartModel[]);
+          setTotalPrice(sum as number);
   }
 
   function incrementValue (product: CartModel) {
@@ -84,6 +70,8 @@ function Cart({
           })
           setUpdatedCart(newCart as CartModel[]);
           localStorage.setItem("cart", JSON.stringify(newCart));
+          const sum = addTotalPrice(newCart as CartModel[]);
+          setTotalPrice(sum as number);
   }
 
   return (

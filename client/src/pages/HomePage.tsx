@@ -17,6 +17,7 @@ function HomePage() {
   //Saves upated Cart in a state that can be sent as props
   const [updatedCart, setUpdatedCart] = useState<CartModel[] | [] | null>(null);
   const [addClassCartElem, setAddClassCartElem] = useState<string>("hide");
+  const [totalPrice, setTotalPrice] = useState<Number | null>(null);
 
   useEffect(() => {
     getProducts();
@@ -53,11 +54,14 @@ function HomePage() {
           setUpdatedCart={setUpdatedCart}
           setAddClassCartElem={setAddClassCartElem}
           addClassCartElem={addClassCartElem}
+          setTotalPrice={setTotalPrice}
+          totalPrice={totalPrice}
         />
       )}
       <AllProducts
         filteredProducts={filteredProducts}
         setUpdatedCart={setUpdatedCart}
+        setTotalPrice={setTotalPrice}
       />
     </main>
   );
