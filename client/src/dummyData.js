@@ -55,6 +55,17 @@ export const cartObject = {
   ],
 };
 
+export const cartModel = {
+    _id: "hhdhh",
+    title: "Buddhastaty",
+    category: "inredning",
+    description: "Staty",
+    inStock: "3",
+    imgUrl: "buddha.jgp",
+    price: "170 SEK",
+    quantity: 2,
+}
+
 export const user = {
   _id: "ghsfh1684615hfh",
   userName: "Sara",

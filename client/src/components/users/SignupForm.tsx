@@ -93,6 +93,20 @@ function SignupForm() {
         value={address}
         onChange={(e) => setAddress(e.target.value)}
       />
+      <label htmlFor="zipCode">Postnummer: </label>
+      <input
+        type="text"
+        id="zipCode"
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
+      />
+      <label htmlFor="city">Stad: </label>
+      <input
+        type="text"
+        id="city"
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
+      />
        <input type="submit" value="Registrera dig" />
         {errorMessage && <p className={errorClassName}>{errorMessage}</p>}
     </FormElement>
@@ -100,8 +114,8 @@ function SignupForm() {
 }
 
 const FormElement = styled.form `
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 10rem 20rem;
 
     input[type="text"],
   input[type="password"] {
@@ -115,6 +129,8 @@ const FormElement = styled.form `
   }
 
   input[type="submit"] {
+    grid-column: 1 / 3;
+    justify-items: center;
     height: 40px;
     width: 16rem;
     margin: .5rem;

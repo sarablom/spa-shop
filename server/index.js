@@ -4,7 +4,6 @@ const cors = require("cors");
 const path = require("path");
 const mongoose = require("mongoose");
 const productRoutes = require("./routes/productRoutes");
-const cartRoutes = require("./routes/cartRoutes");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const errorHandler = require("./middleware/errorHandler");
@@ -20,7 +19,6 @@ app.use(express.json());
 //Routes
 
 app.use("/api/products", productRoutes);
-app.use("/api/carts", cartRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/login", authRoutes);
 

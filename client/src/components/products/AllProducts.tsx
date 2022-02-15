@@ -1,6 +1,7 @@
 import { getCartFromLocalStorage } from "../../services/localStorageServices";
 import { Product } from "../../models/Product";
 import ProductCard from "./ProductCard";
+import { CartModel } from "../../models/Cart";
 
 interface Props {
   filteredProducts: Product[] | [];
@@ -14,15 +15,33 @@ function AllProducts({
   //Get cart that is saved in LS if user is not logged in
   const cart = getCartFromLocalStorage();
 
-  async function addToCartHandler(productObj: object) {
+  async function addToCartHandler(productObj: CartModel) {
     if (!cart) {
         const newCart = [productObj];
-        setUpdatedCart(newCart as Product[]);
+        setUpdatedCart(newCart as CartModel[]);
         localStorage.setItem("cart", JSON.stringify(newCart));
       } else if (cart) {
-        const newCart = [productObj, ...cart];
-        setUpdatedCart(newCart as Product[]);
-        localStorage.setItem("cart", JSON.stringify(newCart));
+        const productMatch = cart.find((item: any) => item._id === productObj._id)
+        
+        if (productMatch) {
+          const newCart = cart.map((item: any) => {
+            const spreadItem = {...item}
+
+            if (item._id === productMatch._id) {
+              spreadItem.quantity++;
+              console.log(spreadItem.quantity);
+              
+            }
+            return spreadItem;
+          })
+          setUpdatedCart(newCart as CartModel[]);
+          localStorage.setItem("cart", JSON.stringify(newCart));
+        } else {
+          productObj.quantity = 1;
+          const newCart = [productObj, ...cart];
+          setUpdatedCart(newCart as CartModel[]);
+          localStorage.setItem("cart", JSON.stringify(newCart));
+        }
       }
   }
 

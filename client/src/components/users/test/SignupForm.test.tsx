@@ -32,6 +32,8 @@ let successfulFetchResponse = {
     firstName: "First Name",
     lastName: "Last Name",
     address: "Address",
+    zipCode: "34567",
+    city: "City"
   },
 };
 
@@ -53,6 +55,8 @@ describe("SignupForm component", () => {
     expect(screen.getByLabelText("Förnamn:")).toBeInTheDocument();
     expect(screen.getByLabelText("Efternamn:")).toBeInTheDocument();
     expect(screen.getByLabelText("Adress:")).toBeInTheDocument();
+    expect(screen.getByLabelText("Postnummer:")).toBeInTheDocument();
+    expect(screen.getByLabelText("Stad:")).toBeInTheDocument();
   });
 
   it("displays a submit button", () => {
@@ -104,6 +108,8 @@ describe("If signup was successful", () => {
     userEvent.type(screen.getByLabelText("Förnamn:"), "First Name");
     userEvent.type(screen.getByLabelText("Efternamn:"), "Last Name:");
     userEvent.type(screen.getByLabelText("Adress:"), "address");
+    userEvent.type(screen.getByLabelText("Postnummer:"), "34567");
+    userEvent.type(screen.getByLabelText("Stad:"), "City");
 
     userEvent.click(buttonElement);
 
@@ -128,6 +134,8 @@ describe("If signup was successful", () => {
     userEvent.type(screen.getByLabelText("Förnamn:"), "First Name");
     userEvent.type(screen.getByLabelText("Efternamn:"), "Last Name:");
     userEvent.type(screen.getByLabelText("Adress:"), "address");
+    userEvent.type(screen.getByLabelText("Postnummer:"), "34567");
+    userEvent.type(screen.getByLabelText("Stad:"), "City");
 
     userEvent.click(buttonElement);
 
@@ -150,6 +158,8 @@ describe("If signup was successful", () => {
     userEvent.type(screen.getByLabelText("Förnamn:"), "First Name");
     userEvent.type(screen.getByLabelText("Efternamn:"), "Last Name:");
     userEvent.type(screen.getByLabelText("Adress:"), "address");
+    userEvent.type(screen.getByLabelText("Postnummer:"), "34567");
+    userEvent.type(screen.getByLabelText("Stad:"), "City");
 
     userEvent.click(buttonElement);
 

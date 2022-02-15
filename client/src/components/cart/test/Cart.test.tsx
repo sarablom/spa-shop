@@ -1,11 +1,11 @@
 import {render, screen} from "@testing-library/react";
 import Cart from "../Cart";
-import { product } from "../../../dummyData";
+import { cartModel } from "../../../dummyData";
 
 const setUpdatedCartMock = jest.fn();
 const setAddClassCartElemMock = jest.fn();
 
-const testCartData = [product];
+const testCartData = [cartModel];
 const testClassData = "show";
 
 describe("Cart component", () => {

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { Product } from "../../models/Product";
+import { CartModel } from "../../models/Cart";
 import styled from "styled-components";
 import { saveCartToLocalStorage } from "../../services/localStorageServices";
 import { COLORS } from "../../styles/constants";
 
 interface Props {
-  updatedCart: Product[] | [] | null;
+  updatedCart: CartModel[] | [] | null;
   setUpdatedCart: Function;
   setAddClassCartElem: Function;
   addClassCartElem: string;
@@ -62,15 +62,20 @@ function Cart({
           {/* &times; */} Stäng
         </button>
         {updatedCart &&
-          updatedCart.map((product: Product, index) => (
+          updatedCart.map((product: CartModel, index) => (
             <ListItem
               data-key={product.title}
               key={Math.floor(Math.random() * 100000)}
             >
               <p>
                 <span>
-                  {product.title}, {product.price}
+                  {product.title}, {product.price} 
                 </span>
+                <CountContainer>
+                  <input type="button" value="-" />
+                  <input type="text" value={product.quantity} />
+                  <input type="button" value="+" />
+                </CountContainer>
                 <button
                   onClick={() => {
                     deleteHandler(index);
@@ -103,7 +108,8 @@ const ListWrapper = styled.div`
   }
 
   .show {
-    width: 500px;
+    width: 50%;
+    min-width: 600px;
   }
 
   .hide {
@@ -117,6 +123,7 @@ const ListWrapper = styled.div`
     right: 25px;
     font-size: 18px;
     margin-left: 50px;
+    cursor: pointer;
   }
 `;
 
@@ -125,16 +132,25 @@ const ListItem = styled.li`
 
   p {
     display grid;
-    grid-template-columns: 80% 20%;
+    grid-template-columns: 4fr 2fr 1fr;
     width: 80%;
     align-items: space between;
   }
 
-  button {
-    /* margin-left: 1rem; */
-    padding: 0.2rem 0.5rem;
+  input {
+    width: 1.5rem;
     cursor: pointer;
   }
+
+  button {
+    /* margin-left: 1rem; */
+    width: 1.5rem;
+    cursor: pointer;
+  }
+`;
+
+const CountContainer = styled.div `
+  display: flex;
 `;
 
 export default Cart;

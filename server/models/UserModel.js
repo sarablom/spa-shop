@@ -24,6 +24,14 @@ const userSchema = new mongoose.Schema({
     address: {
         type: String,
         required: [true, "Du glömde ange din adress"]
+    },
+    zipCode: {
+        type: Number,
+        required: [true, "Du glömde ange ditt postnummer"]
+    },
+    city: {
+        type: String,
+        required: [true, "Du glömde ange din stad"]
     }
 });
 

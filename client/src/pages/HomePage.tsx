@@ -7,6 +7,7 @@ import { getAllProducts } from "../services/productsServices";
 import { ShoppingCart } from "react-feather";
 import { COLORS } from "../styles/constants";
 import Cart from "../components/cart/Cart";
+import { CartModel } from "../models/Cart";
 
 function HomePage() {
   //All products in database loads on start
@@ -14,7 +15,7 @@ function HomePage() {
   const [filteredProducts, setFilteredProducts] = useState<Product[] | []>([]);
   const [showCart, setShowCart] = useState<boolean>(false);
   //Saves upated Cart in a state that can be sent as props
-  const [updatedCart, setUpdatedCart] = useState<Product[] | [] | null>(null);
+  const [updatedCart, setUpdatedCart] = useState<CartModel[] | [] | null>(null);
   const [addClassCartElem, setAddClassCartElem] = useState<string>("hide");
 
   useEffect(() => {
