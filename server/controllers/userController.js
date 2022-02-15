@@ -3,14 +3,16 @@ const ErrorResponse = require("../utils/errorRepsonse");
 
 async function createUser(req, res, next) {
     try {
-        const { userName, password, firstName, lastName, address } = req.body;
+        const { userName, password, firstName, lastName, address, zipCode, city } = req.body;
 
         const user = await User.create({
             userName,
             password,
             firstName,
             lastName,
-            address
+            address,
+			zipCode,
+			city
         });
 
         res.status(201).json({

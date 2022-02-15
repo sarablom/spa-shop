@@ -27,7 +27,7 @@ function Cart({
     if (!updatedCart) {
     } else if (updatedCart?.length > 0) {
       const prices = updatedCart.map((product) => {
-        return Number(product.price.split(" ")[0]);
+        return Number(product.price.split(" ")[0]) * product.quantity;
       });
 
       let sum = 0;
@@ -61,8 +61,7 @@ function Cart({
       const spreadItem = {...item}
 
             if ((item._id === productMatch?._id) && product.quantity > 0) {
-              spreadItem.quantity--;
-              console.log(spreadItem.quantity);  
+              spreadItem.quantity--; 
             }
             return spreadItem;
           })
@@ -102,7 +101,7 @@ function Cart({
             >
               <ProductWrapper>
                 <span>
-                  {product.title}, {product.price} 
+                  {product.title}, {(Number(product.price.split(" ")[0])) * product.quantity} SEK
                 </span>
                 <CountContainer>
                   <input type="button" value="-" onClick={() => decrementValue(product)} />

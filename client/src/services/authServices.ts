@@ -3,7 +3,9 @@ export async function signup(
   password: string,
   firstName: string,
   lastName: string,
-  address: string
+  address: string,
+  zipCode: number,
+  city: string,
 ) {
   try {
     const response = await fetch("/api/users", {
@@ -17,10 +19,14 @@ export async function signup(
         firstName,
         lastName,
         address,
+        zipCode,
+        city
       }),
     });
 
     const data = await response.json();
+    console.log(data);
+    
     return data;
   } catch (err) {
     console.log(err);

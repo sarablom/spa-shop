@@ -11,6 +11,8 @@ function SignupForm() {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [address, setAddress] = useState<string>("");
+  const [zipCode, setZipCode] = useState<string>("");
+  const [city, setCity] = useState<string>("");
   const [errorClassName, setErrorClassName] = useState<string>("hidden");
 
   const [errorMessage, setErrorMessage] = useState<string>("Errormeddelande");
@@ -30,18 +32,20 @@ function SignupForm() {
       setFirstName("");
       setLastName("");
       setAddress("");
+      setZipCode("");
+      setCity("");
   }
 
   async function submitHandler (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     
-    if(!userName || !password || !firstName || !lastName || !address) {
+    if(!userName || !password || !firstName || !lastName || !address || !zipCode || !city) {
         setErrorClassName("");
         displayMessage("Du måste fylla i alla fält för att kunna registrera dig.");
         return;
     }
 
-    const signupData = await signup(userName, password, firstName, lastName, address);
+    const signupData = await signup(userName, password, firstName, lastName, address, Number(zipCode), city);
 
     if (signupData.error) {
         displayMessage(signupData.error)
@@ -97,15 +101,15 @@ function SignupForm() {
       <input
         type="text"
         id="zipCode"
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
+        value={zipCode}
+        onChange={(e) => setZipCode(e.target.value)}
       />
       <label htmlFor="city">Stad: </label>
       <input
         type="text"
         id="city"
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
       />
        <input type="submit" value="Registrera dig" />
         {errorMessage && <p className={errorClassName}>{errorMessage}</p>}
