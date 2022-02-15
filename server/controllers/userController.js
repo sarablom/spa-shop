@@ -65,11 +65,11 @@ async function updateUser (req, res, next) {
 		const user = await User.findById(userIdFromParams);
 	
 		if (!user) {
-			return next(new ErrorResponse("Användare hittades inte", 404))
+			return next(new ErrorResponse("User not found", 404))
 		}
 	
 		if (userIdFromParams !== userIdFromToken) {
-			return next(new ErrorResponse("Du har inte behörighet", 401));
+			return next(new ErrorResponse("You are not authorized", 401));
 		}
 	
 		const updates = req.body;

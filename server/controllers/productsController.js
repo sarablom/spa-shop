@@ -1,5 +1,6 @@
 const ErrorResponse = require("../utils/errorRepsonse");
 const Product = require("../models/ProductModel");
+const { findByIdAndUpdate } = require("../models/ProductModel");
 
 async function getAllProducts(req, res, next) {
   try {
@@ -20,7 +21,7 @@ async function getSingleProduct(req, res, next) {
     const product = await Product.findById(productId);
 
     if (!product) {
-      return next(new ErrorResponse("Produkten hittades inte", 404));
+      return next(new ErrorResponse("Product not found", 404));
     }
 
     res.status(200).json({
@@ -32,7 +33,55 @@ async function getSingleProduct(req, res, next) {
   }
 }
 
+async function updateProduct(req, res, next) {
+  try {
+    const productId = req.params.id;
+
+    const productToUpdate = await Product.findById(productId);
+
+    if (!productToUpdate) {
+      return next(new ErrorResponse("Product not found", 401))
+    }
+
+    const updateProduct = await Product.findByIdAndUpdate(cartId, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    res.status(200).json({
+      success: true,
+      product: updateProduct
+    })
+
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function deleteProduct (req, res, next) {
+  try {
+    const productId = req.params.id;
+  
+    const productToDelete = await Product.findById(productId);
+  
+    if (!productToDelete) {
+      return next(new ErrorResponse("Product not found", 401))
+    }
+  
+    await Product.findByIdAndDelete(productId);
+  
+    res.status(200).json({
+      success: true,
+      message: "Product deleted"
+    })
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   getAllProducts,
-  getSingleProduct
+  getSingleProduct,
+  updateProduct,
+  deleteProduct
 };

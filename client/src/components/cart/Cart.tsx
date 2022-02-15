@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { CartModel } from "../../models/Cart";
 import styled from "styled-components";
-import { saveCartToLocalStorage } from "../../services/localStorageServices";
+import { saveCartToLocalStorage, getUserFromLocalStorage } from "../../services/localStorageServices";
 import { addTotalPrice } from "../../utils/helperFunctions";
 import { COLORS } from "../../styles/constants";
 
@@ -24,7 +23,7 @@ function Cart({
   totalPrice
 }: Props) {
   
-
+const user = getUserFromLocalStorage();
 
   function deleteHandler(index: number) {
     if (updatedCart) {
@@ -39,7 +38,7 @@ function Cart({
     setAddClassCartElem("hide");
   }
 
-  function decrementValue (product: CartModel) {
+  function decrementValue (product: CartModel, index: number) {
         const productMatch = updatedCart?.find((item: CartModel) => item._id ===product._id);
 
     const newCart = updatedCart?.map((item: CartModel) => {
@@ -47,6 +46,8 @@ function Cart({
 
             if ((item._id === productMatch?._id) && product.quantity > 0) {
               spreadItem.quantity--; 
+            } else if (product.quantity === 0) {
+              deleteHandler(index);
             }
             return spreadItem;
           })
@@ -78,6 +79,8 @@ function Cart({
     <ListWrapper>
       <ul className={addClassCartElem}>
         <h2>Kundkorg</h2>
+        <hr />
+        <h3>Hej {user.firstName}, välkommen till din kundkorg!</h3>
         <button className="close" onClick={() => closeNavHandler()}>
           {/* &times; */} Stäng
         </button>
@@ -92,7 +95,7 @@ function Cart({
                   {product.title}, {(Number(product.price.split(" ")[0])) * product.quantity} SEK
                 </span>
                 <CountContainer>
-                  <input type="button" value="-" onClick={() => decrementValue(product)} />
+                  <input type="button" value="-" onClick={() => decrementValue(product, index)} />
                   <input type="text" readOnly value={product.quantity} />
                   <input type="button" value="+" onClick={() => incrementValue(product)} />
                 </CountContainer>
@@ -125,6 +128,11 @@ const ListWrapper = styled.div`
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+    color: ${COLORS.darkBrown};
+  }
+
+  h2, h3 {
+    padding: 1rem 0;
   }
 
   .show {
