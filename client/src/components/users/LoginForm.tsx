@@ -79,17 +79,18 @@ const FormElement = styled.form`
     height: 40px;
     width: 20rem;
     max-width: 80%;
-    margin: .5rem;
-    border: 2px solid ${COLORS.darkBrown};
-    box-shadow: 0px 0.25rem 0.25rem ${COLORS.mediumBrown};
+    margin: 0.5rem;
+    background: ${COLORS.lightGreen};
+    border: none;
+    border-bottom: 2px solid ${COLORS.darkBrown};
     border-radius: 8px;
   }
 
   input[type="submit"] {
     height: 40px;
     width: 16rem;
-    margin: .5rem;
-    padding: .5rem 1rem;
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
     cursor: pointer;
     border-radius: 8px;
     color: ${COLORS.darkBrown};
@@ -97,9 +98,8 @@ const FormElement = styled.form`
     border: 2px solid ${COLORS.darkBrown};
 
     &:hover {
-      color: ${COLORS.darkBrown};
       background: ${COLORS.lightBrown};
-      border: 2px solid ${COLORS.darkBrown};
+      color: ${COLORS.darkBrown};
     }
   }
 `;

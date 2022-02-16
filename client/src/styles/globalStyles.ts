@@ -30,15 +30,8 @@ input, button, textarea, select {
 }
 
 button {
-  color: ${COLORS.darkGreen};
-  background: ${COLORS.lightGreen};
-  border: 2px solid ${COLORS.primary};
-  cursor: pointer;
-}
 
-button:hover {
-  background: ${COLORS.primary};
-  color: ${COLORS.darkGreen};
+  cursor: pointer;
 }
 
 p, h1, h2, h3, h4, h5, h6 {

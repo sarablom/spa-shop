@@ -41,12 +41,9 @@ function HomePage() {
           products={products}
           setFilteredProducts={setFilteredProducts}
         />
-        <ShoppingCart
-          size={34}
-          color={COLORS.darkBrown}
-          cursor="pointer"
-          onClick={() => openCart()}
-        />
+        <ShoppingButton onClick={() => openCart()}>
+          <ShoppingCart size={34} color={COLORS.darkBrown} cursor="pointer" />
+        </ShoppingButton>
       </ProductHeaderWrapper>
       {showCart && (
         <Cart
@@ -72,6 +69,18 @@ const ProductHeaderWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 80%;
+`;
+
+const ShoppingButton = styled.button`
+  width: 4rem;
+  height: 4rem;
+  color: ${COLORS.darkGreen};
+  background: ${COLORS.lightGreen};
+  border: none;
+
+  & > * {
+    pointer-events: none;
+  }
 `;
 
 export default HomePage;

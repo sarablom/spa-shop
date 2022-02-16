@@ -74,7 +74,14 @@ const ListItem = styled.li`
 
   button {
     padding: .5rem 1rem;
-    cursor: pointer;
+    border-radius: 8px;
+    color: ${COLORS.darkBrown};
+    background: ${COLORS.extraLightGreen};
+    border: 2px solid ${COLORS.darkBrown};
+
+    &:hover {
+      background: ${COLORS.lightBrown};
+    }
   }
 `;
 

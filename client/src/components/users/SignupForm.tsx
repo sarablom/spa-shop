@@ -150,8 +150,9 @@ const FormElement = styled.form`
     width: 20rem;
     max-width: 80%;
     margin: 0.5rem;
-    border: 2px solid ${COLORS.darkBrown};
-    box-shadow: 0px 0.25rem 0.25rem ${COLORS.mediumBrown};
+    background: ${COLORS.lightGreen};
+    border: none;
+    border-bottom: 2px solid ${COLORS.darkBrown};
     border-radius: 8px;
   }
 
@@ -169,9 +170,8 @@ const FormElement = styled.form`
     border: 2px solid ${COLORS.darkBrown};
 
     &:hover {
-      color: ${COLORS.darkBrown};
       background: ${COLORS.lightBrown};
-      border: 2px solid ${COLORS.darkBrown};
+      color: ${COLORS.darkBrown};
     }
   }
 

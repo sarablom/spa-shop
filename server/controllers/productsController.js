@@ -36,9 +36,6 @@ async function getSingleProduct(req, res, next) {
 async function updateProduct(req, res, next) {
   try {
     const productId = req.params.id;
-    console.log(productId);
-    console.log(req.body)
-
     const productToUpdate = await Product.findById(productId);
 
     if (!productToUpdate) {

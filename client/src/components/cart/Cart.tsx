@@ -89,15 +89,6 @@ function Cart({
   }
 
   async function onBuyHandler() {
-    //Mappa igenom kundkorgen efter id och quantity
-    // let productsInCart = [...updatedCart as CartModel[]]
-    // console.log(productsInCart);
-    // //Få ut s
-    // let idInBasket = updatedCart?.map(item => item._id);
-    // console.log(idInBasket);
-    // let updatedQuanity = updatedCart?.map(item => Number(item.inStock) - item.quantity);
-    // console.log(updatedQuanity);
-    // let productInBasket
     updatedCart?.forEach(async (item) => {
       let productInBasket = await getSingleProduct(item._id);
       let updateValue = Number(item.inStock) - item.quantity;
@@ -105,9 +96,8 @@ function Cart({
 
       await updateProduct(item._id, productInBasket.product as Product);
       setUpdatedCart([]);
+      localStorage.setItem("cart", JSON.stringify([]));
     });
-    //Uppdatera produkten med ny inStock
-    //Skicka in uppdaterad produkt till updateProduct()
   }
 
   return (
@@ -202,6 +192,14 @@ const ListWrapper = styled.div`
     font-size: 18px;
     margin-left: 50px;
     border-radius: 4px;
+    color: ${COLORS.darkGreen};
+    background: ${COLORS.lightGreen};
+    border: 2px solid ${COLORS.primary};
+
+    &:hover {
+      background: ${COLORS.primary};
+      color: ${COLORS.darkGreen};
+    }
   }
 `;
 
@@ -223,16 +221,26 @@ const ProductWrapper = styled.div`
     border-radius: 4px;
   }
 
-  input[type="button"] {
+  input[type="button"], button {
     color: ${COLORS.darkGreen};
     background: ${COLORS.lightGreen};
     border: 2px solid ${COLORS.primary};
+
+    &:hover {
+    background: ${COLORS.primary};
+    color: ${COLORS.darkGreen};
+    } 
   }
 
   button {
     padding: 0 .5rem;
     border-radius: 4px;
     margin: 0 auto;
+
+    &:hover {
+    background: ${COLORS.primary};
+    color: ${COLORS.darkGreen};
+    }
   } 
 `;
 
@@ -244,6 +252,14 @@ const BuyButton = styled.button`
   position: absolute;
   bottom: 25px;
   right: 25px;
+  color: ${COLORS.darkGreen};
+  background: ${COLORS.lightGreen};
+  border: 2px solid ${COLORS.primary};
+
+  &:hover {
+    background: ${COLORS.primary};
+    color: ${COLORS.darkGreen};
+  }
 `;
 
 export default Cart;
