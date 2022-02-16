@@ -210,6 +210,7 @@ const ProductWrapper = styled.div`
   button {
     padding: 0 .5rem;
     border-radius: 4px;
+    margin: 0 auto;
   } 
 `;
 
