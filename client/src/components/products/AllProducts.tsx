@@ -27,6 +27,11 @@ function AllProducts({
 
 
   async function addToCartHandler(productObj: CartModel) {
+
+    if (productObj.inStock === "0") {
+      return null;
+    }
+
     if (!cart) {
         const newCart = [productObj];
         setUpdatedCart(newCart as CartModel[]);

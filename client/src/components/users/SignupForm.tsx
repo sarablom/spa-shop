@@ -7,6 +7,7 @@ import {
 } from "../../services/localStorageServices";
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
+import { CheckCircle, X } from "react-feather";
 
 function SignupForm() {
   const [userName, setUserName] = useState<string>("");

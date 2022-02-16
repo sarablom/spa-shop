@@ -23,7 +23,7 @@ function ProductCard({products, addToCartHandler}: Props) {
                 <p>{product.price}</p>
                 <small>Lagerstatus: {product.inStock}</small>
               </div>
-              <button onClick={() => addToCartHandler(product)}>
+              <button onClick={() => addToCartHandler(product)} disabled={product.inStock === "0"}>
                 Lägg i kundkorg
               </button>
             </ListItem>
@@ -81,6 +81,11 @@ const ListItem = styled.li`
 
     &:hover {
       background: ${COLORS.lightBrown};
+    }
+
+    &:disabled {
+      background: ${COLORS.darkBrown};
+      cursor: auto;
     }
   }
 `;
