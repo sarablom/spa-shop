@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { CartModel } from "../../models/Cart";
 import { Product } from "../../models/Product";
 import styled from "styled-components";
@@ -31,7 +30,6 @@ function Cart({
   setTotalPrice,
   totalPrice,
 }: Props) {
-  const [errorMessage, setErrorMessage] = useState<string>("");
   const user = getUserFromLocalStorage();
 
   function deleteHandler(index: number) {
@@ -69,6 +67,8 @@ function Cart({
   }
 
   function incrementValue(product: CartModel) {
+    console.log(product);
+    
     const productMatch = updatedCart?.find(
       (item: CartModel) => item._id === product._id
     );
@@ -78,7 +78,6 @@ function Cart({
 
       if (item._id === productMatch?._id) {
         spreadItem.quantity++;
-        console.log(spreadItem.quantity);
       }
       return spreadItem;
     });
@@ -106,9 +105,7 @@ function Cart({
         <h2>Kundkorg</h2>
         <hr />
         {user && <h3>Hej {user.firstName}, välkommen till din kundkorg!</h3>}
-        <button className="close" onClick={() => closeNavHandler()}>
-          {/* &times; */} Stäng
-        </button>
+        <button className="close" onClick={() => closeNavHandler()}>Stäng</button>
         {updatedCart &&
           updatedCart.map((product: CartModel, index) => (
             <ListItem
@@ -116,21 +113,26 @@ function Cart({
               key={Math.floor(Math.random() * 100000)}
             >
               <ProductWrapper>
-                <span>
+                <div>
                   {product.title},{" "}
-                  {Number(product.price.split(" ")[0]) * product.quantity} SEK
-                </span>
+                  {Number(product.price.split(" ")[0]) * product.quantity} SEK<br />   
+                  I lager: {product.inStock}          
+                </div>
                 <CountContainer>
                   <input
                     type="button"
                     value="-"
+                    data-testid="decrease"
                     onClick={() => decrementValue(product, index)}
+                    disabled={product.quantity === 1}
                   />
                   <input type="text" readOnly value={product.quantity} />
                   <input
                     type="button"
                     value="+"
+                    data-testid="increase"
                     onClick={() => incrementValue(product)}
+                    disabled={product.quantity === Number(product.inStock)}
                   />
                 </CountContainer>
                 <button
@@ -149,7 +151,6 @@ function Cart({
         {(!updatedCart || updatedCart.length === 0) && (
           <p>Kundkorgen är tom! Varför inte shoppa lite?</p>
         )}
-        {errorMessage && errorMessage}
         <BuyButton onClick={() => onBuyHandler()}>Köp</BuyButton>
       </ul>
     </ListWrapper>
@@ -205,6 +206,7 @@ const ListWrapper = styled.div`
 
 const ListItem = styled.li`
   padding: 0.5rem 1rem;
+  border: 1px solid black;
 `;
 
 const ProductWrapper = styled.div`

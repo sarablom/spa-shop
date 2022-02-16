@@ -55,7 +55,8 @@ export const cartObject = {
   ],
 };
 
-export const cartModel = {
+export const cartModel = [
+  {
     _id: "hhdhh",
     title: "Buddhastaty",
     category: "inredning",
@@ -65,6 +66,7 @@ export const cartModel = {
     price: "170 SEK",
     quantity: 2,
 }
+]
 
 export const user = {
   _id: "ghsfh1684615hfh",

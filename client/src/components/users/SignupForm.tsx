@@ -154,6 +154,10 @@ const FormElement = styled.form`
     border: none;
     border-bottom: 2px solid ${COLORS.darkBrown};
     border-radius: 8px;
+
+    &:focus {
+    outline: 1px solid ${COLORS.darkGreen};
+  }
   }
 
   input[type="submit"] {

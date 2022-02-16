@@ -22,7 +22,6 @@ function AllProducts({
   useEffect(() => {
     if (cart?.length > 0) {
       setUpdatedCart(cart);
-      addTotalPrice(cart);
     }
   }, []);
 
