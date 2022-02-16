@@ -37,11 +37,6 @@ let successfulFetchResponse = {
   },
 };
 
-let unsuccessfulFetchResponse = {
-  success: false,
-  error: "Error message",
-};
-
 describe("SignupForm component", () => {
   it("renders without crashing", () => {
     render(<SignupForm />);
@@ -174,77 +169,3 @@ describe("If signup was successful", () => {
     jest.clearAllMocks();
   });
 });
-
-
-// describe("If signup was unsuccessful", () => {
-//     beforeEach(() => {
-//       global.fetch = jest.fn(() =>
-//         Promise.resolve({
-//           json: () => Promise.resolve(unsuccessfulFetchResponse),
-//         })
-//       ) as jest.Mock<any>;
-//     });
-
-//     it("displays an error message on screen", async () => {
-//       render(<SignupForm />);
-
-//       const buttonElement = screen.getByRole("button", {
-//         name: "Registrera dig",
-//       });
-
-//       userEvent.type(screen.getByLabelText("Användarnamn:"), "username");
-//     userEvent.type(screen.getByLabelText("Lösenord:"), "password");
-//     userEvent.type(screen.getByLabelText("Förnamn:"), "First Name");
-//     userEvent.type(screen.getByLabelText("Efternamn:"), "Last Name:");
-
-//       userEvent.click(buttonElement);
-
-//       await waitFor(() => {
-//         expect(
-//           screen.getByText(unsuccessfulFetchResponse.error)
-//         ).toBeInTheDocument();
-//       });
-//     });
-
-//     it("does not try to save token in local storage", async () => {
-//       render(<SignupForm />);
-
-//       const buttonElement = screen.getByRole("button", {
-//         name: "Registrera dig",
-//       });
-
-//       userEvent.type(screen.getByLabelText("Användarnamn:"), "username");
-//     userEvent.type(screen.getByLabelText("Lösenord:"), "password");
-//     userEvent.type(screen.getByLabelText("Förnamn:"), "First Name");
-//     userEvent.type(screen.getByLabelText("Efternamn:"), "Last Name:");
-
-//       userEvent.click(buttonElement);
-
-//       await waitFor(() => {
-//         expect(saveTokenToLocalStorage).not.toHaveBeenCalled();
-//       });
-//     });
-
-//     it("does not try to save user in local storage", async () => {
-//       render(<SignupForm />);
-
-//       const buttonElement = screen.getByRole("button", {
-//         name: "Registrera dig",
-//       });
-
-//       userEvent.type(screen.getByLabelText("Användarnamn:"), "username");
-//     userEvent.type(screen.getByLabelText("Lösenord:"), "password");
-//     userEvent.type(screen.getByLabelText("Förnamn:"), "First Name");
-//     userEvent.type(screen.getByLabelText("Efternamn:"), "Last Name:");
-
-//       userEvent.click(buttonElement);
-
-//       await waitFor(() => {
-//         expect(saveUserToLocalStorage).not.toHaveBeenCalled();
-//       });
-//     });
-
-//     afterAll(() => {
-//       jest.clearAllMocks();
-//     });
-//   });

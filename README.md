@@ -24,5 +24,5 @@
 5. As a user I want to be able to change the number of products to buy so I can adjust my order.
 6. As a user I want to be able to remove a product from my shoping cart so I can adjust my order.
 7. As I user I want to be able to see the number of products in stock to know how many products are available.
-8. As a user I want to be able to login so I don´t have to update my contact information every time I buy something.
+8. As a user I want to be able to login so I get a more personal experience.
 9. As a user I want to be able to see my shopping cart if I leave or reload the page so I don't loose the information on which products to buy.

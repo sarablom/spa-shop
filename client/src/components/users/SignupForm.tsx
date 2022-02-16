@@ -68,8 +68,8 @@ function SignupForm() {
       city
     );
 
-    if (signupData.error) {
-      displayMessage(signupData.error);
+    if (signupData.success === false) {
+      displayMessage("Kunde inte få kontakt med databasen, vänligen försök igen.");
     } else if (signupData.success) {
       saveUserToLocalStorage(signupData.user);
       saveTokenToLocalStorage(signupData.token);
