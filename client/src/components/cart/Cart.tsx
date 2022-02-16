@@ -1,11 +1,16 @@
+import { useState } from "react";
 import { CartModel } from "../../models/Cart";
+import { Product } from "../../models/Product";
 import styled from "styled-components";
 import {
   saveCartToLocalStorage,
   getUserFromLocalStorage,
 } from "../../services/localStorageServices";
 import { addTotalPrice } from "../../utils/helperFunctions";
-import { getSingleProduct, updateProduct } from "../../services/productsServices";
+import {
+  getSingleProduct,
+  updateProduct,
+} from "../../services/productsServices";
 import { COLORS } from "../../styles/constants";
 import { Trash2 } from "react-feather";
 
@@ -26,6 +31,7 @@ function Cart({
   setTotalPrice,
   totalPrice,
 }: Props) {
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const user = getUserFromLocalStorage();
 
   function deleteHandler(index: number) {
@@ -82,10 +88,25 @@ function Cart({
     setTotalPrice(sum as number);
   }
 
-  async function onBuyHandler () {
+  async function onBuyHandler() {
     //Mappa igenom kundkorgen efter id och quantity
-    //Ta hjälp av id för att hitta rätt produkt getSingleProduct()
-    //Uppdatera produkten med ny quantity
+    // let productsInCart = [...updatedCart as CartModel[]]
+    // console.log(productsInCart);
+    // //Få ut s
+    // let idInBasket = updatedCart?.map(item => item._id);
+    // console.log(idInBasket);
+    // let updatedQuanity = updatedCart?.map(item => Number(item.inStock) - item.quantity);
+    // console.log(updatedQuanity);
+    // let productInBasket
+    updatedCart?.forEach(async (item) => {
+      let productInBasket = await getSingleProduct(item._id);
+      let updateValue = Number(item.inStock) - item.quantity;
+      productInBasket.product.inStock = updateValue;
+
+      await updateProduct(item._id, productInBasket.product as Product);
+      setUpdatedCart([]);
+    });
+    //Uppdatera produkten med ny inStock
     //Skicka in uppdaterad produkt till updateProduct()
   }
 
@@ -138,7 +159,8 @@ function Cart({
         {(!updatedCart || updatedCart.length === 0) && (
           <p>Kundkorgen är tom! Varför inte shoppa lite?</p>
         )}
-      <BuyButton onClick={() => onBuyHandler()}>Köp</BuyButton>
+        {errorMessage && errorMessage}
+        <BuyButton onClick={() => onBuyHandler()}>Köp</BuyButton>
       </ul>
     </ListWrapper>
   );
@@ -218,10 +240,10 @@ const CountContainer = styled.div`
   display: flex;
 `;
 
-const BuyButton = styled.button `
+const BuyButton = styled.button`
   position: absolute;
   bottom: 25px;
   right: 25px;
-`
+`;
 
 export default Cart;

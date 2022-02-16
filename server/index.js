@@ -24,6 +24,7 @@ app.use("/api/login", authRoutes);
 
 app.use(express.static(path.join(__dirname, "/../client/build")));
 
+//Wild card routing - has to be the last of the routes
 app.get("/*", function (req, res) {
 res.sendFile(path.join(__dirname + "/../client/build/index.html"));
 });

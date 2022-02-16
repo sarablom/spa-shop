@@ -20,8 +20,10 @@ export async function getSingleProduct(id: string) {
 }
 
 export async function updateProduct(id: string, product: Product) {
+  console.log(id, product);
+  
   const response =await fetch(`/api/products/${id}`,{
-    method: "PUT",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
@@ -29,7 +31,8 @@ export async function updateProduct(id: string, product: Product) {
   });
 
   const productData = await response.json();
-
+  console.log(productData);
+  
   return productData;
 }
 
