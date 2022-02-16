@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import Cart from "../Cart";
 import { cartModel, user } from "../../../dummyData";
 import userEvent from "@testing-library/user-event";
-import { getUserFromLocalStorage, getCartFromLocalStorage } from "../../../services/localStorageServices";
+import { getUserFromLocalStorage, getCartFromLocalStorage, saveCartToLocalStorage } from "../../../services/localStorageServices";
 
 const setUpdatedCartMock = jest.fn();
 const setAddClassCartElemMock = jest.fn();
@@ -17,7 +17,8 @@ const testUser = user;
 jest.mock("../../../services/localStorageServices", () => {
   return {
     getUserFromLocalStorage: jest.fn(),
-    getCartFromLocalStorage: jest.fn()
+    getCartFromLocalStorage: jest.fn(),
+    saveCartToLocalStorage: jest.fn(),
   };
 });
 
@@ -25,6 +26,7 @@ describe("Cart component", () => {
   beforeEach(() => {
     (getCartFromLocalStorage as jest.Mock).mockReturnValue(testCartData);
     (getUserFromLocalStorage as jest.Mock).mockReturnValue(testUser);
+    (saveCartToLocalStorage as jest.Mock).mockReturnValue(testCartData);
   });
 
   it("renders without crashing", () => {
@@ -95,23 +97,7 @@ describe("Cart component", () => {
     expect(setUpdatedCartMock).toBeCalledTimes(3);
   });
 
-  // it("product title to be visible", () => {
-  //   render(
-  //     <Cart
-  //       updatedCart={testCartData}
-  //       setUpdatedCart={setUpdatedCartMock}
-  //       setAddClassCartElem={setAddClassCartElemMock}
-  //       addClassCartElem={testClassData}
-  //       totalPrice={testTotalPrice}
-  //       setTotalPrice={setTotalPriceMock}
-  //     />
-  //   );
-    
-  //   const title = screen.getByText(testCartData[0].title);
-  //   expect(title).toBeInTheDocument();
-  // });
-
-  it("cart closes when user clicks close button", () => {
+  it("cart and overlay closes when user clicks close button", () => {
     render(
       <Cart
         updatedCart={testCartData}
@@ -123,8 +109,8 @@ describe("Cart component", () => {
       />
     );
 
-    userEvent.click(screen.getByRole("button", { name: "Stäng" }));
-    expect(setAddClassCartElemMock).toBeCalledTimes(1);
+    userEvent.click(screen.getByTestId("close"));
+    expect(setAddClassCartElemMock).toBeCalledTimes(2);
   });
 
   afterAll(() => {

@@ -11,7 +11,7 @@ import {
   updateProduct,
 } from "../../services/productsServices";
 import { COLORS } from "../../styles/constants";
-import { Trash2 } from "react-feather";
+import { Trash2, XCircle } from "react-feather";
 
 interface Props {
   updatedCart: CartModel[] | [] | null;
@@ -61,14 +61,12 @@ function Cart({
       return spreadItem;
     });
     setUpdatedCart(newCart as CartModel[]);
-    localStorage.setItem("cart", JSON.stringify(newCart));
+    saveCartToLocalStorage(newCart as CartModel[]);
     const sum = addTotalPrice(newCart as CartModel[]);
     setTotalPrice(sum as number);
   }
 
   function incrementValue(product: CartModel) {
-    console.log(product);
-    
     const productMatch = updatedCart?.find(
       (item: CartModel) => item._id === product._id
     );
@@ -82,7 +80,7 @@ function Cart({
       return spreadItem;
     });
     setUpdatedCart(newCart as CartModel[]);
-    localStorage.setItem("cart", JSON.stringify(newCart));
+    saveCartToLocalStorage(newCart as CartModel[]);
     const sum = addTotalPrice(newCart as CartModel[]);
     setTotalPrice(sum as number);
   }
@@ -95,67 +93,85 @@ function Cart({
 
       await updateProduct(item._id, productInBasket.product as Product);
       setUpdatedCart([]);
-      localStorage.setItem("cart", JSON.stringify([]));
+      saveCartToLocalStorage([]);
     });
   }
 
   return (
-    <ListWrapper>
-      <ul className={addClassCartElem}>
-        <h2>Kundkorg</h2>
-        <hr />
-        {user && <h3>Hej {user.firstName}, välkommen till din kundkorg!</h3>}
-        <button className="close" onClick={() => closeNavHandler()}>Stäng</button>
-        {updatedCart &&
-          updatedCart.map((product: CartModel, index) => (
-            <ListItem
-              data-key={product.title}
-              key={Math.floor(Math.random() * 100000)}
-            >
-              <ProductWrapper>
-                <div>
-                  {product.title},{" "}
-                  {Number(product.price.split(" ")[0]) * product.quantity} SEK<br />   
-                  I lager: {product.inStock}          
-                </div>
-                <CountContainer>
-                  <input
-                    type="button"
-                    value="-"
-                    data-testid="decrease"
-                    onClick={() => decrementValue(product, index)}
-                    disabled={product.quantity === 1}
-                  />
-                  <input type="text" readOnly value={product.quantity} />
-                  <input
-                    type="button"
-                    value="+"
-                    data-testid="increase"
-                    onClick={() => incrementValue(product)}
-                    disabled={product.quantity === Number(product.inStock)}
-                  />
-                </CountContainer>
-                <button
-                  onClick={() => {
-                    deleteHandler(index);
-                  }}
-                >
-                  <Trash2 />
-                </button>
-              </ProductWrapper>
-            </ListItem>
-          ))}
-        {updatedCart && updatedCart.length > 0 && (
-          <p>Totalt: {totalPrice && totalPrice} SEK</p>
-        )}
-        {(!updatedCart || updatedCart.length === 0) && (
-          <p>Kundkorgen är tom! Varför inte shoppa lite?</p>
-        )}
-        <BuyButton onClick={() => onBuyHandler()}>Köp</BuyButton>
-      </ul>
-    </ListWrapper>
+    <Overlay className={addClassCartElem} onClick={() => closeNavHandler()}>
+      <ListWrapper>
+        <ul className={addClassCartElem}>
+          <h2>Kundkorg</h2>
+          <hr />
+          {user && <h3>Hej {user.firstName}, välkommen till din kundkorg!</h3>}
+          <button
+            data-testid="close"
+            className="close"
+            onClick={() => closeNavHandler()}
+          >
+            <XCircle size={34} />
+          </button>
+          {updatedCart &&
+            updatedCart.map((product: CartModel, index) => (
+              <ListItem
+                data-key={product.title}
+                key={Math.floor(Math.random() * 100000)}
+              >
+                <ProductWrapper>
+                  <div>
+                    {product.title},{" "}
+                    {Number(product.price.split(" ")[0]) * product.quantity} SEK
+                    <br />I lager: {product.inStock}
+                  </div>
+                  <CountContainer>
+                    <input
+                      type="button"
+                      value="-"
+                      data-testid="decrease"
+                      onClick={() => decrementValue(product, index)}
+                      disabled={product.quantity === 1}
+                    />
+                    <input type="text" readOnly value={product.quantity} />
+                    <input
+                      type="button"
+                      value="+"
+                      data-testid="increase"
+                      onClick={() => incrementValue(product)}
+                      disabled={product.quantity === Number(product.inStock)}
+                    />
+                  </CountContainer>
+                  <button
+                    onClick={() => {
+                      deleteHandler(index);
+                    }}
+                  >
+                    <Trash2 />
+                  </button>
+                </ProductWrapper>
+              </ListItem>
+            ))}
+          {updatedCart && updatedCart.length > 0 && (
+            <p>Totalt: {totalPrice && totalPrice} SEK</p>
+          )}
+          {(!updatedCart || updatedCart.length === 0) && (
+            <p>Kundkorgen är tom! Varför inte shoppa lite?</p>
+          )}
+          <BuyButton onClick={() => onBuyHandler()}>Köp</BuyButton>
+        </ul>
+      </ListWrapper>
+    </Overlay>
   );
 }
+
+const Overlay = styled.div`
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+`;
 
 const ListWrapper = styled.div`
   ul {
@@ -181,21 +197,16 @@ const ListWrapper = styled.div`
     min-width: 600px;
   }
 
-  .hide {
-    width: 0;
-    display: none;
-  }
-
   button.close {
     position: absolute;
     top: 25px;
     right: 25px;
-    font-size: 18px;
+    font-size: 36px;
     margin-left: 50px;
     border-radius: 4px;
     color: ${COLORS.darkGreen};
     background: ${COLORS.lightGreen};
-    border: 2px solid ${COLORS.primary};
+    border: none;
 
     &:hover {
       background: ${COLORS.primary};

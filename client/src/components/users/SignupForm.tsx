@@ -156,7 +156,7 @@ const FormElement = styled.form`
     border-radius: 8px;
 
     &:focus {
-    outline: 1px solid ${COLORS.darkGreen};
+    outline: 1px solid ${COLORS.darkBrown};
   }
   }
 
