@@ -110,7 +110,7 @@ describe("Cart component", () => {
     );
 
     userEvent.click(screen.getByTestId("close"));
-    expect(setAddClassCartElemMock).toBeCalledTimes(2);
+    expect(setAddClassCartElemMock).toBeCalledTimes(1);
   });
 
   afterAll(() => {

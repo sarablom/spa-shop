@@ -7,7 +7,7 @@ import {
 } from "../../services/localStorageServices";
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
-import { CheckCircle, X } from "react-feather";
+//import { CheckCircle, X, User } from "react-feather";
 
 function SignupForm() {
   const [userName, setUserName] = useState<string>("");
@@ -57,7 +57,13 @@ function SignupForm() {
         "Du måste fylla i alla fält för att kunna registrera dig."
       );
       return;
-    }
+    } else if (password.length < 8) {
+      setErrorClassName("");
+      displayMessage(
+        "Ditt lösenord måste vara minst 8 karaktärer långt."
+      );
+      return;
+    } 
 
     const signupData = await signup(
       userName,
@@ -67,10 +73,16 @@ function SignupForm() {
       address,
       Number(zipCode),
       city
-    );
+    );    
 
-    if (signupData.success === false) {
-      displayMessage("Kunde inte få kontakt med databasen, vänligen försök igen.");
+    if (!signupData.success) {
+      if (signupData.error.includes("duplicate key error collection")) {
+        setErrorClassName("");
+        displayMessage("Användarnamnet är upptaget.");
+      } else {
+        setErrorClassName("");
+        displayMessage("Kunde inte få kontakt med databasen, vänligen försök igen.");
+      }
     } else if (signupData.success) {
       saveUserToLocalStorage(signupData.user);
       saveTokenToLocalStorage(signupData.token);
@@ -181,7 +193,8 @@ const FormElement = styled.form`
   }
 
   p {
-    height: 2rem;
+    height: 4rem;
+    grid-column: 1 / 3;
   }
 
   p.hidden {

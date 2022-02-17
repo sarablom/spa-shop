@@ -41,7 +41,8 @@ const ListWrapper = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   gap: 1rem;
-  width: 100%;
+  width: 90%;
+  max-width: 1300px;
   padding: 32px;
 `;
 

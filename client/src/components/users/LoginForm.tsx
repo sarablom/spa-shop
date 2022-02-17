@@ -7,6 +7,7 @@ import {
 } from "../../services/localStorageServices";
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
+//import { User } from "react-feather";
 
 function LoginForm() {
   const [userName, setUserName] = useState<string>("");
