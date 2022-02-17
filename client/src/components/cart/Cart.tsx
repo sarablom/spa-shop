@@ -164,7 +164,6 @@ function Cart({
 }
 
 const Overlay = styled.div`
-  background: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 0;
   left: 0;

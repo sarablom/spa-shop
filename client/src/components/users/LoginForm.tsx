@@ -19,7 +19,7 @@ function LoginForm() {
     setErrorMessage(message);
     setTimeout(() => {
       setErrorMessage("");
-    }, 3000);
+    }, 10000);
   }
 
   function clearAllInputfields() {

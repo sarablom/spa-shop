@@ -34,7 +34,7 @@ function HomePage() {
     setShowCart(!showCart);
     setAddClassCartElem("show");
   }
-
+ 
   return (
     <main>
       <ProductHeaderWrapper>

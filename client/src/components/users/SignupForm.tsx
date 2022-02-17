@@ -27,7 +27,7 @@ function SignupForm() {
     setTimeout(() => {
       setErrorClassName("hidden");
       setErrorMessage("Errormeddelande");
-    }, 5000);
+    }, 10000);
   }
 
   function clearAllInputfields() {
@@ -62,8 +62,14 @@ function SignupForm() {
       displayMessage(
         "Ditt lösenord måste vara minst 8 karaktärer långt."
       );
+      
+    } else if (zipCode.match(/^[0-9]+$/) === null) {
+      setErrorClassName("");
+      displayMessage(
+        "Postnumret får endast innehålla siffror."
+      );
       return;
-    } 
+    }
 
     const signupData = await signup(
       userName,
