@@ -33,8 +33,8 @@ describe("ProductCard component", () => {
     it("displays the price of a list of products", () => {
         render(<ProductCard products={productTestData} addToCartHandler={addToCartHandlerMock} />);
 
-        const firstElementTitle = productTestData[0].price;
-        const lastElementTitle = productTestData[productTestData.length - 1].price;
+        const firstElementTitle = `${productTestData[0].price} SEK`;
+        const lastElementTitle = `${productTestData[productTestData.length - 1].price} SEK`;
 
         expect(screen.getByText(firstElementTitle)).toBeInTheDocument();
         expect(screen.getByText(lastElementTitle)).toBeInTheDocument();

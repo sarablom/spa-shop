@@ -79,7 +79,7 @@ function SignupForm() {
       if (signupData.error.includes("duplicate key error collection")) {
         setErrorClassName("");
         displayMessage("Användarnamnet är upptaget.");
-      } else {
+      } else if (!signupData.success) {
         setErrorClassName("");
         displayMessage("Kunde inte få kontakt med databasen, vänligen försök igen.");
       }
@@ -87,6 +87,7 @@ function SignupForm() {
       saveUserToLocalStorage(signupData.user);
       saveTokenToLocalStorage(signupData.token);
       clearAllInputfields();
+      setErrorClassName("");
       displayMessage(
         "Du har skapat en användare, vi dirigerar dig till startsidan."
       );
