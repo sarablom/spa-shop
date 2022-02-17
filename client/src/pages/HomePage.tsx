@@ -4,7 +4,7 @@ import styled from "styled-components";
 import FilterSearch from "../components/search/FilterSearch";
 import { Product } from "../models/Product";
 import { getAllProducts } from "../services/productsServices";
-import { ShoppingCart } from "react-feather";
+import { ShoppingCart, CheckCircle } from "react-feather";
 import { COLORS } from "../styles/constants";
 import Cart from "../components/cart/Cart";
 import { CartModel } from "../models/Cart";
@@ -18,6 +18,7 @@ function HomePage() {
   const [updatedCart, setUpdatedCart] = useState<CartModel[] | [] | null>(null);
   const [addClassCartElem, setAddClassCartElem] = useState<string>("hide");
   const [totalPrice, setTotalPrice] = useState<Number | null>(null);
+  const [buyMessageClass, setBuyMessageClass] = useState<string>("hide");
 
   useEffect(() => {
     getProducts();
@@ -55,10 +56,14 @@ function HomePage() {
           totalPrice={totalPrice}
         />
       )}
+      <BuyMessage className={buyMessageClass}>
+        <CheckCircle /> Varan ligger nu i kundkorgen
+      </BuyMessage>
       <AllProducts
         filteredProducts={filteredProducts}
         setUpdatedCart={setUpdatedCart}
         setTotalPrice={setTotalPrice}
+        setBuyMessageClass={setBuyMessageClass}
       />
     </main>
   );
@@ -77,10 +82,13 @@ const ShoppingButton = styled.button`
   color: ${COLORS.darkGreen};
   background: ${COLORS.lightGreen};
   border: none;
-
-  & > * {
-    pointer-events: none;
-  }
 `;
+
+const BuyMessage = styled.div `
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  background: ${COLORS.lightGreen};
+`
 
 export default HomePage;

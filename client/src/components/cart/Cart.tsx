@@ -99,7 +99,7 @@ function Cart({
 
   return (
     <Overlay className={addClassCartElem} onClick={() => closeNavHandler()}>
-      <ListWrapper>
+      <ListWrapper onClick={e => e.stopPropagation()}>
         <ul className={addClassCartElem}>
           <h2>Kundkorg</h2>
           <hr />

@@ -1,5 +1,4 @@
 import { Product } from "../../models/Product";
-
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
 
@@ -8,7 +7,7 @@ interface Props {
   addToCartHandler: Function;
 }
 
-function ProductCard({products, addToCartHandler}: Props) {
+function ProductCard({ products, addToCartHandler }: Props) {
   return (
     <>
       <ListWrapper>
@@ -23,7 +22,10 @@ function ProductCard({products, addToCartHandler}: Props) {
                 <p>{product.price}</p>
                 <small>Lagerstatus: {product.inStock}</small>
               </div>
-              <button onClick={() => addToCartHandler(product)} disabled={product.inStock === "0"}>
+              <button
+                onClick={() => addToCartHandler(product)}
+                disabled={product.inStock === "0"}
+              >
                 Lägg i kundkorg
               </button>
             </ListItem>
@@ -73,7 +75,7 @@ const ListItem = styled.li`
   }
 
   button {
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
     border-radius: 8px;
     color: ${COLORS.darkBrown};
     background: ${COLORS.extraLightGreen};

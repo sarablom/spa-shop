@@ -11,7 +11,7 @@ describe("ProductCard component", () => {
     })
 
     it("displays the titles a list of products", () => {
-        render(<ProductCard products={productTestData} addToCartHandler={addToCartHandlerMock} />)
+        render(<ProductCard products={productTestData} addToCartHandler={addToCartHandlerMock} />);
 
         const firstElementTitle = productTestData[0].title;
         const lastElementTitle = productTestData[productTestData.length - 1].title;
@@ -21,7 +21,7 @@ describe("ProductCard component", () => {
     })
 
     it("displays the description of a list of products", () => {
-        render(<ProductCard products={productTestData} addToCartHandler={addToCartHandlerMock} />)
+        render(<ProductCard products={productTestData} addToCartHandler={addToCartHandlerMock} />);
 
         const firstElementTitle = productTestData[0].description;
         const lastElementTitle = productTestData[productTestData.length - 1].description;
@@ -31,7 +31,7 @@ describe("ProductCard component", () => {
     })
 
     it("displays the price of a list of products", () => {
-        render(<ProductCard products={productTestData} addToCartHandler={addToCartHandlerMock} />)
+        render(<ProductCard products={productTestData} addToCartHandler={addToCartHandlerMock} />);
 
         const firstElementTitle = productTestData[0].price;
         const lastElementTitle = productTestData[productTestData.length - 1].price;
