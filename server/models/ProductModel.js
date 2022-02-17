@@ -14,11 +14,11 @@ const productSchema = new mongoose.Schema({
         required: [true, "Please enter a description"]
     },
     inStock: {
-        type: String,
+        type: Number,
         required: [true, "Please enter the number of products in stock"]
     },
     imgUrl: String,
-    price: String,
+    price: Number,
 });
 
 const Product = mongoose.model("Product", productSchema);
