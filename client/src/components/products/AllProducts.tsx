@@ -42,7 +42,7 @@ function AllProducts({
   }
 
   async function addToCartHandler(productObj: CartModel) {
-    if (productObj.inStock === "0") {
+    if (productObj.inStock === 0) {
       return null;
     }
 

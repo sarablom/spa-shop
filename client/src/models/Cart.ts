@@ -3,9 +3,9 @@ export interface CartModel {
   title: string;
   category: string;
   description: string;
-  inStock: string;
+  inStock: number;
   imgUrl: string;
-  price: string;
+  price: number;
   quantity: number;
 }
 
@@ -18,9 +18,9 @@ export interface CartObject {
       title: string;
       category: string;
       description: string;
-      inStock: string;
+      inStock: number;
       imgUrl: string;
-      price: string;
+      price: number;
       quantity: number;
     }
   ];

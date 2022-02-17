@@ -5,7 +5,7 @@ export function addTotalPrice(cart: CartModel[]) {
       return;
     } else if (cart?.length > 0) {
       const prices = cart.map((product) => {
-        return Number(product.price.split(" ")[0]) * product.quantity;
+        return product.price * product.quantity;
       });
 
       let sum = 0;

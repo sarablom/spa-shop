@@ -3,9 +3,9 @@ export const product = {
   title: "Lampa",
   category: "lampa",
   description: "En lampa",
-  inStock: "43",
+  inStock: 43,
   imgUrl: "http://lampa.jpg",
-  price: "300 SEK",
+  price: 300,
 };
 
 export const products = [
@@ -14,27 +14,27 @@ export const products = [
     title: "Lampa",
     category: "lampa",
     description: "inredning",
-    inStock: "43",
+    inStock: 43,
     imgUrl: "http://lampa.jpg",
-    price: "300 SEK",
+    price: 300,
   },
   {
     _id: "galjge421ige",
     title: "Soffa",
     category: "inredning",
     description: "En soffa",
-    inStock: "3",
+    inStock: 3,
     imgUrl: "http://soffa.jpg",
-    price: "3000 SEK",
+    price: 3000,
   },
   {
     _id: "ga5373ljgeige",
     title: "Halsband",
     category: "accessoar",
     description: "Ett halsband",
-    inStock: "77",
+    inStock: 77,
     imgUrl: "http://halsband.jpg",
-    price: "80 SEK",
+    price: 80,
   },
 ];
 
@@ -47,9 +47,9 @@ export const cartObject = {
       title: "Buddhastaty",
       category: "inredning",
       description: "Staty",
-      inStock: "3",
+      inStock: 3,
       imgUrl: "buddha.jgp",
-      price: "170 SEK",
+      price: 170,
       quantity: 2,
     },
   ],
@@ -61,9 +61,9 @@ export const cartModel = [
     title: "Buddhastaty",
     category: "inredning",
     description: "Staty",
-    inStock: "3",
+    inStock: 3,
     imgUrl: "buddha.jgp",
-    price: "170 SEK",
+    price: 170,
     quantity: 2,
 }
 ]
@@ -74,5 +74,7 @@ export const user = {
   firstName: "Sara",
   lastName: "Blom",
   address: "Hejgatan 3, 444 44 Borås",
+  zipCode: 23422,
   carts: [],
+  city: "Göteborg"
 };

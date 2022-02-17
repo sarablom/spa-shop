@@ -120,7 +120,7 @@ function Cart({
                 <ProductWrapper>
                   <div>
                     {product.title},{" "}
-                    {Number(product.price.split(" ")[0]) * product.quantity} SEK
+                    {product.price * product.quantity} SEK
                     <br />I lager: {product.inStock}
                   </div>
                   <CountContainer>
@@ -137,7 +137,7 @@ function Cart({
                       value="+"
                       data-testid="increase"
                       onClick={() => incrementValue(product)}
-                      disabled={product.quantity === Number(product.inStock)}
+                      disabled={product.quantity === product.inStock}
                     />
                   </CountContainer>
                   <button

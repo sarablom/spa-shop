@@ -19,12 +19,12 @@ function ProductCard({ products, addToCartHandler }: Props) {
                 <h3>{product.title}</h3>
                 <hr />
                 <p>{product.description}</p>
-                <p>{product.price}</p>
+                <p>{product.price} SEK</p>
                 <small>Lagerstatus: {product.inStock}</small>
               </div>
               <button
                 onClick={() => addToCartHandler(product)}
-                disabled={product.inStock === "0"}
+                disabled={product.inStock === 0}
               >
                 Lägg i kundkorg
               </button>
