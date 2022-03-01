@@ -25,18 +25,18 @@ async function createUser(req, res, next) {
     }
 }
 
-async function getAllUsers(req, res, next) {
-	try {
-		const users = await User.find({});
+// async function getAllUsers(req, res, next) {
+// 	try {
+// 		const users = await User.find({});
 
-		res.status(200).json({
-			success: true,
-			users,
-		});
-	} catch (err) {
-		next(err);
-	}
-}
+// 		res.status(200).json({
+// 			success: true,
+// 			users,
+// 		});
+// 	} catch (err) {
+// 		next(err);
+// 	}
+// }
 
 async function getUserById(req, res, next) {
 	try {
@@ -89,4 +89,4 @@ async function updateUser (req, res, next) {
 
 }
 
-module.exports = { createUser, getAllUsers, getUserById, updateUser };
+module.exports = { createUser, getUserById, updateUser };

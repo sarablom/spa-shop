@@ -6,4 +6,5 @@ export interface User {
     address: string;
     zipCode: number;
     city: string;
+    role: string;
 }

@@ -73,8 +73,8 @@ export const user = {
   userName: "Sara",
   firstName: "Sara",
   lastName: "Blom",
-  address: "Hejgatan 3, 444 44 Borås",
+  address: "Hejgatan 3",
   zipCode: 23422,
-  carts: [],
-  city: "Göteborg"
+  city: "Göteborg",
+  role: "customer"
 };

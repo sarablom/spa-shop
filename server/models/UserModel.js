@@ -32,6 +32,11 @@ const userSchema = new mongoose.Schema({
     city: {
         type: String,
         required: [true, "Du glömde ange din stad"]
+    },
+    role: {
+        type: String,
+        default: "customer",
+        required: true,
     }
 });
 

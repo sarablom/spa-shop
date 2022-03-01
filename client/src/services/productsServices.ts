@@ -5,7 +5,6 @@ export async function fetchDataByUrl(url: string) {
     const response = await fetch(url);
     return await response.json();
   } catch (err) {
-    console.log(err);
   }
 }
 
@@ -20,8 +19,6 @@ export async function getSingleProduct(id: string) {
 }
 
 export async function updateProduct(id: string, product: Product) {
-  console.log(id, product);
-  
   const response =await fetch(`/api/products/${id}`,{
     method: "POST",
     headers: {

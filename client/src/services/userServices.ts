@@ -9,10 +9,10 @@ export async function fetchDataByUrl(url: string) {
   }
 }
 
-export async function getAllUsers() {
-  const fetchUrl = "/api/users";
-  return fetchDataByUrl(fetchUrl);
-}
+// export async function getAllUsers() {
+//   const fetchUrl = "/api/users";
+//   return fetchDataByUrl(fetchUrl);
+// }
 
 export async function getUserById (id: string) {  
     try {

@@ -5,7 +5,7 @@ const tokenHandler = require("../middleware/tokenHandler");
 
 router.post("/", userController.createUser);
 
-router.get("/", userController.getAllUsers);
+// router.get("/", userController.getAllUsers);
 
 router.get("/:id", userController.getUserById);
 
