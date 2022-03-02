@@ -220,7 +220,7 @@ const ListItem = styled.li`
 `;
 
 const ProductWrapper = styled.div`
-    display grid;
+    display: grid;
     grid-template-columns: 4fr 2fr 1fr;
     width: 80%;
     align-items: space between;
