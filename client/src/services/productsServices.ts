@@ -18,11 +18,12 @@ export async function getSingleProduct(id: string) {
   return fetchDataByUrl(fetchUrl);
 }
 
-export async function updateProduct(id: string, product: Product) {
+export async function updateProduct(id: string, product: Product, token: string) {
   const response =await fetch(`/api/products/${id}`,{
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(product),
   });

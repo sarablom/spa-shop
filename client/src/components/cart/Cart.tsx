@@ -4,12 +4,11 @@ import styled from "styled-components";
 import {
   saveCartToLocalStorage,
   getUserFromLocalStorage,
+  getTokenFromLocalStorage
 } from "../../services/localStorageServices";
 import { addTotalPrice } from "../../utils/helperFunctions";
-import {
-  getSingleProduct,
-  updateProduct,
-} from "../../services/productsServices";
+import { getSingleProduct } from "../../services/productsServices";
+import { placeOrder } from "../../services/orderServices";
 import { COLORS } from "../../styles/constants";
 import { Trash2, XCircle } from "react-feather";
 
@@ -31,6 +30,7 @@ function Cart({
   totalPrice,
 }: Props) {
   const user = getUserFromLocalStorage();
+  const token = getTokenFromLocalStorage();
 
   function deleteHandler(index: number) {
     if (updatedCart) {
@@ -91,12 +91,12 @@ function Cart({
       let updateValue = Number(item.inStock) - item.quantity;
       productInBasket.product.inStock = updateValue;
 
-      await updateProduct(item._id, productInBasket.product as Product);
+      await placeOrder(updatedCart as CartModel[]);
       setUpdatedCart([]);
       saveCartToLocalStorage([]);
     });
   }
-
+  
   return (
     <Overlay className={addClassCartElem} onClick={() => closeNavHandler()}>
       <ListWrapper onClick={e => e.stopPropagation()}>
@@ -156,7 +156,7 @@ function Cart({
           {(!updatedCart || updatedCart.length === 0) && (
             <p>Kundkorgen är tom! Varför inte shoppa lite?</p>
           )}
-          <BuyButton onClick={() => onBuyHandler()}>Köp</BuyButton>
+          {token && <BuyButton onClick={() => onBuyHandler()}>Köp</BuyButton>}
         </ul>
       </ListWrapper>
     </Overlay>

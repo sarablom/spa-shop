@@ -1,6 +1,6 @@
 const ErrorResponse = require("../utils/errorRepsonse");
 const Product = require("../models/ProductModel");
-const User = require("../models/UserModel")
+const User = require("../models/UserModel");
 
 async function getAllProducts(req, res, next) {
   try {
