@@ -11,7 +11,8 @@ function ProductCard({ products, addToCartHandler }: Props) {
   return (
     <>
       <ListWrapper>
-        {products &&
+        {(!products || products.length === 0) && <p>Kan inte ladda produkter</p>}
+        {products && products.length > 0 &&
           products.map((product: Product, index) => (
             <ListItem key={Math.floor(Math.random() * 100000)}>
               <div>

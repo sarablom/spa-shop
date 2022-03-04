@@ -26,8 +26,8 @@ function HomePage() {
 
   async function getProducts() {
     const data = await getAllProducts();
-    setProducts(data.products);
-    setFilteredProducts(data.products);
+    setProducts(data?.products);
+    setFilteredProducts(data?.products);
   }
 
   function openCart() {

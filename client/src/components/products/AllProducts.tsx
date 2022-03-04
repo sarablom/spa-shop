@@ -47,9 +47,11 @@ function AllProducts({
     }
 
     if (!cart) {
+      productObj.quantity = 1;
       const newCart = [productObj];
       successfulAddToCart(newCart);
     } else if (cart) {
+      productObj.quantity = 1;
       const productMatch = cart.find(
         (item: CartModel) => item._id === productObj._id
       );
