@@ -7,13 +7,14 @@ const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const errorHandler = require("./middleware/errorHandler");
+const { corsMiddleware } = require("./middleware/corsMiddleware");
 const PORT = process.env.PORT || process.env.REACT_APP_PORT || 8000;
 const DATABASE_USER = process.env.REACT_APP_MONGOUSER;
 
 const app = express();
 
 //Middlewares
-app.use(cors());
+app.use(corsMiddleware);
 app.use(express.json());
 
 //Routes
@@ -39,7 +40,7 @@ app.listen(PORT, () => {
 
 mongoose.connect(`mongodb+srv://${DATABASE_USER}@spa-shop.qdnjm.mongodb.net/spa-shop`)
 .then(() => {
-    console.log("Conntected to database");
+    console.log("Connected to database");
 })
 .catch((err) => {
     console.log("Error connecting to database", err);
