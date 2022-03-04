@@ -25,38 +25,6 @@ async function createUser(req, res, next) {
     }
 }
 
-// async function getAllUsers(req, res, next) {
-// 	try {
-// 		const users = await User.find({});
-
-// 		res.status(200).json({
-// 			success: true,
-// 			users,
-// 		});
-// 	} catch (err) {
-// 		next(err);
-// 	}
-// }
-
-async function getUserById(req, res, next) {
-	try {
-		const id = req.params.id;
-
-		const user = await User.findById(id);
-
-		if (!user) {
-			return next(new ErrorResponse(`User not found`, 404));
-		}
-
-		res.status(200).json({
-			success: true,
-			user,
-		});
-	} catch (err) {
-		next(err);
-	}
-}
-
 async function updateUser (req, res, next) {
 	try {
 		const userIdFromParams = req.params.id;
@@ -72,9 +40,15 @@ async function updateUser (req, res, next) {
 			return next(new ErrorResponse("You are not authorized", 401));
 		}
 	
-		const updates = req.body;
+		const { firstName, lastName, address, zipCode, city } = req.body
 	
-		const updatedUser = await User.findByIdAndUpdate(userIdFromToken, updates, {
+		const updatedUser = await User.findByIdAndUpdate(userIdFromToken, {
+			firstName,
+			lastName,
+			address,
+			zipCode,
+			city
+		}, {
 			new: true,
 			runValidators: true,
 		});
@@ -89,4 +63,4 @@ async function updateUser (req, res, next) {
 
 }
 
-module.exports = { createUser, getUserById, updateUser };
+module.exports = { createUser, updateUser };

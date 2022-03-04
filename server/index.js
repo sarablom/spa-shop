@@ -1,6 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-// const cors = require("cors");
 const path = require("path");
 const mongoose = require("mongoose");
 const productRoutes = require("./routes/productRoutes");
@@ -8,18 +7,15 @@ const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const errorHandler = require("./middleware/errorHandler");
-// const { corsMiddleware } = require("./middleware/corsMiddleware");
 const PORT = process.env.PORT || process.env.REACT_APP_PORT || 8000;
 const DATABASE_USER = process.env.REACT_APP_MONGOUSER;
 
 const app = express();
 
 //Middlewares
-// app.use(corsMiddleware);
 app.use(express.json());
 
 //Routes
-
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/login", authRoutes);
