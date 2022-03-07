@@ -1,12 +1,11 @@
 
 
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, res) => {
 	let error = { ...err };
-	error.message = err.message;
 
 	res.status(error.statusCode || 500).json({
 		success: false,
-		error: error.message || "Server error...",
+		error: "Server error...",
 	});
 };
 
