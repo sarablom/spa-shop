@@ -24,7 +24,7 @@ export async function signup(
       }),
     });
 
-    const data = await response.json();    
+    const data = await response.json();        
     return data;
   } catch (err) {
     console.log(err);

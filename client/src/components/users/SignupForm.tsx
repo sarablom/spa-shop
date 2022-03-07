@@ -63,10 +63,16 @@ function SignupForm() {
         "Ditt lösenord måste vara minst 8 karaktärer långt."
       );
       
-    } else if (zipCode.match(/^[0-9]+$/) === null) {
+    } else if (zipCode.match(/[0-9 ]+/) === null) {
       setErrorClassName("");
       displayMessage(
         "Postnumret får endast innehålla siffror."
+      );
+      return;
+    } else if (firstName.match(/^[a-zA-ZåäöüßÅÄÖÜ]+$/g) === null || lastName.match(/^[a-zA-ZåäöüßÅÄÖÜ]+$/g) === null) {
+      setErrorClassName("");
+      displayMessage(
+        "Namnet får endast innehålla bokstäver."
       );
       return;
     }
@@ -77,19 +83,19 @@ function SignupForm() {
       firstName,
       lastName,
       address,
-      Number(zipCode),
+      Number(zipCode.replace(/ /g,'')),
       city
     );    
-
-    if (!signupData.success) {
-      if (signupData.error.includes("duplicate key error collection")) {
+    
+    if (signupData?.error) {
+      if (signupData.message === 11000) {
         setErrorClassName("");
         displayMessage("Användarnamnet är upptaget.");
-      } else if (!signupData.success) {
+      } else {
         setErrorClassName("");
         displayMessage("Kunde inte få kontakt med databasen, vänligen försök igen.");
       }
-    } else if (signupData.success) {
+    } else if (signupData?.success) {
       saveUserToLocalStorage(signupData.user);
       saveTokenToLocalStorage(signupData.token);
       clearAllInputfields();
@@ -99,7 +105,7 @@ function SignupForm() {
       );
       setTimeout(() => {
         navigate("/");
-      }, 2000);
+      }, 3000);
     }
   }
 

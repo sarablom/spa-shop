@@ -15,15 +15,23 @@ const userSchema = new mongoose.Schema({
     },
     firstName: {
         type: String,
-        required: [true, "Du glömde ange ditt namn"]
+        required: [true, "Du glömde ange ditt namn"],
+        match: [
+			/^[a-zA-ZåäöüßÅÄÖÜ]+$/g,
+			"Ditt namn får endast bestå av bokstäver",
+		],
     },
     lastName: {
         type: String,
-        required: [true, "Du glömde ange ditt efternamn"]
+        required: [true, "Du glömde ange ditt efternamn"],
+        match: [
+			/^[a-zA-ZåäöüßÅÄÖÜ]+$/g,
+			"Ditt namn får endast bestå av bokstäver",
+		],
     },
     address: {
         type: String,
-        required: [true, "Du glömde ange din adress"]
+        required: [true, "Du glömde ange din adress"],
     },
     zipCode: {
         type: Number,
@@ -31,7 +39,7 @@ const userSchema = new mongoose.Schema({
     },
     city: {
         type: String,
-        required: [true, "Du glömde ange din stad"]
+        required: [true, "Du glömde ange din stad"],
     },
     role: {
         type: String,

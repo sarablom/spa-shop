@@ -4,7 +4,7 @@ const ErrorResponse = require("../utils/errorRepsonse");
 async function createUser(req, res, next) {
     try {
         const { userName, password, firstName, lastName, address, zipCode, city } = req.body;
-
+		
         const user = await User.create({
             userName,
             password,
@@ -21,6 +21,12 @@ async function createUser(req, res, next) {
             token: user.getToken(),
         })
     } catch (err) {
+		res.status(500).json({
+            success: false,
+			error: true,
+            message: err.code
+        })
+		console.log(err.code);
         next(err);
     }
 }

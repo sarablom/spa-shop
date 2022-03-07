@@ -2,6 +2,7 @@
 
 const errorHandler = (err, res) => {
 	let error = { ...err };
+	console.log(error);
 
 	res.status(error.statusCode || 500).json({
 		success: false,

@@ -35,7 +35,7 @@ function LoginForm() {
       return;
     }
 
-    const loginData = await login(userName, password);
+    const loginData = await login(userName, password);    
 
     if (loginData.error) {
       displayMessage(loginData.error);
