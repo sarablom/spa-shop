@@ -1,5 +1,5 @@
+import { useEffect } from "react";
 import { CartModel } from "../../models/Cart";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import {
   saveCartToLocalStorage,
@@ -29,9 +29,13 @@ function Cart({
   setTotalPrice,
   totalPrice,
 }: Props) {
-  const location = useLocation();
   const user = getUserFromLocalStorage();
   const token = getTokenFromLocalStorage();
+
+  useEffect(() => {
+    const sum = addTotalPrice(updatedCart as CartModel[]);
+    setTotalPrice(sum as number);
+  }, [updatedCart])
 
   function deleteHandler(index: number) {
     if (updatedCart) {
@@ -63,8 +67,6 @@ function Cart({
     });
     setUpdatedCart(newCart as CartModel[]);
     saveCartToLocalStorage(newCart as CartModel[]);
-    const sum = addTotalPrice(newCart as CartModel[]);
-    setTotalPrice(sum as number);
   }
 
   function incrementValue(product: CartModel) {
@@ -82,8 +84,6 @@ function Cart({
     });
     setUpdatedCart(newCart as CartModel[]);
     saveCartToLocalStorage(newCart as CartModel[]);
-    const sum = addTotalPrice(newCart as CartModel[]);
-    setTotalPrice(sum as number);
   }
 
   async function onBuyHandler() {
