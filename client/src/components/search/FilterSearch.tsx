@@ -41,6 +41,7 @@ function FilterSearch({products, setFilteredProducts}: Props) {
 const FormWrapper = styled.form `
   position: relative;
   color: ${COLORS.darkGreen};
+  max-width: 80vw;
 `
 
 const InputField = styled.input`

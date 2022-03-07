@@ -1,5 +1,5 @@
 import { CartModel } from "../../models/Cart";
-import { Product } from "../../models/Product";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import {
   saveCartToLocalStorage,
@@ -29,6 +29,7 @@ function Cart({
   setTotalPrice,
   totalPrice,
 }: Props) {
+  const location = useLocation();
   const user = getUserFromLocalStorage();
   const token = getTokenFromLocalStorage();
 
@@ -94,6 +95,7 @@ function Cart({
       await placeOrder(updatedCart as CartModel[]);
       setUpdatedCart([]);
       saveCartToLocalStorage([]);
+      window.location.reload();
     });
   }
   
