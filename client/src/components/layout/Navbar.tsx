@@ -101,11 +101,11 @@ const NavbarWrapper = styled.nav`
 
 const ImageWrapper = styled.div`
   display: flex;
+  max-width: 50vw;
 
   img {
-    height: 70px;
-    padding: 0.5rem 2rem;
-    //filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+    height: 5rem;
+    padding: 0.5rem 1rem;
     filter: drop-shadow(0px 0.25rem 0.25rem ${COLORS.mediumBrown});
   }
 `;
