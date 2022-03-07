@@ -22,12 +22,7 @@ let successfulFetchResponse = {
   token: "token",
   user: {
     _id: 1,
-    userName: "userName",
     firstName: "First Name",
-    lastName: "Last Name",
-    address: "Address",
-    zipCode: "34567",
-    city: "City",
   },
 };
 

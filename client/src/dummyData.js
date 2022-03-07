@@ -70,11 +70,5 @@ export const cartModel = [
 
 export const user = {
   _id: "ghsfh1684615hfh",
-  userName: "Sara",
   firstName: "Sara",
-  lastName: "Blom",
-  address: "Hejgatan 3",
-  zipCode: 23422,
-  city: "Göteborg",
-  role: "customer"
 };

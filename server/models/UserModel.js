@@ -64,7 +64,7 @@ userSchema.methods.getToken = function () {
 };
 
 userSchema.set("toJSON", {
-	transform: (document, returnedObject) => {
+	transform: (returnedObject) => {
 		delete returnedObject.password;
 	},
 });

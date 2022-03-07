@@ -5,7 +5,7 @@ const errorHandler = (err, res) => {
 
 	res.status(error.statusCode || 500).json({
 		success: false,
-		error: "Server error...",
+		error: "Server error, are you sending the correct information to the database?",
 	});
 };
 

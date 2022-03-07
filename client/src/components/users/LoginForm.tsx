@@ -41,7 +41,10 @@ function LoginForm() {
       displayMessage(loginData.error);
       clearAllInputfields();
     } else if (loginData.success) {
-      saveUserToLocalStorage(loginData.user);
+      saveUserToLocalStorage({
+        _id: loginData.user._id,
+        firstName: loginData.user.firstName
+      });   
       saveTokenToLocalStorage(loginData.token);
       clearAllInputfields();
       navigate("/");

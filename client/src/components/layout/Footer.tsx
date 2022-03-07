@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
-import { COLORS } from "../../styles/constants"
+import logo from "../../assets/logo.svg";
+import { COLORS } from "../../styles/constants";
 
 function Footer() {
-  return <FooterWrapper><p>Stillsamhetens SPA</p></FooterWrapper>;
+  return <FooterWrapper><img src={logo} alt="Stillsamhetens spa" />&#169; Stillsamhetens Spa, 2022</FooterWrapper>;
 }
 
 const FooterWrapper = styled.footer `
@@ -14,8 +15,10 @@ const FooterWrapper = styled.footer `
   color: ${COLORS.darkBrown};
   flex-shrink: 0;
   
-  p {
-    padding: 1rem;
+  img {
+    height: 3rem;
+    padding: .5rem;
+    filter: drop-shadow(0px 0.25rem 0.25rem ${COLORS.mediumBrown});
   }
 `
 
