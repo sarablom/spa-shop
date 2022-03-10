@@ -7,4 +7,6 @@ router.post("/", userController.createUser);
 
 router.put("/:id", tokenHandler, userController.updateUser);
 
+router.get("/", userController.getSingleUser);
+
 module.exports = router;

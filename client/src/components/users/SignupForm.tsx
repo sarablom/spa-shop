@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/authServices";
 import {
-  saveUserToLocalStorage,
   saveTokenToLocalStorage,
 } from "../../services/localStorageServices";
 import styled from "styled-components";
@@ -96,7 +95,7 @@ function SignupForm() {
         displayMessage("Kunde inte få kontakt med databasen, vänligen försök igen.");
       }
     } else if (signupData?.success) {
-      saveUserToLocalStorage(signupData.user);
+      // saveUserToLocalStorage(signupData.user);
       saveTokenToLocalStorage(signupData.token);
       clearAllInputfields();
       setErrorClassName("");

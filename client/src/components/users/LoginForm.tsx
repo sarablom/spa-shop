@@ -2,12 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authServices";
 import {
-  saveUserToLocalStorage,
   saveTokenToLocalStorage,
 } from "../../services/localStorageServices";
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
-//import { User } from "react-feather";
 
 function LoginForm() {
   const [userName, setUserName] = useState<string>("");
@@ -41,10 +39,10 @@ function LoginForm() {
       displayMessage(loginData.error);
       clearAllInputfields();
     } else if (loginData.success) {
-      saveUserToLocalStorage({
-        _id: loginData.user._id,
-        firstName: loginData.user.firstName
-      });   
+      // saveUserToLocalStorage({
+      //   _id: loginData.user._id,
+      //   firstName: loginData.user.firstName
+      // });   
       saveTokenToLocalStorage(loginData.token);
       clearAllInputfields();
       navigate("/");

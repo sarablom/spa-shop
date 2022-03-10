@@ -1,16 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { CartModel } from "../../models/Cart";
 import styled from "styled-components";
 import {
   saveCartToLocalStorage,
-  getUserFromLocalStorage,
   getTokenFromLocalStorage
 } from "../../services/localStorageServices";
+import { getUser } from "../../services/userServices";
 import { addTotalPrice } from "../../utils/helperFunctions";
 import { getSingleProduct } from "../../services/productsServices";
 import { placeOrder } from "../../services/orderServices";
 import { COLORS } from "../../styles/constants";
 import { Trash2, XCircle } from "react-feather";
+import { User } from "../../models/User";
 
 interface Props {
   updatedCart: CartModel[] | [] | null;
@@ -29,8 +30,19 @@ function Cart({
   setTotalPrice,
   totalPrice,
 }: Props) {
-  const user = getUserFromLocalStorage();
+  const [user, setUser] = useState<User | null>(null);
   const token = getTokenFromLocalStorage();
+
+  useEffect(() => {
+    if (token) {
+      getUserName();
+    }
+  }, [token])
+
+  async function getUserName() {
+    const fetchedUser = await getUser(token as string);
+    setUser(fetchedUser.user);
+  }
 
   useEffect(() => {
     const sum = addTotalPrice(updatedCart as CartModel[]);
@@ -105,7 +117,7 @@ function Cart({
         <ul className={addClassCartElem}>
           <h2>Kundkorg</h2>
           <hr />
-          {user && <h3>Hej {user.firstName}, välkommen till din kundkorg!</h3>}
+          {user && <h3>Hej {user.firstName}, välkommen till din kundkorg!</h3>} 
           <button
             data-testid="close"
             className="close"

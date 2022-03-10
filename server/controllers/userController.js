@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const User = require("../models/UserModel");
 const ErrorResponse = require("../utils/errorRepsonse");
 
@@ -26,7 +27,6 @@ async function createUser(req, res, next) {
 			error: true,
             message: err.code
         })
-		console.log(err.code);
         next(err);
     }
 }
@@ -66,7 +66,37 @@ async function updateUser (req, res, next) {
 	} catch (err) {
 		next(err);
 	}
-
 }
 
-module.exports = { createUser, updateUser };
+async function getSingleUser (req, res, next) {
+	try {
+		const token = req.headers.authorization.split(" ")[1];
+		let userId = null;
+		jwt.verify(token, process.env.REACT_APP_JWT_SECRET, (err, decoded) => {
+			if (err) {
+				return next(new ErrorResponse("invalid token", 400))
+			}
+
+			userId = decoded.id;
+		})
+
+		const user = await User.findById(userId);
+
+		if (!user) {
+			return next(new ErrorResponse("User not found", 400));
+		}
+
+		res.status(200).json({
+			success: true,
+			user: {
+				id: user._id,
+				firstName: user.firstName
+			}
+		})
+
+	} catch (err) {
+		next(err);
+	}
+}
+
+module.exports = { createUser, updateUser, getSingleUser };

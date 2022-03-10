@@ -1,4 +1,5 @@
 require("dotenv").config();
+const cors = require("cors");
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -13,6 +14,7 @@ const DATABASE_USER = process.env.REACT_APP_MONGOUSER;
 const app = express();
 
 //Middlewares
+app.use(cors());
 app.use(express.json());
 
 //Routes
