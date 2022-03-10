@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { CartModel } from "../../models/Cart";
 import styled from "styled-components";
 import {
   saveCartToLocalStorage,
-  getTokenFromLocalStorage
+  getTokenFromLocalStorage,
 } from "../../services/localStorageServices";
 import { getUser } from "../../services/userServices";
 import { addTotalPrice } from "../../utils/helperFunctions";
@@ -33,21 +33,21 @@ function Cart({
   const [user, setUser] = useState<User | null>(null);
   const token = getTokenFromLocalStorage();
 
-  useEffect(() => {
+  const getUserName = useCallback(async () => {
     if (token) {
-      getUserName();
+      const fetchedUser = await getUser(token as string);
+      setUser(fetchedUser.user);
     }
-  }, [token])
+  }, [token]);
 
-  async function getUserName() {
-    const fetchedUser = await getUser(token as string);
-    setUser(fetchedUser.user);
-  }
+  useEffect(() => {
+    getUserName();
+  }, [getUserName]);
 
   useEffect(() => {
     const sum = addTotalPrice(updatedCart as CartModel[]);
     setTotalPrice(sum as number);
-  }, [updatedCart])
+  }, [updatedCart]);
 
   function deleteHandler(index: number) {
     if (updatedCart) {
@@ -110,14 +110,14 @@ function Cart({
       window.location.reload();
     });
   }
-  
+
   return (
     <Overlay className={addClassCartElem} onClick={() => closeNavHandler()}>
-      <ListWrapper onClick={e => e.stopPropagation()}>
+      <ListWrapper onClick={(e) => e.stopPropagation()}>
         <ul className={addClassCartElem}>
           <h2>Kundkorg</h2>
           <hr />
-          {user && <h3>Hej {user.firstName}, välkommen till din kundkorg!</h3>} 
+          {user && <h3>Hej {user.firstName}, välkommen till din kundkorg!</h3>}
           <button
             data-testid="close"
             className="close"
@@ -133,8 +133,7 @@ function Cart({
               >
                 <ProductWrapper>
                   <div>
-                    {product.title},{" "}
-                    {product.price * product.quantity} SEK
+                    {product.title}, {product.price * product.quantity} SEK
                     <br />I lager: {product.inStock}
                   </div>
                   <CountContainer>
@@ -234,40 +233,41 @@ const ListItem = styled.li`
 `;
 
 const ProductWrapper = styled.div`
-    display: grid;
-    grid-template-columns: 4fr 2fr 1fr;
-    width: 80%;
-    align-items: space between;
+  display: grid;
+  grid-template-columns: 4fr 2fr 1fr;
+  width: 80%;
+  align-items: space between;
 
   input {
     width: 1.5rem;
     cursor: pointer;
-    margin: .2rem;
+    margin: 0.2rem;
     border: 2px solid ${COLORS.primary};
     border-radius: 4px;
   }
 
-  input[type="button"], button {
+  input[type="button"],
+  button {
     color: ${COLORS.darkGreen};
     background: ${COLORS.lightGreen};
     border: 2px solid ${COLORS.primary};
 
     &:hover {
-    background: ${COLORS.primary};
-    color: ${COLORS.darkGreen};
-    } 
+      background: ${COLORS.primary};
+      color: ${COLORS.darkGreen};
+    }
   }
 
   button {
-    padding: 0 .5rem;
+    padding: 0 0.5rem;
     border-radius: 4px;
     margin: 0 auto;
 
     &:hover {
-    background: ${COLORS.primary};
-    color: ${COLORS.darkGreen};
+      background: ${COLORS.primary};
+      color: ${COLORS.darkGreen};
     }
-  } 
+  }
 `;
 
 const CountContainer = styled.div`
