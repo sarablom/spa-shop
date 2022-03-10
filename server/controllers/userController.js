@@ -74,7 +74,7 @@ async function getSingleUser (req, res, next) {
 		let userId = null;
 		jwt.verify(token, process.env.REACT_APP_JWT_SECRET, (err, decoded) => {
 			if (err) {
-				return next(new ErrorResponse("invalid token", 400))
+				return next(new ErrorResponse("Invalid token", 400))
 			}
 
 			userId = decoded.id;
@@ -95,6 +95,12 @@ async function getSingleUser (req, res, next) {
 		})
 
 	} catch (err) {
+		res.status(400).json({
+            success: false,
+			error: true,
+            message: err
+        })
+		console.log(err);
 		next(err);
 	}
 }

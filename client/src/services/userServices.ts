@@ -8,13 +8,8 @@ export async function getUser(token: string) {
         })
 
         const data = await response.json();
-
-        if(data.success) {
-            return data;
-        } else {
-            return null;
-        }
+        return data;
     } catch (err) {
-        console.log(err);
+        console.log("Couldn't get user ", err);
     }
 }

@@ -36,7 +36,9 @@ function Cart({
   const getUserName = useCallback(async () => {
     if (token) {
       const fetchedUser = await getUser(token as string);
-      setUser(fetchedUser.user);
+      if (fetchedUser?.success) {
+        setUser(fetchedUser.user);
+      }
     }
   }, [token]);
 
