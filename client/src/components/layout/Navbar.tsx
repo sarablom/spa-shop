@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getTokenFromLocalStorage } from "../../services/localStorageServices";
-import { Menu } from "react-feather";
+import { Menu, LogIn, LogOut } from "react-feather";
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
 import logo from "../../assets/logo.svg";
@@ -12,31 +12,39 @@ function Navbar() {
   const [hamburgerClass, setHamburgerClass] = useState("hideHamburgerMenu");
   const [showMenu, setShowMenu] = useState(false);
   const [expandHamburgerMenu, setExpandHamburgerMenu] = useState(false);
+  const [loginBtnClass, setLoginBtnClass] = useState("1.5rem");
   const smallDevice = 900;
   const navigate = useNavigate();
   const location = useLocation();
   const token = getTokenFromLocalStorage();
 
   useEffect(() => {
-    window.addEventListener("resize", () => {
+    window.addEventListener(
+      "resize",
+      () => {
         const deviceSize = window.innerWidth;
-        if (deviceSize <= smallDevice) setShowHamburger(true);
-    }, false);
-}, []);
+        if (deviceSize <= smallDevice) {
+          setShowHamburger(true);
+          setLoginBtnClass("4.5rem");
+        }
+      },
+      false
+    );
+  }, []);
 
   function logoutHandler() {
     if (location.pathname === "/") {
       window.location.reload();
       localStorage.clear();
-      setExpandHamburgerMenu(false)
+      setExpandHamburgerMenu(false);
     } else {
       navigate("/");
       localStorage.clear();
-      setExpandHamburgerMenu(false)
+      setExpandHamburgerMenu(false);
     }
   }
 
-  function showHamburgerMenuHander () {
+  function showHamburgerMenuHander() {
     setShowMenu(!showMenu);
     setHamburgerClass("showHamburgerMenu");
     setExpandHamburgerMenu(!expandHamburgerMenu);
@@ -50,41 +58,66 @@ function Navbar() {
       </ImageWrapper>
 
       {showHamburger && (
-        <Menu 
-        style={{cursor: "pointer", position: "absolute", right: "1.5rem"}} size={34}
-        onClick={() => showHamburgerMenuHander()} 
+        <Menu
+          style={{ cursor: "pointer", position: "absolute", right: "1.5rem" }}
+          size={34}
+          onClick={() => showHamburgerMenuHander()}
         />
       )}
+      {!token && (
+        <LogIn
+          style={{
+            cursor: "pointer",
+            position: "absolute",
+            right: loginBtnClass,
+          }}
+          size={34}
+          onClick={() => navigate("/login")}
+        />
+      )}
+      {token && (
+        <LogOut
+          style={{
+            cursor: "pointer",
+            position: "absolute",
+            right: loginBtnClass,
+          }}
+          size={34}
+          onClick={() => logoutHandler()}
+        />
+      )}
+
       {!showHamburger && (
         <ListWrapper className={hamburgerClass}>
           <ListItem onClick={() => navigate("/")}>Hem</ListItem>
-          {!token && (
-            <ListItem onClick={() => navigate("/login")}>Logga in</ListItem>
-          )}
-          {!token && (
-            <ListItem onClick={() => navigate("/signup")}>
-              Registrera dig
-            </ListItem>
-          )}
-          {token && (
-            <ListItem onClick={() => logoutHandler()}>Logga ut</ListItem>
-          )}
+          <ListItem onClick={() => navigate("/shop")}>Shop</ListItem>
+          <ListItem onClick={() => navigate("/about")}>Om oss</ListItem>
+          <ListItem onClick={() => navigate("/services")}>Våra tjänster</ListItem>
         </ListWrapper>
       )}
       {expandHamburgerMenu && (
         <HamburgerWrapper>
-          <ListItem onClick={() => {navigate("/"); setExpandHamburgerMenu(false)}}>Hem</ListItem>
-          {!token && (
-            <ListItem onClick={() => {navigate("/login"); setExpandHamburgerMenu(false)}}>Logga in</ListItem>
-          )}
-          {!token && (
-            <ListItem onClick={() => {navigate("/signup"); setExpandHamburgerMenu(false)}}>
+          <ListItem
+            onClick={() => {
+              navigate("/");
+              setExpandHamburgerMenu(false);
+            }}
+          >
+            Hem
+          </ListItem>
+          <ListItem onClick={() => navigate("/shop")}>Shop</ListItem>
+          <ListItem onClick={() => navigate("/about")}>Om oss</ListItem>
+          <ListItem onClick={() => navigate("/services")}>Våra tjänster</ListItem>
+          {/* {!token && (
+            <ListItem
+              onClick={() => {
+                navigate("/signup");
+                setExpandHamburgerMenu(false);
+              }}
+            >
               Registrera dig
             </ListItem>
-          )}
-          {token && (
-            <ListItem onClick={() => logoutHandler()}>Logga ut</ListItem>
-          )}
+          )} */}
         </HamburgerWrapper>
       )}
     </NavbarWrapper>
@@ -113,7 +146,7 @@ const ImageWrapper = styled.div`
 const ListWrapper = styled.ol`
   list-style-type: none;
   display: flex;
-  padding-right: 2rem;
+  padding-right: 3rem;
 `;
 
 const ListItem = styled.li`
@@ -128,7 +161,7 @@ const ListItem = styled.li`
   }
 `;
 
-const HamburgerWrapper = styled.ol `
+const HamburgerWrapper = styled.ol`
   position: absolute;
   right: 0;
   top: 70px;
