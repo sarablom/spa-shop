@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getTokenFromLocalStorage } from "../../services/localStorageServices";
-import { Menu, LogIn, LogOut } from "react-feather";
+import { Menu, User, UserX } from "react-feather";
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
 import logo from "../../assets/logo.svg";
@@ -65,7 +65,7 @@ function Navbar() {
         />
       )}
       {!token && (
-        <LogIn
+        <User
           style={{
             cursor: "pointer",
             position: "absolute",
@@ -76,7 +76,7 @@ function Navbar() {
         />
       )}
       {token && (
-        <LogOut
+        <UserX
           style={{
             cursor: "pointer",
             position: "absolute",
@@ -108,16 +108,6 @@ function Navbar() {
           <ListItem onClick={() => navigate("/shop")}>Shop</ListItem>
           <ListItem onClick={() => navigate("/about")}>Om oss</ListItem>
           <ListItem onClick={() => navigate("/services")}>Våra tjänster</ListItem>
-          {/* {!token && (
-            <ListItem
-              onClick={() => {
-                navigate("/signup");
-                setExpandHamburgerMenu(false);
-              }}
-            >
-              Registrera dig
-            </ListItem>
-          )} */}
         </HamburgerWrapper>
       )}
     </NavbarWrapper>

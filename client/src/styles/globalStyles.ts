@@ -18,6 +18,10 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   color: ${COLORS.darkBrown};
+  font-family: 'Bitter', serif;
+  background: ${COLORS.lightGreen};
+  display: flex;
+  flex-direction: column;
 }
 
 img, picture, video, canvas, svg {
@@ -30,7 +34,6 @@ input, button, textarea, select {
 }
 
 button {
-
   cursor: pointer;
 }
 
@@ -40,12 +43,6 @@ p, h1, h2, h3, h4, h5, h6 {
 
 #root, #__next {
   isolation: isolate;
-}
-body {
-    font-family: 'Bitter', serif;
-    background: ${COLORS.lightGreen};
-    display: flex;
-    flex-direction: column;
 }
 
 main {

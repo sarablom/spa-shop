@@ -14,6 +14,7 @@ const FooterWrapper = styled.footer `
   background: ${COLORS.primary};
   color: ${COLORS.darkBrown};
   flex-shrink: 0;
+  height: 5.5rem;
   
   img {
     height: 3rem;
