@@ -110,49 +110,49 @@ function SignupForm() {
 
   return (
     <FormElement onSubmit={submitHandler}>
-      <label htmlFor="userName">Användarnamn: </label>
+      <label htmlFor="userName"><small>*</small> Användarnamn: </label>
       <input
         type="text"
         id="userName"
         value={userName}
         onChange={(e) => setUserName(e.target.value)}
       />
-      <label htmlFor="password">Lösenord: </label>
+      <label htmlFor="password"><small>*</small> Lösenord: </label>
       <input
         type="password"
         id="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <label htmlFor="firstName">Förnamn: </label>
+      <label htmlFor="firstName"><small>*</small> Förnamn: </label>
       <input
         type="text"
         id="firstName"
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
       />
-      <label htmlFor="lastName">Efternamn: </label>
+      <label htmlFor="lastName"><small>*</small> Efternamn: </label>
       <input
         type="text"
         id="lastName"
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
       />
-      <label htmlFor="address">Adress: </label>
+      <label htmlFor="address"><small>*</small> Adress: </label>
       <input
         type="text"
         id="address"
         value={address}
         onChange={(e) => setAddress(e.target.value)}
       />
-      <label htmlFor="zipCode">Postnummer: </label>
+      <label htmlFor="zipCode"><small>*</small> Postnummer: </label>
       <input
         type="text"
         id="zipCode"
         value={zipCode}
         onChange={(e) => setZipCode(e.target.value)}
       />
-      <label htmlFor="city">Stad: </label>
+      <label htmlFor="city"><small>*</small> Stad: </label>
       <input
         type="text"
         id="city"
