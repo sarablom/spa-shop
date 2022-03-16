@@ -13,6 +13,7 @@ function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const [expandHamburgerMenu, setExpandHamburgerMenu] = useState(false);
   const [loginBtnClass, setLoginBtnClass] = useState("1.5rem");
+  const [addClassOverlayElement, setAddClassOverlayElem] = useState<string>("hide");
   const smallDevice = 900;
   const navigate = useNavigate();
   const location = useLocation();
@@ -48,6 +49,7 @@ function Navbar() {
     setShowMenu(!showMenu);
     setHamburgerClass("showHamburgerMenu");
     setExpandHamburgerMenu(!expandHamburgerMenu);
+    setAddClassOverlayElem("hide" ? "show" : "hide");
   }
 
   return (
@@ -96,7 +98,9 @@ function Navbar() {
         </ListWrapper>
       )}
       {expandHamburgerMenu && (
-        <HamburgerWrapper>
+        <>
+        <Overlay className={addClassOverlayElement} onClick={() => showHamburgerMenuHander()}></Overlay>
+        <HamburgerWrapper onClick={(e) => e.stopPropagation()}>
           <ListItem
             onClick={() => {
               navigate("/");
@@ -109,10 +113,25 @@ function Navbar() {
           <ListItem onClick={() => navigate("/about")}>Om oss</ListItem>
           <ListItem onClick={() => navigate("/services")}>Våra tjänster</ListItem>
         </HamburgerWrapper>
+        </>
       )}
     </NavbarWrapper>
+    
   );
 }
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+
+  .show {
+    display: block;
+  }
+`;
 
 const NavbarWrapper = styled.nav`
   display: flex;
