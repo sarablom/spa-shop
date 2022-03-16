@@ -207,8 +207,8 @@ const ListWrapper = styled.div`
   }
 
   .show {
-    width: 50%;
-    min-width: 600px;
+    width: 600px;
+    max-width: 100%;
   }
 
   button.close {

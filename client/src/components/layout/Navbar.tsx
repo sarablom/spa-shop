@@ -13,7 +13,8 @@ function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const [expandHamburgerMenu, setExpandHamburgerMenu] = useState(false);
   const [loginBtnClass, setLoginBtnClass] = useState("1.5rem");
-  const [addClassOverlayElement, setAddClassOverlayElem] = useState<string>("hide");
+  const [addClassOverlayElement, setAddClassOverlayElem] =
+    useState<string>("hide");
   const smallDevice = 900;
   const navigate = useNavigate();
   const location = useLocation();
@@ -56,7 +57,11 @@ function Navbar() {
     <NavbarWrapper>
       <ImageWrapper>
         <img src={logo} alt="Lotus flower" onClick={() => navigate("/")} />
-        <img src={textlogo} alt="Stillsamhetens spa" onClick={() => navigate("/")} />
+        <img
+          src={textlogo}
+          alt="Stillsamhetens spa"
+          onClick={() => navigate("/")}
+        />
       </ImageWrapper>
 
       {showHamburger && (
@@ -94,29 +99,54 @@ function Navbar() {
           <ListItem onClick={() => navigate("/")}>Hem</ListItem>
           <ListItem onClick={() => navigate("/shop")}>Shop</ListItem>
           <ListItem onClick={() => navigate("/about")}>Om oss</ListItem>
-          <ListItem onClick={() => navigate("/services")}>Våra tjänster</ListItem>
+          <ListItem onClick={() => navigate("/services")}>
+            Våra tjänster
+          </ListItem>
         </ListWrapper>
       )}
       {expandHamburgerMenu && (
         <>
-        <Overlay className={addClassOverlayElement} onClick={() => showHamburgerMenuHander()}></Overlay>
-        <HamburgerWrapper onClick={(e) => e.stopPropagation()}>
-          <ListItem
-            onClick={() => {
-              navigate("/");
-              setExpandHamburgerMenu(false);
-            }}
-          >
-            Hem
-          </ListItem>
-          <ListItem onClick={() => navigate("/shop")}>Shop</ListItem>
-          <ListItem onClick={() => navigate("/about")}>Om oss</ListItem>
-          <ListItem onClick={() => navigate("/services")}>Våra tjänster</ListItem>
-        </HamburgerWrapper>
+          <Overlay
+            className={addClassOverlayElement}
+            onClick={() => showHamburgerMenuHander()}
+          ></Overlay>
+          <HamburgerWrapper onClick={(e) => e.stopPropagation()}>
+            <ListItem
+              onClick={() => {
+                navigate("/");
+                setExpandHamburgerMenu(false);
+              }}
+            >
+              Hem
+            </ListItem>
+            <ListItem
+              onClick={() => {
+                setExpandHamburgerMenu(false);
+                navigate("/shop");
+              }}
+            >
+              Shop
+            </ListItem>
+            <ListItem
+              onClick={() => {
+                setExpandHamburgerMenu(false);
+                navigate("/about");
+              }}
+            >
+              Om oss
+            </ListItem>
+            <ListItem
+              onClick={() => {
+                setExpandHamburgerMenu(false);
+                navigate("/services");
+              }}
+            >
+              Våra tjänster
+            </ListItem>
+          </HamburgerWrapper>
         </>
       )}
     </NavbarWrapper>
-    
   );
 }
 
