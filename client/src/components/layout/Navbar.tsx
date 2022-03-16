@@ -55,8 +55,8 @@ function Navbar() {
   return (
     <NavbarWrapper>
       <ImageWrapper>
-        <img src={logo} alt="Lotus flower" />
-        <img src={textlogo} alt="Stillsamhetens spa" />
+        <img src={logo} alt="Lotus flower" onClick={() => navigate("/")} />
+        <img src={textlogo} alt="Stillsamhetens spa" onClick={() => navigate("/")} />
       </ImageWrapper>
 
       {showHamburger && (
@@ -120,19 +120,6 @@ function Navbar() {
   );
 }
 
-const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-
-  .show {
-    display: block;
-  }
-`;
-
 const NavbarWrapper = styled.nav`
   display: flex;
   align-items: center;
@@ -149,6 +136,7 @@ const ImageWrapper = styled.div`
     height: 5rem;
     padding: 0.5rem 1rem;
     filter: drop-shadow(0px 0.25rem 0.25rem ${COLORS.mediumBrown});
+    cursor: pointer;
   }
 `;
 
@@ -180,6 +168,19 @@ const HamburgerWrapper = styled.ol`
   padding-right: 2rem;
   list-style-type: none;
   background: ${COLORS.primary};
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+
+  .show {
+    display: block;
+  }
 `;
 
 export default Navbar;
