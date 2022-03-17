@@ -8,17 +8,24 @@ import { ShoppingCart, CheckCircle } from "react-feather";
 import { COLORS } from "../styles/constants";
 import Cart from "../components/cart/Cart";
 import { CartModel } from "../models/Cart";
+import { uiActions } from "../store/uiSlice"
+import { RootState } from "../store/index";
+import { useDispatch, useSelector } from "react-redux";
 
 function HomePage() {
+  //Redux
+  const dispatch = useDispatch();
+  const cartIsVisible = useSelector((state: RootState) => state.ui.cartIsVisible);
+
   //All products in database loads on start
   const [products, setProducts] = useState<[] | [Product]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[] | []>([]);
-  const [showCart, setShowCart] = useState<boolean>(false);
   //Saves upated Cart in a state that can be sent as props
   const [updatedCart, setUpdatedCart] = useState<CartModel[] | [] | null>(null);
   const [addClassCartElem, setAddClassCartElem] = useState<string>("hide");
   const [totalPrice, setTotalPrice] = useState<Number | null>(null);
   const [buyMessageClass, setBuyMessageClass] = useState<string>("hide");
+
 
   useEffect(() => {
     getProducts();
@@ -30,8 +37,8 @@ function HomePage() {
     setFilteredProducts(data?.products);
   }
 
-  function openCart() {
-    setShowCart(!showCart);
+  function toggleCartHandler() {
+    dispatch(uiActions.toggle());
     setAddClassCartElem("show");
   }
  
@@ -42,11 +49,11 @@ function HomePage() {
           products={products}
           setFilteredProducts={setFilteredProducts}
         />
-        <ShoppingButton onClick={() => openCart()}>
+        <ShoppingButton onClick={() => toggleCartHandler()}>
           <ShoppingCart size={34} color={COLORS.darkBrown} cursor="pointer" />
         </ShoppingButton>
       </ProductHeaderWrapper>
-      {showCart && (
+      {cartIsVisible && (
         <Cart
           updatedCart={updatedCart}
           setUpdatedCart={setUpdatedCart}
