@@ -16,6 +16,7 @@ function HomePage() {
   //Redux
   const dispatch = useDispatch();
   const cartIsVisible = useSelector((state: RootState) => state.ui.cartIsVisible);
+  const changeCartQuantity = useSelector((state: RootState) => state.cart.totalQuantity);
 
   //All products in database loads on start
   const [products, setProducts] = useState<[] | [Product]>([]);

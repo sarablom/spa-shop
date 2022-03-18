@@ -1,6 +1,9 @@
 import { Product } from "../../models/Product";
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
+// import { cartActions } from "../../store/cartSlice";
+// import { RootState } from "../../store/index";
+// import { useDispatch, useSelector } from "react-redux";
 
 interface Props {
   products: Product[] | [];
@@ -8,6 +11,10 @@ interface Props {
 }
 
 function ProductCard({ products, addToCartHandler }: Props) {
+   //Redux
+  //  const dispatch = useDispatch();
+  //  useSelector((state: RootState) => state.cart.);
+
   return (
     <>
       <ListWrapper>
