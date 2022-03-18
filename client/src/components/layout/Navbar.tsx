@@ -195,9 +195,13 @@ const HamburgerWrapper = styled.ol`
   z-index: 1;
   display: flex;
   flex-direction: column;
-  padding-right: 2rem;
+  padding: 0 2rem 2rem 2rem;
   list-style-type: none;
   background: ${COLORS.primary};
+
+  li {
+    border: 1px solid ${COLORS.darkBrown};
+  }
 `;
 
 const Overlay = styled.div`
