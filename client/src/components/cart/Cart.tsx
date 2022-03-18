@@ -9,6 +9,8 @@ import { getUser } from "../../services/userServices";
 import { addTotalPrice } from "../../utils/helperFunctions";
 import { getSingleProduct } from "../../services/productsServices";
 import { placeOrder } from "../../services/orderServices";
+import { cartActions } from "../../store/cartSlice"
+import { useDispatch } from "react-redux";
 import { COLORS } from "../../styles/constants";
 import { Trash2, XCircle } from "react-feather";
 import { User } from "../../models/User";
@@ -32,6 +34,7 @@ function Cart({
 }: Props) {
   const [user, setUser] = useState<User | null>(null);
   const token = getTokenFromLocalStorage();
+  const dispatch = useDispatch();
 
   const getUserName = useCallback(async () => {
     if (token) {
@@ -65,6 +68,7 @@ function Cart({
   }
 
   function decrementValue(product: CartModel, index: number) {
+    dispatch(cartActions.removeItemFromCart);
     const productMatch = updatedCart?.find(
       (item: CartModel) => item._id === product._id
     );
@@ -84,6 +88,7 @@ function Cart({
   }
 
   function incrementValue(product: CartModel) {
+    dispatch(cartActions.addItemToCart);
     const productMatch = updatedCart?.find(
       (item: CartModel) => item._id === product._id
     );

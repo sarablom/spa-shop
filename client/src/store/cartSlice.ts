@@ -4,13 +4,15 @@ import { CartModel } from "../models/Cart";
 const cartSlice = createSlice({
     name: "cart",
     initialState: {
-        cartItems: [] as CartModel[],
+        // cartItems: [] as CartModel[],
         totalQuantity: 0,
-        totalAmount: 0,
+        // totalAmount: 0,
     },
     reducers: {
         addItemToCart(state) {
             state.totalQuantity++;
+            
+            
             // const cartItem: CartModel = action.payload;
             // const existingCartItems = state.cartItems.find(item => item._id === cartItem._id);
             // if (!existingCartItems) {

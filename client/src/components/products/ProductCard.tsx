@@ -8,9 +8,10 @@ import { COLORS } from "../../styles/constants";
 interface Props {
   products: Product[] | [];
   addToCartHandler: Function;
+  disabledButton: boolean;
 }
 
-function ProductCard({ products, addToCartHandler }: Props) {
+function ProductCard({ products, addToCartHandler, disabledButton }: Props) {
    //Redux
   //  const dispatch = useDispatch();
   //  useSelector((state: RootState) => state.cart.);
@@ -32,7 +33,7 @@ function ProductCard({ products, addToCartHandler }: Props) {
               </div>
               <button
                 onClick={() => addToCartHandler(product)}
-                disabled={product.inStock === 0}
+                disabled={disabledButton}
               >
                 Lägg i kundkorg
               </button>

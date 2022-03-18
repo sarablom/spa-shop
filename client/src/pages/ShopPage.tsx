@@ -12,11 +12,11 @@ import { uiActions } from "../store/uiSlice"
 import { RootState } from "../store/index";
 import { useDispatch, useSelector } from "react-redux";
 
-function HomePage() {
+function ShopPage() {
   //Redux
   const dispatch = useDispatch();
   const cartIsVisible = useSelector((state: RootState) => state.ui.cartIsVisible);
-  const changeCartQuantity = useSelector((state: RootState) => state.cart.totalQuantity);
+  const cartQuantity = useSelector((state: RootState) => state.cart.totalQuantity);
 
   //All products in database loads on start
   const [products, setProducts] = useState<[] | [Product]>([]);
@@ -52,6 +52,7 @@ function HomePage() {
         />
         <ShoppingButton onClick={() => toggleCartHandler()}>
           <ShoppingCart size={34} color={COLORS.darkBrown} cursor="pointer" />
+          <span>{cartQuantity}</span>
         </ShoppingButton>
       </ProductHeaderWrapper>
       {cartIsVisible && (
@@ -90,6 +91,18 @@ const ShoppingButton = styled.button`
   color: ${COLORS.darkGreen};
   background: ${COLORS.lightGreen};
   border: none;
+  position: relative;
+
+  span {
+    position: absolute;
+    top: 0;
+    right: 10px;
+  background-color: ${COLORS.primary};
+  border-radius: 50%;
+  padding: .05rem 0.5rem;
+  color: ${COLORS.darkBrown};
+  font-weight: 700;
+  }
 `;
 
 const BuyMessage = styled.div `
@@ -99,4 +112,4 @@ const BuyMessage = styled.div `
   background: ${COLORS.lightGreen};
 `
 
-export default HomePage;
+export default ShopPage;
