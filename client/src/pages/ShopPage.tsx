@@ -3,12 +3,14 @@ import AllProducts from "../components/products/AllProducts";
 import styled from "styled-components";
 import FilterSearch from "../components/search/FilterSearch";
 import { Product } from "../models/Product";
+import { addTotalQuantity } from "../utils/helperFunctions";
 import { getAllProducts } from "../services/productsServices";
 import { ShoppingCart, CheckCircle } from "react-feather";
 import { COLORS } from "../styles/constants";
 import Cart from "../components/cart/Cart";
 import { CartModel } from "../models/Cart";
-import { uiActions } from "../store/uiSlice"
+import { uiActions } from "../store/uiSlice";
+import { cartActions } from "../store/cartSlice"
 import { RootState } from "../store/index";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -30,6 +32,11 @@ function ShopPage() {
   useEffect(() => {
     getProducts();
   }, []);
+
+  useEffect(() => {
+      const cartQuantity = addTotalQuantity(updatedCart as CartModel[])
+      dispatch(cartActions.sumTotalQuantity(cartQuantity));
+  }, [dispatch, updatedCart]);
 
   async function getProducts() {
     const data = await getAllProducts();
