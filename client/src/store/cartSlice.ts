@@ -7,7 +7,6 @@ const cartSlice = createSlice({
     },
     reducers: {
         addItemToCart(state) {
-            console.log(state); 
             state.totalQuantity = state.totalQuantity + 1;
         },
         removeItemFromCart(state) {
