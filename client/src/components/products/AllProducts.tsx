@@ -35,7 +35,7 @@ function AllProducts({
   }, []);
 
   function successfulAddToCart (newCart: CartModel[]) {
-    dispatch(cartActions.addItemToCart);
+    dispatch(cartActions.addItemToCart());
     setUpdatedCart(newCart as CartModel[]);
     saveCartToLocalStorage(newCart);
     const sum = addTotalPrice(newCart as CartModel[]);

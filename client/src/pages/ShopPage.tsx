@@ -27,7 +27,6 @@ function ShopPage() {
   const [totalPrice, setTotalPrice] = useState<Number | null>(null);
   const [buyMessageClass, setBuyMessageClass] = useState<string>("hide");
 
-
   useEffect(() => {
     getProducts();
   }, []);

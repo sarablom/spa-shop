@@ -68,7 +68,7 @@ function Cart({
   }
 
   function decrementValue(product: CartModel, index: number) {
-    dispatch(cartActions.removeItemFromCart);
+    dispatch(cartActions.removeItemFromCart());
     const productMatch = updatedCart?.find(
       (item: CartModel) => item._id === product._id
     );
@@ -88,7 +88,7 @@ function Cart({
   }
 
   function incrementValue(product: CartModel) {
-    dispatch(cartActions.addItemToCart);
+    dispatch(cartActions.addItemToCart());
     const productMatch = updatedCart?.find(
       (item: CartModel) => item._id === product._id
     );
