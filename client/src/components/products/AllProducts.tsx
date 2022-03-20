@@ -7,7 +7,6 @@ import { addTotalPrice } from "../../utils/helperFunctions";
 import { Product } from "../../models/Product";
 import ProductCard from "./ProductCard";
 import { CartModel } from "../../models/Cart";
-import { useDispatch } from "react-redux";
 
 interface Props {
   filteredProducts: Product[] | [];

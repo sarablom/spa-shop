@@ -4,25 +4,32 @@ import styled from "styled-components";
 
 function LoginPage() {
   const navigate = useNavigate();
- 
+
   return (
-    <main>
+    <MainWrapper>
       <h1>Logga in</h1>
       <LoginForm />
       <p>
         Är du inte redan en kund hos oss?{" "}
-        <Link onClick={() => navigate("/signup")}>Registrera dig här</Link>
+        <span onClick={() => navigate("/signup")}>Registrera dig här</span>
       </p>
-    </main>
+    </MainWrapper>
   );
 }
 
-const Link = styled.span `
-  cursor: pointer;
+const MainWrapper = styled.main`
 
-  &:hover {
-    text-decoration: underline;
+p {
+  margin: 1rem;
+}
+
+span {
+    cursor: pointer;
+    
+    &:hover {
+      text-decoration: underline;
+    }
   }
-`
+`;
 
 export default LoginPage;

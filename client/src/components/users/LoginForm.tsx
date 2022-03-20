@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authServices";
-import {
-  saveTokenToLocalStorage,
-} from "../../services/localStorageServices";
+import { saveTokenToLocalStorage } from "../../services/localStorageServices";
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
 
@@ -33,19 +31,14 @@ function LoginForm() {
       return;
     }
 
-    const loginData = await login(userName, password);    
-
-    if (loginData.error) {
-      displayMessage(loginData.error);
-      clearAllInputfields();
-    } else if (loginData.success) {
-      // saveUserToLocalStorage({
-      //   _id: loginData.user._id,
-      //   firstName: loginData.user.firstName
-      // });   
+    try {
+      const loginData = await login(userName, password);
       saveTokenToLocalStorage(loginData.token);
       clearAllInputfields();
       navigate("/");
+    } catch {
+      displayMessage("Felaktiga användaruppgifter");
+      clearAllInputfields();
     }
   }
 
@@ -88,8 +81,8 @@ const FormElement = styled.form`
     border-radius: 8px;
 
     &:focus {
-    outline: 1px solid ${COLORS.darkBrown};
-  }
+      outline: 1px solid ${COLORS.darkBrown};
+    }
   }
 
   input[type="submit"] {
