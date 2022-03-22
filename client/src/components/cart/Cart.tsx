@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartModel } from "../../models/Cart";
 import styled from "styled-components";
 import {
@@ -31,7 +32,9 @@ function Cart({
   totalPrice,
 }: Props) {
   const [user, setUser] = useState<User | null>(null);
+  const [buyMessage, setBuyMessage] = useState("");
   const token = getTokenFromLocalStorage();
+  const navigate = useNavigate();
 
   const getUserName = useCallback(async () => {
     if (token) {
@@ -109,8 +112,19 @@ function Cart({
       await placeOrder(updatedCart as CartModel[]);
       setUpdatedCart([]);
       saveCartToLocalStorage([]);
-      window.location.reload();
+      setBuyMessage(
+        `Tack för ditt köp ${user?.firstName} ${user?.lastName} 🎉! 
+         Din beställning kommer att skickas till ${user?.address}, ${user?.zipCode}. 
+         Du dirigeras snart till startsidan.`
+      );
+      setTimeout(() => {
+        navigate("/");
+      }, 10000);
     });
+  }
+
+  function navigateHandler() {
+    navigate("/login");
   }
 
   return (
@@ -171,7 +185,16 @@ function Cart({
           {(!updatedCart || updatedCart.length === 0) && (
             <p>Kundkorgen är tom! Varför inte shoppa lite?</p>
           )}
-          {token && <BuyButton onClick={() => onBuyHandler()}>Köp</BuyButton>}
+          {buyMessage && <Message>{buyMessage}</Message>}
+          {!user && (
+            <>
+              <Message onClick={navigateHandler} style={{cursor: "pointer"}}>
+                Du måste vara inloggad för att genomföra ett köp. Logga in här
+              </Message>
+              <BuyButton disabled>Köp</BuyButton>
+            </>
+          )}
+          {user && <BuyButton onClick={() => onBuyHandler()}>Köp</BuyButton>}
         </ul>
       </ListWrapper>
     </Overlay>
@@ -276,17 +299,32 @@ const CountContainer = styled.div`
   display: flex;
 `;
 
+const Message = styled.p`
+  position: absolute;
+  top: 30%;
+  left: 25px;
+`;
+
 const BuyButton = styled.button`
   position: absolute;
-  bottom: 25px;
+  bottom: 75px;
   right: 25px;
-  color: ${COLORS.darkGreen};
-  background: ${COLORS.lightGreen};
+  padding: .5rem 1rem;
   border: 2px solid ${COLORS.primary};
+  border-radius: .5rem;
+  color: ${COLORS.darkGreen};
+  font-weight: 700;
+  background: ${COLORS.lightGreen};
 
   &:hover {
     background: ${COLORS.primary};
     color: ${COLORS.darkGreen};
+  }
+
+  &:disabled {
+    background: ${COLORS.primary};
+    color: ${COLORS.darkGreen};
+    cursor: auto;
   }
 `;
 

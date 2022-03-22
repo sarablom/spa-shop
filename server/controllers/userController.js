@@ -90,7 +90,10 @@ async function getSingleUser (req, res, next) {
 			success: true,
 			user: {
 				id: user._id,
-				firstName: user.firstName
+				firstName: user.firstName,
+				lastName: user.lastName,
+				address: user.address,
+				zipCode: user.zipCode
 			}
 		})
 

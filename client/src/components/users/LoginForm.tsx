@@ -50,6 +50,7 @@ function LoginForm() {
         id="userName"
         value={userName}
         onChange={(e) => setUserName(e.target.value)}
+        required
       />
       <label htmlFor="password">Lösenord: </label>
       <input
@@ -57,6 +58,7 @@ function LoginForm() {
         id="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        required
       />
 
       <input type="submit" value="Logga in" />

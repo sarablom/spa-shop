@@ -116,6 +116,7 @@ function SignupForm() {
         id="userName"
         value={userName}
         onChange={(e) => setUserName(e.target.value)}
+        required
       />
       <label htmlFor="password"><small>*</small> Lösenord: </label>
       <input
@@ -123,6 +124,7 @@ function SignupForm() {
         id="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        required
       />
       <label htmlFor="firstName"><small>*</small> Förnamn: </label>
       <input
@@ -130,6 +132,7 @@ function SignupForm() {
         id="firstName"
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
+        required
       />
       <label htmlFor="lastName"><small>*</small> Efternamn: </label>
       <input
@@ -137,6 +140,7 @@ function SignupForm() {
         id="lastName"
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
+        required
       />
       <label htmlFor="address"><small>*</small> Adress: </label>
       <input
@@ -144,6 +148,7 @@ function SignupForm() {
         id="address"
         value={address}
         onChange={(e) => setAddress(e.target.value)}
+        required
       />
       <label htmlFor="zipCode"><small>*</small> Postnummer: </label>
       <input
@@ -151,6 +156,7 @@ function SignupForm() {
         id="zipCode"
         value={zipCode}
         onChange={(e) => setZipCode(e.target.value)}
+        required
       />
       <label htmlFor="city"><small>*</small> Stad: </label>
       <input
@@ -158,6 +164,7 @@ function SignupForm() {
         id="city"
         value={city}
         onChange={(e) => setCity(e.target.value)}
+        required
       />
       <input type="submit" value="Registrera dig" />
       {errorMessage && <p className={errorClassName}>{errorMessage}</p>}
