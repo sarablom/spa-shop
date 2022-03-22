@@ -113,8 +113,8 @@ const ShoppingButton = styled.button`
 
 const BuyMessage = styled.div `
   position: fixed;
-  bottom: 50px;
-  right: 50px;
+  top: 100px;
+  right: 100px;
   background: ${COLORS.lightGreen};
 `
 

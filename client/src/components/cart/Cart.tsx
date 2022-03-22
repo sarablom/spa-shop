@@ -112,11 +112,10 @@ function Cart({
       await placeOrder(updatedCart as CartModel[]);
       setUpdatedCart([]);
       saveCartToLocalStorage([]);
-      setBuyMessage(
-        `Tack för ditt köp ${user?.firstName} ${user?.lastName} 🎉! 
-         Din beställning kommer att skickas till ${user?.address}, ${user?.zipCode}. 
-         Du dirigeras snart till startsidan.`
-      );
+      const message = `Tack för ditt köp ${user?.firstName} ${user?.lastName} 🎉! 
+      Din beställning kommer att skickas till ${user?.address}, ${user?.zipCode}.
+      Du dirigeras snart till startsidan.`
+      setBuyMessage(message);
       setTimeout(() => {
         navigate("/");
       }, 10000);
@@ -301,7 +300,7 @@ const CountContainer = styled.div`
 
 const Message = styled.p`
   position: absolute;
-  top: 30%;
+  bottom: 30%;
   left: 25px;
 `;
 
