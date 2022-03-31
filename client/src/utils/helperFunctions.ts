@@ -1,4 +1,5 @@
 import { CartModel } from "../models/Cart";
+import { DeviceSize } from "../models/DeviceSize";
 
 export function addTotalPrice(cart: CartModel[]) {
   if (!cart) {
@@ -36,4 +37,11 @@ export function addTotalQuantity(cart: CartModel[]) {
     let sum = 0;
     return sum;
   }
+}
+
+export function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  console.log(width, height);
+  
+  return { width: width, height: height } as DeviceSize; 
 }

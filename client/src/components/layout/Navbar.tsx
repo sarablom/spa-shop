@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getTokenFromLocalStorage } from "../../services/localStorageServices";
+// import { getWindowDimensions } from "../../utils/helperFunctions";
+import { DeviceSize } from "../../models/DeviceSize";
 import { Menu, User, UserX } from "react-feather";
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
@@ -15,24 +17,26 @@ function Navbar() {
   const [loginBtnClass, setLoginBtnClass] = useState("1.5rem");
   const [addClassOverlayElement, setAddClassOverlayElem] =
     useState<string>("hide");
-  const smallDevice = 900;
+    const [windowDimensions, setWindowDimensions] = useState<DeviceSize | null>(null);
+  const smallDevice = 1100;
   const navigate = useNavigate();
   const location = useLocation();
   const token = getTokenFromLocalStorage();
 
-  useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => {
-        const deviceSize = window.innerWidth;
-        if (deviceSize <= smallDevice) {
-          setShowHamburger(true);
-          setLoginBtnClass("4.5rem");
-        }
-      },
-      false
-    );
+  const getWindowDimensions = useCallback(() => {
+    const { innerWidth: width, innerHeight: height } = window;
+    setWindowDimensions({width: width, height: height}); 
+    if (windowDimensions) {
+      if (windowDimensions.width <= smallDevice) {
+        setShowHamburger(true);
+        setLoginBtnClass("4.5rem");
+      }
+    }
   }, []);
+
+  useEffect(() => {
+    getWindowDimensions(); 
+  }, [getWindowDimensions]);
 
   function logoutHandler() {
     if (location.pathname === "/") {
