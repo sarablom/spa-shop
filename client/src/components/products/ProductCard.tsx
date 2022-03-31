@@ -52,7 +52,7 @@ const ListItem = styled.li`
   display: flex;
   flex-direction: column;
   max-width: 300px;
-  min-height: 100%;
+  min-height: fit-content;
   border: 2px solid ${COLORS.darkBrown};
   box-shadow: 0px 0.25rem 0.25rem ${COLORS.mediumBrown};
   border-radius: 8px;
