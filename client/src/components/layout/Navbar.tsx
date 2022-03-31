@@ -7,7 +7,7 @@ import { Menu, User, UserX } from "react-feather";
 import styled from "styled-components";
 import { COLORS } from "../../styles/constants";
 import logo from "../../assets/logo.svg";
-import textlogo from "../../assets/textlogo.svg";
+import textlogo from "../../assets/textlogo.png";
 
 function Navbar() {
   const [showHamburger, setShowHamburger] = useState(false);
@@ -23,16 +23,18 @@ function Navbar() {
   const location = useLocation();
   const token = getTokenFromLocalStorage();
 
+  useEffect(() => {
+    setWindowDimensions({width: window.innerWidth, height: window.innerHeight}); 
+  }, []);
+
   const getWindowDimensions = useCallback(() => {
-    const { innerWidth: width, innerHeight: height } = window;
-    setWindowDimensions({width: width, height: height}); 
     if (windowDimensions) {
       if (windowDimensions.width <= smallDevice) {
         setShowHamburger(true);
         setLoginBtnClass("4.5rem");
       }
     }
-  }, []);
+  }, [windowDimensions]);
 
   useEffect(() => {
     getWindowDimensions(); 
@@ -164,12 +166,12 @@ const NavbarWrapper = styled.nav`
 
 const ImageWrapper = styled.div`
   display: flex;
-  max-width: 45vw;
+  max-width: 50vw;
 
   img {
     height: 5rem;
     padding: 0.5rem 1rem;
-    filter: drop-shadow(0px 0.25rem 0.25rem ${COLORS.mediumBrown});
+    /* filter: drop-shadow(0px 0.25rem 0.25rem ${COLORS.mediumBrown}); */
     cursor: pointer;
   }
 `;
@@ -203,8 +205,10 @@ const HamburgerWrapper = styled.ol`
   list-style-type: none;
   background: ${COLORS.primary};
 
-  li {
-    border: 1px solid ${COLORS.darkBrown};
+  li:hover {
+    color: ${COLORS.primary};
+    background-color: ${COLORS.lightGreen};
+    text-decoration: none;
   }
 `;
 
