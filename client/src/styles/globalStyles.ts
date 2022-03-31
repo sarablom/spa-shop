@@ -55,7 +55,7 @@ main {
 h1 {
   font-family: 'Raleway', sans-serif;
   font-weight: 700;
-  padding: 4rem 1rem 2rem;
+  padding: 2rem;
 }
 
 h2, h3, h4, h5 {

@@ -38,13 +38,13 @@ function ProductCard({ products, addToCartHandler, disabledButton }: Props) {
 }
 
 const ListWrapper = styled.ul`
-  width: 90vw;
-  list-style-type: none;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   gap: 1rem;
-  width: 90%;
+  width: 90vw;
   max-width: 1300px;
+  list-style-type: none;
+  margin: 0 auto;
   padding: 32px;
 `;
 

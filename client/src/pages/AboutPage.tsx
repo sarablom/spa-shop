@@ -26,10 +26,9 @@ function AboutPage() {
 }
 
 const AboutMain = styled.main`
-display: flex;
-justify-content: center;
+  display: flex;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-image: linear-gradient(
       rgba(153, 204, 153, 0.9),
       rgba(153, 204, 153, 0.7)

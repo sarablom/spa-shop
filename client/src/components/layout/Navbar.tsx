@@ -160,7 +160,7 @@ const NavbarWrapper = styled.nav`
 
 const ImageWrapper = styled.div`
   display: flex;
-  max-width: 50vw;
+  max-width: 45vw;
 
   img {
     height: 5rem;

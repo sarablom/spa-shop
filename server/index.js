@@ -2,7 +2,7 @@ require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const rateLimit = require("express-rate-limit");
-const helmet = require("helmet");
+// const helmet = require("helmet");
 const mongoSanitizer = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const path = require("path");
@@ -18,7 +18,7 @@ const DATABASE_USER = process.env.REACT_APP_MONGOUSER;
 const app = express();
 
 //Middlewares
-app.use(helmet());
+// app.use(helmet());
 app.use(cors());
 const limiter = rateLimit({
     max: 100,
