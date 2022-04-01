@@ -170,7 +170,7 @@ const ImageWrapper = styled.div`
 
   img {
     height: 5rem;
-    padding: 0.5rem 1rem;
+    padding: .5rem .5rem .5rem 1rem;
     /* filter: drop-shadow(0px 0.25rem 0.25rem ${COLORS.mediumBrown}); */
     cursor: pointer;
   }
