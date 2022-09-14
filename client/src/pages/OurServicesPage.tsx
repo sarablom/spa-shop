@@ -78,8 +78,9 @@ const ListWrapper = styled.ol`
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  width: 80%;
-  padding: 0;
+  width: 100%;
+  max-width: 75ch;
+  padding: 0 16px;
 `;
 
 const ListItem = styled.li`
